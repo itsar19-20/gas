@@ -1,5 +1,7 @@
 # Gas
 
+![GAS](docs/images/gas.png "GAS")
+
 Progetto iniziato mercoledì 11 dicembre 2019.
 
 ## Componenti del gruppo
