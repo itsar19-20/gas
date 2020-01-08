@@ -1,0 +1,72 @@
+html {
+    height: 100%;
+}
+body {
+    min-height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 6fr;
+}
+
+/*Barra a sinistra, Utenti, news, flussi giornalieri, valutazioni gocce, statistiche */
+nav {
+    min-width: 15em;
+    max-width: 20em;
+    border: 1px solid black;
+    display: grid;
+    grid-template-rows: 2fr 1fr 1fr 1fr 1fr 1fr 4fr;
+    font-size: 18px;
+    font-style: oblique;
+    background-color: wheat;
+    font-weight: 500;
+}
+.benvenuto{
+    font-size: 25px;
+    font-weight: 700;
+    display: flex;
+    min-height: 2em;
+    align-items: center;
+    justify-content: center;
+}
+.utenti{
+    display: flex;
+    min-height: 2em;
+    align-items: center;
+    justify-content: center;
+}
+.news {
+    display: flex;
+    min-height: 2em;
+    align-items: center;
+    justify-content: center;
+}
+.flusso{
+    display: flex;
+    min-height: 2em;
+    align-items: center;
+    justify-content: center;
+}
+.gocce{
+    display: flex;
+    min-height: 2em;
+    align-items: center;
+    justify-content: center;
+}
+.statistiche{
+    display: flex;
+    min-height: 2em;
+    align-items: center;
+    justify-content: center;
+}
+.logout{
+    font-size: 30px;
+    font-weight: 700;
+    display: flex;
+    min-height: 2em;
+    align-items: center;
+    justify-content: center;
+}
+
+/*Parte destra dello schermo*/
+div {
+    border: 1px solid black;
+}

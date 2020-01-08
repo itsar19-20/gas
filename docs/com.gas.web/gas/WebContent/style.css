@@ -1,0 +1,98 @@
+
+/* Aggiustando Background*/
+
+body {
+    background: url(images/259.gif) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+
+/* Admin Login*/
+nav {
+    display: flex;
+    align-self: flex-end;
+    min-height: 3em;
+    width: 6em;
+    color: whitesmoke;
+    align-items: center;
+    justify-content: center;
+    font-style: italic;
+}
+
+
+
+/* Titolo GasAdvisor*/
+header {
+    margin: 5px;
+    padding: 5px 20px 5px 20px;
+    min-height: 100%;
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+    color: black;
+    background-color: wheat;
+    border-radius: 5mm;
+}
+
+.titolo {
+    font-size: 4em;
+    font-style: italic;
+    font-weight: bolder;
+    text-align: center; 
+}
+.descrizione {
+    font-size: 2em;
+    font-weight: 600;
+    font-style: oblique;
+}
+
+
+
+/* Foto App */
+section {
+    margin: 5px;
+    align-self: center;
+}
+
+
+.appMockup {
+    height: 500px;
+    width: 350px;
+}
+    
+
+/* Scarica e Contatti*/
+footer {
+    margin: 5px;
+    display: flex;
+    align-self: center;
+    color: black;
+}
+.download {
+    min-width: 6em;
+    background-color: wheat;
+    border-radius: 5mm;
+    margin-right: 20px;
+    padding: 10px 20px 10px 20px;
+    font-size: 2em;
+    font-style: italic;
+    font-weight: bolder;
+    text-align: center; 
+}
+.contact {
+    min-width: 6em;
+    background-color: wheat;
+    border-radius: 5mm;
+    margin-left: 20px;
+    padding: 10px 20px 10px 20px;
+    font-size: 2em;
+    font-style: italic;
+    font-weight: bolder;
+    text-align: center; 
+}
