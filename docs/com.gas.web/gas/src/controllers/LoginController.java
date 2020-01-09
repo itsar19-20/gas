@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,7 +15,7 @@ import model.User;
 /**
  * Servlet implementation class LoginController
  */
-
+@WebServlet("/admin")
 public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -34,9 +35,11 @@ public class LoginController extends HttpServlet {
 		AuthenticationManager am = new AuthenticationManager();
 		User u = am.login(request.getParameter("username"), request.getParameter("password"));
 		if (u == null) {
-			request.getRequestDispatcher("/").forward(request, response);
+			PrintWriter out = response.getWriter();
+			out.println("sbagliato");
+			//request.getRequestDispatcher("/").forward(request, response);
 		} else {
-			request.getRequestDispatcher("admin/admin.html").forward(request, response);
+			request.getRequestDispatcher("/login/admin/admin.html").forward(request, response);
 		}
 	}
 
