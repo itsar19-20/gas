@@ -1,11 +1,8 @@
 package model;
 
 import java.io.Serializable;
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 
 /**
@@ -21,17 +18,25 @@ public class User implements Serializable {
 	@Id
 	private int id;
 
+	private String cognome;
+
 	private String email;
 
-	private String lastName;
-
-	private String name;
+	private String nome;
 
 	private String password;
 
 	private String username;
 
+	//bi-directional many-to-one association to Valutazione
+	@OneToMany(mappedBy="user")
+	private List<Valutazione> valutaziones;
+
 	public User() {
+	}
+	
+	public String toString() {
+		return "User [email=" + email + ", lastName=" + cognome + ", name=" + nome + ", username=" + username + "]";
 	}
 
 	public int getId() {
@@ -42,6 +47,14 @@ public class User implements Serializable {
 		this.id = id;
 	}
 
+	public String getCognome() {
+		return this.cognome;
+	}
+
+	public void setCognome(String cognome) {
+		this.cognome = cognome;
+	}
+
 	public String getEmail() {
 		return this.email;
 	}
@@ -50,20 +63,12 @@ public class User implements Serializable {
 		this.email = email;
 	}
 
-	public String getLastName() {
-		return this.lastName;
+	public String getNome() {
+		return this.nome;
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public String getName() {
-		return this.name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	public String getPassword() {
@@ -82,10 +87,26 @@ public class User implements Serializable {
 		this.username = username;
 	}
 
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", email=" + email + ", lastName=" + lastName + ", name=" + name + ", password="
-				+ password + ", username=" + username + "]";
+	public List<Valutazione> getValutaziones() {
+		return this.valutaziones;
+	}
+
+	public void setValutaziones(List<Valutazione> valutaziones) {
+		this.valutaziones = valutaziones;
+	}
+
+	public Valutazione addValutazione(Valutazione valutazione) {
+		getValutaziones().add(valutazione);
+		valutazione.setUser(this);
+
+		return valutazione;
+	}
+
+	public Valutazione removeValutazione(Valutazione valutazione) {
+		getValutaziones().remove(valutazione);
+		valutazione.setUser(null);
+
+		return valutazione;
 	}
 
 }
