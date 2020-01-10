@@ -2,6 +2,7 @@ package model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.util.List;
 
 
 /**
@@ -29,6 +30,10 @@ public class Prezzo implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="idImpianto")
 	private Distributore distributore;
+
+	//bi-directional many-to-one association to Statistiche
+	@OneToMany(mappedBy="prezzo")
+	private List<Statistiche> statistiches;
 
 	public Prezzo() {
 	}
@@ -79,6 +84,28 @@ public class Prezzo implements Serializable {
 
 	public void setDistributore(Distributore distributore) {
 		this.distributore = distributore;
+	}
+
+	public List<Statistiche> getStatistiches() {
+		return this.statistiches;
+	}
+
+	public void setStatistiches(List<Statistiche> statistiches) {
+		this.statistiches = statistiches;
+	}
+
+	public Statistiche addStatistich(Statistiche statistich) {
+		getStatistiches().add(statistich);
+		statistich.setPrezzo(this);
+
+		return statistich;
+	}
+
+	public Statistiche removeStatistich(Statistiche statistich) {
+		getStatistiches().remove(statistich);
+		statistich.setPrezzo(null);
+
+		return statistich;
 	}
 
 }
