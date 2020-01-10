@@ -41,6 +41,10 @@ public class Distributore implements Serializable {
 	@OneToMany(mappedBy="distributore")
 	private List<Prezzo> prezzos;
 
+	//bi-directional many-to-one association to Statistiche
+	@OneToMany(mappedBy="distributore")
+	private List<Statistiche> statistiches;
+
 	//bi-directional many-to-one association to Valutazione
 	@OneToMany(mappedBy="distributore")
 	private List<Valutazione> valutaziones;
@@ -148,6 +152,28 @@ public class Distributore implements Serializable {
 		prezzo.setDistributore(null);
 
 		return prezzo;
+	}
+
+	public List<Statistiche> getStatistiches() {
+		return this.statistiches;
+	}
+
+	public void setStatistiches(List<Statistiche> statistiches) {
+		this.statistiches = statistiches;
+	}
+
+	public Statistiche addStatistich(Statistiche statistich) {
+		getStatistiches().add(statistich);
+		statistich.setDistributore(this);
+
+		return statistich;
+	}
+
+	public Statistiche removeStatistich(Statistiche statistich) {
+		getStatistiches().remove(statistich);
+		statistich.setDistributore(null);
+
+		return statistich;
 	}
 
 	public List<Valutazione> getValutaziones() {
