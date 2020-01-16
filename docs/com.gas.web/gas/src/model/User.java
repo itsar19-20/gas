@@ -2,7 +2,6 @@ package model;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.util.List;
 
 
 /**
@@ -22,15 +21,13 @@ public class User implements Serializable {
 
 	private String email;
 
+	private byte isAdmin;
+
 	private String nome;
 
 	private String password;
 
 	private String username;
-
-	//bi-directional many-to-one association to Valutazione
-	@OneToMany(mappedBy="user")
-	private List<Valutazione> valutaziones;
 
 	public User() {
 	}
@@ -59,6 +56,14 @@ public class User implements Serializable {
 		this.email = email;
 	}
 
+	public byte getIsAdmin() {
+		return this.isAdmin;
+	}
+
+	public void setIsAdmin(byte isAdmin) {
+		this.isAdmin = isAdmin;
+	}
+
 	public String getNome() {
 		return this.nome;
 	}
@@ -81,28 +86,6 @@ public class User implements Serializable {
 
 	public void setUsername(String username) {
 		this.username = username;
-	}
-
-	public List<Valutazione> getValutaziones() {
-		return this.valutaziones;
-	}
-
-	public void setValutaziones(List<Valutazione> valutaziones) {
-		this.valutaziones = valutaziones;
-	}
-
-	public Valutazione addValutazione(Valutazione valutazione) {
-		getValutaziones().add(valutazione);
-		valutazione.setUser(this);
-
-		return valutazione;
-	}
-
-	public Valutazione removeValutazione(Valutazione valutazione) {
-		getValutaziones().remove(valutazione);
-		valutazione.setUser(null);
-
-		return valutazione;
 	}
 
 }
