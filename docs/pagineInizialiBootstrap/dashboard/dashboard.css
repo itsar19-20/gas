@@ -35,11 +35,33 @@ body {
   
   @supports ((position: -webkit-sticky) or (position: sticky)) {
     .sidebar-sticky {
+      margin-right: 1.4rem;
+      margin-left: 1.4rem;
       position: -webkit-sticky;
       position: sticky;
     }
   }
+
+  a.nav-link:hover {
+    font-weight: bold;
+    color: black;
+  }
+
+  .nav-link{
+    padding:1rem 1rem;
+  }
   
+  .nav.flex-column {
+    padding-top: 3rem;
+  }
+
+  #nomeAdmin{
+    font-weight: 500;
+    border-bottom: 1px solid #dee2e6;
+    padding-bottom: 1rem;
+    text-align: center;
+  }
+
   .sidebar .nav-link {
     font-weight: 500;
     color: #333;
@@ -48,10 +70,6 @@ body {
   .sidebar .nav-link .feather {
     margin-right: 4px;
     color: #999;
-  }
-  
-  .sidebar .nav-link.active {
-    color: #007bff;
   }
   
   .sidebar .nav-link:hover .feather,
