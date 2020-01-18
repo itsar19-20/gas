@@ -126,3 +126,37 @@ body {
     box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
   }
   
+  /* Sezione dati */
+
+  .btn-primary{
+    background-color: #495057;
+    border-color: #212529;
+  }
+  .btn-primary:hover{
+    background-color: #212529;
+    border-color: #495057;
+  }
+
+  .adminUtils {
+    flex: 4;
+    height: 35rem;
+  }
+
+  .dataSearch {
+    flex: 2;
+  }
+  
+  .formContainer {
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+  }
+  
+  .formData {
+    flex: 3;
+  }
+
+  .imageBook {
+    padding-top: 2rem;
+    flex:1;
+  }
