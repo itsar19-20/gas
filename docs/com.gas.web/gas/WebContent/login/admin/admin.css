@@ -1,72 +1,178 @@
-html {
-    height: 100%;
-}
 body {
-    min-height: 100%;
-    display: grid;
-    grid-template-columns: 1fr 6fr;
+	font-size: .875rem;
 }
 
-/*Barra a sinistra, Utenti, news, flussi giornalieri, valutazioni gocce, statistiche */
-nav {
-    min-width: 15em;
-    max-width: 20em;
-    border: 1px solid black;
-    display: grid;
-    grid-template-rows: 2fr 1fr 1fr 1fr 1fr 1fr 4fr;
-    font-size: 18px;
-    font-style: oblique;
-    background-color: wheat;
-    font-weight: 500;
-}
-.benvenuto{
-    font-size: 25px;
-    font-weight: 700;
-    display: flex;
-    min-height: 2em;
-    align-items: center;
-    justify-content: center;
-}
-.utenti{
-    display: flex;
-    min-height: 2em;
-    align-items: center;
-    justify-content: center;
-}
-.news {
-    display: flex;
-    min-height: 2em;
-    align-items: center;
-    justify-content: center;
-}
-.flusso{
-    display: flex;
-    min-height: 2em;
-    align-items: center;
-    justify-content: center;
-}
-.gocce{
-    display: flex;
-    min-height: 2em;
-    align-items: center;
-    justify-content: center;
-}
-.statistiche{
-    display: flex;
-    min-height: 2em;
-    align-items: center;
-    justify-content: center;
-}
-.logout{
-    font-size: 30px;
-    font-weight: 700;
-    display: flex;
-    min-height: 2em;
-    align-items: center;
-    justify-content: center;
+.feather {
+	width: 16px;
+	height: 16px;
+	vertical-align: text-bottom;
 }
 
-/*Parte destra dello schermo*/
-div {
-    border: 1px solid black;
+/*
+   * Sidebar
+   */
+.sidebar {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 100; /* Behind the navbar */
+	padding: 48px 0 0; /* Height of navbar */
+	box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+}
+
+.sidebar-sticky {
+	margin-top: 2em;
+	font-size: 1.2rem;
+	position: relative;
+	top: 0;
+	height: calc(100vh - 48px);
+	padding-top: .5rem;
+	overflow-x: hidden;
+	overflow-y: auto;
+	/* Scrollable contents if viewport is shorter than content. */
+}
+
+@
+supports ((position: -webkit-sticky ) or (position: sticky )) { .sidebar-sticky
+	{ margin-right:1.4rem;
+	margin-left: 1.4rem;
+	position: -webkit-sticky;
+	position: sticky;
+}
+
+}
+a.nav-link:hover {
+	font-weight: bold;
+	color: black;
+}
+
+.nav-link {
+	padding: 1rem 1rem;
+}
+
+.nav.flex-column {
+	padding-top: 3rem;
+}
+
+#nomeAdmin {
+	font-weight: 500;
+	border-bottom: 1px solid #dee2e6;
+	padding-bottom: 1rem;
+	text-align: center;
+}
+
+.sidebar .nav-link {
+	font-weight: 500;
+	color: #333;
+}
+
+.sidebar .nav-link .feather {
+	margin-right: 4px;
+	color: #999;
+}
+
+.sidebar .nav-link:hover .feather, .sidebar .nav-link.active .feather {
+	color: inherit;
+}
+
+.sidebar-heading {
+	font-size: .75rem;
+	text-transform: uppercase;
+}
+
+/*
+   * Content
+   */
+[role="main"] {
+	padding-top: 133px; /* Space for fixed navbar */
+}
+
+@media ( min-width : 768px) {
+	[role="main"] {
+		padding-top: 48px; /* Space for fixed navbar */
+	}
+}
+
+/*
+   * Navbar
+   */
+.navbar-brand {
+	padding-top: .75rem;
+	padding-bottom: .75rem;
+	font-size: 1.5rem;
+	text-align: center;
+	background-color: rgba(0, 0, 0, .25);
+	box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
+}
+
+.navbar .form-control {
+	padding: .75rem 1rem;
+	border-width: 0;
+	border-radius: 0;
+}
+
+.form-control-dark {
+	color: #fff;
+	background-color: rgba(255, 255, 255, .1);
+	border-color: rgba(255, 255, 255, .1);
+}
+
+.form-control-dark:focus {
+	border-color: transparent;
+	box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
+}
+
+/* Sezione dati */
+.form-control {
+	text-align: center;
+}
+
+#userFound {
+	width: 70%;
+}
+
+.adminUtilsData {
+	font-style: italic;
+	text-align: center;
+	flex: 1 0 40%;
+}
+
+.adminUtilsBtn {
+	align-items: center;
+	justify-content: center;
+}
+
+.btn-primary {
+	background-color: #495057;
+	border-color: #212529;
+}
+
+.btn-primary:hover {
+	background-color: #212529;
+	border-color: #495057;
+}
+
+.adminUtils {
+	flex: 4;
+	height: 35rem;
+}
+
+.dataSearch {
+	flex: 2;
+}
+
+.formContainer {
+	justify-content: center;
+	align-items: center;
+	flex: 1;
+}
+
+.formData {
+	flex: 3;
+}
+
+.imageBook {
+	padding-top: 2rem;
+	flex: 1;
 }
