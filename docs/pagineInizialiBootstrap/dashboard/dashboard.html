@@ -48,7 +48,7 @@
                 <div class="sidebar-sticky">
                     <h4 id="nomeAdmin">Ciao Admin</h4>
                     <!--Inizia la lista delle scelte per l'admin-->
-                    <ul class="nav flex-column">
+                    <ul class="nav flex-column border-left">
                         <li class="nav-item">
                             <a class="nav-link" href="#">
                                 <span data-feather="home"></span>
@@ -94,21 +94,56 @@
                     class="d-flex justify-content-center flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                     <h1 class="h2" id="datiApp">Dati Applicazione</h1>
                 </div>
-                <!--Comandi Admin-->
+                <!--tutto il container a destra-->
                 <div class="d-flex flex-row" id="dati">
-                    <div class="adminUtils border d-flex">
-
+                    <!--sezione untente trovato a sinistra-->
+                    <div class="adminUtils border d-flex flex-column">
+                        <div class="flex-grow-1 d-flex  justify-content-center align-items-center">
+                            <form class="d-flex flex-wrap" id="userFound">
+                                <div class="form-group adminUtilsData px-3 mx-3 py-3">
+                                    <label for="nameUser">Nome</label>
+                                    <input type="text" class="form-control" id="nameUser">
+                                </div>
+                                <div class="form-group adminUtilsData px-3 mx-3 py-3">
+                                    <label for="lastNameUser">Cognome</label>
+                                    <input type="text" class="form-control" id="lastNameUser">
+                                </div>
+                                <div class="form-group adminUtilsData px-3 mx-3 py-3">
+                                    <label for="emailUser">E-mail</label>
+                                    <input type="text" class="form-control" id="emailUser">
+                                </div>
+                                <div class="form-group adminUtilsData px-3 mx-3 py-3">
+                                    <label for="usernameUser">Nome Utente</label>
+                                    <input type="text" class="form-control" id="usernameUser">
+                                </div>
+                                <div class="form-group adminUtilsData px-3 mx-3 py-3">
+                                    <label for="isAdminUser">Admin</label>
+                                    <input disabled type="text" class="form-control" id="isAdminUser">
+                                </div>
+                                <div class="form-group adminUtilsData px-3 mx-3 py-3">
+                                    <label for="reviewsUser">Numero Valutazioni</label>
+                                    <input disabled type="text" class="form-control" id="reviewsUser">
+                                </div>
+                            </form>
+                        </div>
+                        <div class="adminUtilsBtn d-flex" style="height: 10rem;">
+                            <button form="userFound" type="submit" class="btn btn-primary mx-3 btnDeleteUser">Cancella Utente</button>
+                            <button form="userFound" type="submit" class="btn btn-primary mx-3 btnModifyUser">Modifica Utente</button>
+                            <button form="userFound" type="submit" class="btn btn-primary mx-3 btnAddAdmin">Aggiungi Admin</button>
+                            <button form="userFound" type="submit" class="btn btn-primary mx-3 btnRemoveAdmin">Rimuovi Admin</button>
+                        </div>
                     </div>
                     <!--Sezione Trova Utente a destra-->
                     <div class="dataSearch border d-flex flex-column">
                         <h5 class="text-center mt-4">Trova Utente</h5>
                         <div class="formContainer d-flex flex-column">
                             <div class="imageBook">
-                                <img src="book.svg" width="80" height="80" alt="">
+                                <img src="book.svg" width="80" height="80" alt="imagine_libro">
                             </div>
                             <form class="d-flex flex-column formData" action="">
                                 <div class="custom-control custom-radio">
-                                    <input checked type="radio" id="byUsername" name="trovaUtente" class="custom-control-input">
+                                    <input checked type="radio" id="byUsername" name="trovaUtente"
+                                        class="custom-control-input">
                                     <label class="custom-control-label" for="byUsername">Cerca con Nome Utente</label>
                                 </div>
                                 <br>
@@ -119,7 +154,8 @@
                                 <br>
                                 <div class="form-group">
                                     <label for="datiUtente"></label>
-                                    <input type="text" class="form-control" id="datiUtente" placeholder="Cerca">
+                                    <input type="text" class="form-control" id="datiUtente" placeholder="Cerca"
+                                        value="">
                                 </div>
                                 <br>
                                 <button type="submit" class="btn btn-primary">Avvia Ricerca</button>

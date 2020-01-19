@@ -127,6 +127,24 @@ body {
   }
   
   /* Sezione dati */
+  .form-control {
+    text-align: center;
+  }
+
+  #userFound {
+    width: 70%;
+  }
+
+  .adminUtilsData {
+    font-style: italic;
+    text-align: center;
+    flex: 1 0 40%;
+  }
+
+  .adminUtilsBtn {
+    align-items: center;
+    justify-content: center;
+  }
 
   .btn-primary{
     background-color: #495057;
