@@ -44,6 +44,11 @@
 			response.sendRedirect("index.html");
 		}
 		String name = (String)session.getAttribute("nome");
+		String nomeUtente = (String)session.getAttribute("nomeUtente");
+		String cognomeUtente = (String)session.getAttribute("cognomeUtente");
+		String emailUtente = (String)session.getAttribute("emailUtente");
+		String usernameUtente = (String)session.getAttribute("usernameUtente");
+		String isAdminUtente = (String)session.getAttribute("isAdminUtente");
 	%>
 	<nav
 		class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
@@ -99,23 +104,23 @@
 							<form class="d-flex flex-wrap" id="userFound">
 								<div class="form-group adminUtilsData px-3 mx-3 py-3">
 									<label for="nameUser">Nome</label> <input type="text"
-										class="form-control" id="nameUser">
+										class="form-control" id="nameUser" value="<%= nomeUtente %>">
 								</div>
 								<div class="form-group adminUtilsData px-3 mx-3 py-3">
 									<label for="lastNameUser">Cognome</label> <input type="text"
-										class="form-control" id="lastNameUser">
+										class="form-control" id="lastNameUser" value="<%= cognomeUtente %>">
 								</div>
 								<div class="form-group adminUtilsData px-3 mx-3 py-3">
 									<label for="emailUser">E-mail</label> <input type="text"
-										class="form-control" id="emailUser">
+										class="form-control" id="emailUser" value="<%= emailUtente %>">
 								</div>
 								<div class="form-group adminUtilsData px-3 mx-3 py-3">
 									<label for="usernameUser">Nome Utente</label> <input
-										type="text" class="form-control" id="usernameUser">
+										type="text" class="form-control" id="usernameUser" value="<%= usernameUtente %>">
 								</div>
 								<div class="form-group adminUtilsData px-3 mx-3 py-3">
 									<label for="isAdminUser">Admin</label> <input disabled
-										type="text" class="form-control" id="isAdminUser">
+										type="text" class="form-control" id="isAdminUser" value="<%= isAdminUtente %>">
 								</div>
 								<div class="form-group adminUtilsData px-3 mx-3 py-3">
 									<label for="reviewsUser">Numero Valutazioni</label> <input
@@ -144,7 +149,7 @@
 							<div class="imageBook">
 								<img src="/login/admin/book.svg" width="80" height="80" alt="imagine_libro">
 							</div>
-							<form class="d-flex flex-column formData" action="dashboard_cercaUtente">
+							<form class="d-flex flex-column formData" action="">
 								<div class="custom-control custom-radio">
 									<input checked type="radio" id="byUsername" name="trovaUtente"
 										class="custom-control-input"> <label
@@ -162,7 +167,7 @@
 								<div class="form-group">
 									<label for="datiUtente"></label> <input type="text"
 										class="form-control" id="datiUtente" placeholder="Cerca"
-										value="cerca">
+										value="">
 								</div>
 								<br>
 								<button type="submit" class="btn btn-primary">Avvia

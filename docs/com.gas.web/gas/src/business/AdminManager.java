@@ -24,5 +24,12 @@ public class AdminManager {
 		em.getTransaction().begin();
 		em.getTransaction().commit();
 	}
+	
+	public User searchUser(String username) {
+		EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
+		User u = (User) em.createQuery("Select c FROM User c WHERE c.username LIKE :name")
+				.setParameter("name", username).getSingleResult();
+		return u;
+	}
 
 }
