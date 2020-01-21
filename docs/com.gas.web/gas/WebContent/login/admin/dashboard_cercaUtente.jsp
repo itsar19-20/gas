@@ -33,6 +33,7 @@
 
 <!-- Stili di questa pagina -->
 <link href="login/admin/admin.css" rel="stylesheet" type="text/css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body>
 	<%
@@ -41,14 +42,14 @@
 		response.setHeader("Expires", "0");
 		
 		if(session.getAttribute("nome")==null) {
-			response.sendRedirect("index.html");
+			response.sendRedirect("../../index.html");
 		}
 		String name = (String)session.getAttribute("nome");
 		String nomeUtente = (String)session.getAttribute("nomeUtente");
 		String cognomeUtente = (String)session.getAttribute("cognomeUtente");
 		String emailUtente = (String)session.getAttribute("emailUtente");
 		String usernameUtente = (String)session.getAttribute("usernameUtente");
-		String isAdminUtente = (String)session.getAttribute("isAdminUtente");
+		byte isAdminUtente = (byte)session.getAttribute("isAdminUtente");
 	%>
 	<nav
 		class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
@@ -101,22 +102,22 @@
 					<div class="adminUtils border d-flex flex-column">
 						<div
 							class="flex-grow-1 d-flex  justify-content-center align-items-center">
-							<form class="d-flex flex-wrap" id="userFound">
+							<form class="d-flex flex-wrap" id="userFound" action="">
 								<div class="form-group adminUtilsData px-3 mx-3 py-3">
-									<label for="nameUser">Nome</label> <input type="text"
+									<label for="nameUser">Nome</label> <input type="text" name="nameUser"
 										class="form-control" id="nameUser" value="<%= nomeUtente %>">
 								</div>
 								<div class="form-group adminUtilsData px-3 mx-3 py-3">
-									<label for="lastNameUser">Cognome</label> <input type="text"
+									<label for="lastNameUser">Cognome</label> <input type="text" name="lastnameUser"
 										class="form-control" id="lastNameUser" value="<%= cognomeUtente %>">
 								</div>
 								<div class="form-group adminUtilsData px-3 mx-3 py-3">
-									<label for="emailUser">E-mail</label> <input type="text"
+									<label for="emailUser">E-mail</label> <input type="text" name="emailUser"
 										class="form-control" id="emailUser" value="<%= emailUtente %>">
 								</div>
 								<div class="form-group adminUtilsData px-3 mx-3 py-3">
 									<label for="usernameUser">Nome Utente</label> <input
-										type="text" class="form-control" id="usernameUser" value="<%= usernameUtente %>">
+										type="text" class="form-control" id="usernameUser" name="usernameUser" value="<%= usernameUtente %>">
 								</div>
 								<div class="form-group adminUtilsData px-3 mx-3 py-3">
 									<label for="isAdminUser">Admin</label> <input disabled
@@ -129,15 +130,15 @@
 							</form>
 						</div>
 						<div class="adminUtilsBtn d-flex" style="height: 10rem;">
-							<button form="userFound" type="submit"
+							<button form="userFound" type="submit" id="deleteUser"
 								class="btn btn-primary mx-3 btnDeleteUser">Cancella
 								Utente</button>
-							<button form="userFound" type="submit"
+							<button form="userFound" type="submit" id="editUser"
 								class="btn btn-primary mx-3 btnModifyUser">Modifica
 								Utente</button>
-							<button form="userFound" type="submit"
+							<button form="userFound" type="submit" id="addAdmin"
 								class="btn btn-primary mx-3 btnAddAdmin">Aggiungi Admin</button>
-							<button form="userFound" type="submit"
+							<button form="userFound" type="submit" id="removeAdmin"
 								class="btn btn-primary mx-3 btnRemoveAdmin">Rimuovi
 								Admin</button>
 						</div>
@@ -149,7 +150,7 @@
 							<div class="imageBook">
 								<img src="/login/admin/book.svg" width="80" height="80" alt="imagine_libro">
 							</div>
-							<form class="d-flex flex-column formData" action="">
+							<form class="d-flex flex-column formData" action="dashboard_cercaUtente">
 								<div class="custom-control custom-radio">
 									<input checked type="radio" id="byUsername" name="trovaUtente"
 										class="custom-control-input"> <label
@@ -167,7 +168,7 @@
 								<div class="form-group">
 									<label for="datiUtente"></label> <input type="text"
 										class="form-control" id="datiUtente" placeholder="Cerca"
-										value="">
+										name="cerca">
 								</div>
 								<br>
 								<button type="submit" class="btn btn-primary">Avvia
@@ -188,6 +189,6 @@
 		src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
-
+	<script src="login/admin/dashboard.js"></script>
 </body>
 </html>
