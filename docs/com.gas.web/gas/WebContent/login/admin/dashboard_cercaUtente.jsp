@@ -48,7 +48,7 @@
 		String cognomeUtente = (String)session.getAttribute("cognomeUtente");
 		String emailUtente = (String)session.getAttribute("emailUtente");
 		String usernameUtente = (String)session.getAttribute("usernameUtente");
-		String isAdminUtente = (String)session.getAttribute("isAdminUtente");
+		byte isAdminUtente = (byte)session.getAttribute("isAdminUtente");
 	%>
 	<nav
 		class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
@@ -149,7 +149,7 @@
 							<div class="imageBook">
 								<img src="/login/admin/book.svg" width="80" height="80" alt="imagine_libro">
 							</div>
-							<form class="d-flex flex-column formData" action="">
+							<form class="d-flex flex-column formData" action="dashboard_cercaUtente">
 								<div class="custom-control custom-radio">
 									<input checked type="radio" id="byUsername" name="trovaUtente"
 										class="custom-control-input"> <label
@@ -167,7 +167,7 @@
 								<div class="form-group">
 									<label for="datiUtente"></label> <input type="text"
 										class="form-control" id="datiUtente" placeholder="Cerca"
-										value="">
+										name="cerca">
 								</div>
 								<br>
 								<button type="submit" class="btn btn-primary">Avvia

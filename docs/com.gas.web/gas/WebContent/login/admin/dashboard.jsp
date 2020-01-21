@@ -162,7 +162,7 @@
 								<div class="form-group">
 									<label for="datiUtente"></label> <input type="text"
 										class="form-control" id="datiUtente" placeholder="Cerca"
-										value="cerca">
+										name="cerca">
 								</div>
 								<br>
 								<button type="submit" class="btn btn-primary">Avvia
