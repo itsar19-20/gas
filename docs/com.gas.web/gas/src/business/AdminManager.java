@@ -43,7 +43,14 @@ public class AdminManager {
 				.setParameter("name", username).getSingleResult();
 		em.close();
 		return u;
-		
+	}
+	
+	public User searchUserByEmail (String email) {
+		EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
+		User u = (User) em.createQuery("Select c FROM User c WHERE c.email LIKE :mail")
+				.setParameter("mail", email).getSingleResult();
+		em.close();
+		return u;
 	}
 	
 	public void editUser(String nome, String cognome, String email, String username) {

@@ -144,17 +144,17 @@
 							<div class="imageBook">
 								<img src="/login/admin/db.png" width="80px" height="80px" alt="imagine_libro">
 							</div>
-							<form class="d-flex flex-column formData" action="dashboard_cercaUtente">
+							<form class="d-flex flex-column formData" action="dashboard_cercaUtente" id="searchForUser">
 								<div class="custom-control custom-radio">
 									<input checked type="radio" id="byUsername" name="trovaUtente"
-										class="custom-control-input"> <label
+										class="custom-control-input" value="byUsername"> <label
 										class="custom-control-label" for="byUsername">Cerca
 										con Nome Utente</label>
 								</div>
 								<br>
 								<div class="custom-control custom-radio">
 									<input type="radio" id="byEmail" name="trovaUtente"
-										class="custom-control-input"> <label
+										class="custom-control-input" value="byEmail"> <label
 										class="custom-control-label" for="byEmail">Cerca con
 										E-mail</label>
 								</div>
@@ -165,7 +165,7 @@
 										name="cerca">
 								</div>
 								<br>
-								<button type="submit" class="btn btn-primary">Avvia
+								<button type="submit" id="searchForUserBtn" class="btn btn-primary">Avvia
 									Ricerca</button>
 							</form>
 						</div>

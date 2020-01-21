@@ -11,3 +11,12 @@ $('#addAdmin').click(function () {
 $('#removeAdmin').click(function () {
    $('#userFound').attr('action', 'removeAdmin');
 });
+
+$('#searchForUserBtn').click(function() {
+	let selected = $("input[name=trovaUtente]:checked").val();
+	if (selected === "byUsername") {
+		$('#searchForUser').attr('action', 'dashboard_cercaUtente');
+	} else {
+		$('#searchForUser').attr('action', 'searchUserByEmail');
+	}
+});
