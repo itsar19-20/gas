@@ -33,6 +33,7 @@
 
 <!-- Stili di questa pagina -->
 <link href="login/admin/admin.css" rel="stylesheet" type="text/css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body>
 	<%
@@ -101,7 +102,7 @@
 					<div class="adminUtils border d-flex flex-column">
 						<div
 							class="flex-grow-1 d-flex  justify-content-center align-items-center">
-							<form class="d-flex flex-wrap" id="userFound">
+							<form class="d-flex flex-wrap" id="userFound" action="">
 								<div class="form-group adminUtilsData px-3 mx-3 py-3">
 									<label for="nameUser">Nome</label> <input type="text"
 										class="form-control" id="nameUser" value="<%= nomeUtente %>">
@@ -116,7 +117,7 @@
 								</div>
 								<div class="form-group adminUtilsData px-3 mx-3 py-3">
 									<label for="usernameUser">Nome Utente</label> <input
-										type="text" class="form-control" id="usernameUser" value="<%= usernameUtente %>">
+										type="text" class="form-control" id="usernameUser" name="usernameUser" value="<%= usernameUtente %>">
 								</div>
 								<div class="form-group adminUtilsData px-3 mx-3 py-3">
 									<label for="isAdminUser">Admin</label> <input disabled
@@ -129,15 +130,15 @@
 							</form>
 						</div>
 						<div class="adminUtilsBtn d-flex" style="height: 10rem;">
-							<button form="userFound" type="submit"
+							<button form="userFound" type="submit" id="deleteUser"
 								class="btn btn-primary mx-3 btnDeleteUser">Cancella
 								Utente</button>
-							<button form="userFound" type="submit"
+							<button form="userFound" type="submit" id="editUser"
 								class="btn btn-primary mx-3 btnModifyUser">Modifica
 								Utente</button>
-							<button form="userFound" type="submit"
+							<button form="userFound" type="submit" id="addAdmin"
 								class="btn btn-primary mx-3 btnAddAdmin">Aggiungi Admin</button>
-							<button form="userFound" type="submit"
+							<button form="userFound" type="submit" id="removeAdmin"
 								class="btn btn-primary mx-3 btnRemoveAdmin">Rimuovi
 								Admin</button>
 						</div>
@@ -188,6 +189,6 @@
 		src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
-
+	<script src="login/admin/dashboard.js"></script>
 </body>
 </html>

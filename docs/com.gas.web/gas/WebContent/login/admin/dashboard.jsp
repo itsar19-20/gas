@@ -124,15 +124,15 @@
 							</form>
 						</div>
 						<div class="adminUtilsBtn d-flex" style="height: 10rem;">
-							<button form="userFound" type="submit"
+							<button form="userFound" type="submit" 
 								class="btn btn-primary mx-3 btnDeleteUser">Cancella
 								Utente</button>
-							<button form="userFound" type="submit"
+							<button form="userFound" type="submit" 
 								class="btn btn-primary mx-3 btnModifyUser">Modifica
 								Utente</button>
-							<button form="userFound" type="submit"
+							<button form="userFound" type="submit" 
 								class="btn btn-primary mx-3 btnAddAdmin">Aggiungi Admin</button>
-							<button form="userFound" type="submit"
+							<button form="userFound" type="submit" 
 								class="btn btn-primary mx-3 btnRemoveAdmin">Rimuovi
 								Admin</button>
 						</div>
@@ -142,7 +142,7 @@
 						<h5 class="text-center mt-4">Trova Utente</h5>
 						<div class="formContainer d-flex flex-column">
 							<div class="imageBook">
-								<img src="/login/admin/book.svg" width="80" height="80" alt="imagine_libro">
+								<img src="/login/admin/book.svg" width="80px" height="80px" alt="imagine_libro">
 							</div>
 							<form class="d-flex flex-column formData" action="dashboard_cercaUtente">
 								<div class="custom-control custom-radio">
@@ -183,6 +183,5 @@
 		src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
-
 </body>
 </html>

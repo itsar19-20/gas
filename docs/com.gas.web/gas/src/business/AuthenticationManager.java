@@ -33,6 +33,7 @@ public class AuthenticationManager {
 		em.getTransaction().begin();
 		em.persist(_return);
 		em.getTransaction().commit();
+		em.close();
 		return _return;
 	}
 
