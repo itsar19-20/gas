@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v3.8.6">
-    <title>Product example · Bootstrap</title>
+    <title>GasAdvisor</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/product/">
 
@@ -48,18 +48,18 @@
 </head>
 
 <body>
+    
     <nav class="site-header sticky-top py-1">
         <div class="container d-flex flex-column flex-md-row justify-content-between">
-            <a class="py-2" href="#" aria-label="Product">
-              
+            <a class="py-0" href="#" aria-label="Product">
+              <img class="img-fluid immagine pull-left"src ="../logo.svg">   
             </a>
-
-            <button type="button" class="btn>basic/button pull-right" href="#">ADMIN</a>
+                <button type="button" onclick="location.href='../loginPage/login.html'"value="" class="btn btn-secondary">ADMIN</button>
         </div>
     </nav>
 
     <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
-        <div class="col-md-5 p-lg-5 mx-auto my-5">
+        <div class="wow col-md-5 p-lg-5 mx-auto my-5 justify-content-center">
             <h1 class="display-4 font-weight-normal">GasAdvisor</h1>
             <p class="lead font-weight-normal">Trova il posto migliore dove fare il pieno al tuo veicolo!</p>
         
@@ -72,18 +72,21 @@
         <div class="bg-dark mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
             <div class="my-3 py-3">
                 <h2 class="display-5"></h2>
-                <button type="button" class="btn btn-light">Scarica L'Applicazione</button>
-                
+                <button type="button" onclick="location.href='https://play.google.com/store/apps?hl=it'"value="" class="btn btn-light">Scarica L'Applicazione</button>
             </div>
             <div class="" style="width: 80%; height: 100px; border-radius: 21px 21px 0 0;">
             </div>
         </div>
-        <div class="bg-light mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
+        <div class=" bottonemail bg-light mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
             <div class="my-3 p-3">
                 <h2 class="display-5"></h2>
-                <button type="button" class="btn btn-dark">Contattaci</button>
-            
+                <button type="button" onclick="location.href='mailto:loscoiattolodellabenzina@gmail.com?Subject=Hello%20again'" class="bottonemail btn btn-dark">Contattaci</button>
+                <p id="indirizzomail">
+                    
+                Mail:     loscoiattolodellabenzina@gmail.com
+                </p>
             </div>
+            <br>
             <div class="" style="width: 80%; height: 100px; border-radius: 21px 21px 0 0;">
             </div>
         </div>

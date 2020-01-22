@@ -1,11 +1,24 @@
 .container {
-    max-width: 960px;
+  max-width: 98%
   }
   
   /*
    * Custom translucent site header
    */
-  
+  .immagine {
+    width: 3em;
+    height: auto;
+  }
+  .wow {
+    background-color: rgba(255, 255, 255, 0.85);
+    z-index: 100;
+    }
+    @media (min-width: 768px) {
+      .wow {
+        max-width: 60%;
+      }
+    }
+   
   .site-header {
     background-color: rgba(0, 0, 0, .85);
     -webkit-backdrop-filter: saturate(180%) blur(20px);
@@ -54,8 +67,10 @@
     left: 5%;
     background-color: #e5e5e5;
   }
-  
-  
+  #indirizzomail {
+    visibility: hidden;
+  }
+    
   /*
    * Extra utilities
    */
