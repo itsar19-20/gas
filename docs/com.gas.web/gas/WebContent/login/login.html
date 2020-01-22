@@ -3,39 +3,43 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Admin Login</title>
+    <title>Admin Login GasAdvisor</title>
     <link rel="stylesheet" href="../reset.css" type="text/css">
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/sign-in/">
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!-- Favicons -->
+    <link rel="icon" href="favicon.ico">
     <link href="login.css" rel="stylesheet">
 </head>
 
 
 
-<body class="">
-
-    <form class="form_signIn" action="../dashboard" method="post">
-        <div class="container">
-            <h1>Please sign in</h1>
-            <br><br>
-            <label for="inputUser" class="">Username</label><input type="text" id="inputUser" class="form-control"
-                placeholder="Username" required autofocus name="username">
-            <br>
-            <label for="inputPassword" class="">Password</label><input type="password" id="inputPassword"
-                class="form-control" placeholder="Password" required name="password">
-            <br>
-
-            <div class="remember_me">
-                <label> <input type="checkbox" value="remember-me">
-                    Remember me
-                </label>
+<body class="text-center bg-dark">
+    <div class="container">
+        <div class="card bg-light">
+            <div class="container p-3">
+                <img class="img-fluid mx-auto" src="logo.svg" alt="logo_GasAdvisor" style="width: 15em">
             </div>
-            <br><br>
-            <button class="btn" type="submit">Sign
-                in</button>
-                <br>
-            <p>&copy; 2017-2019</p>
+            <form class="form-signin" action="../dashboard" method="post">
+                <div class="card-body">
+                    <h1 class="card-title">Please sign in</h1>
+                    <label for="inputUser" class="sr-only">Email address</label>
+                    <input type="text" id="inputUser" class="form-control" placeholder="Username" required autofocus
+                        name="username">
+                    <label for="inputPassword" class="sr-only">Password</label>
+                    <input type="password" id="inputPassword" class="form-control" placeholder="Password" required name="password">
+                    <div class="checkbox mb-3 text-left">
+                        <label>
+                            <input type="checkbox" value="remember-me"> Remember me
+                        </label>
+                    </div>
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+                </div>
+            </form>
         </div>
-    </form>
-
+    </div>
 </body>
 
 </html>
