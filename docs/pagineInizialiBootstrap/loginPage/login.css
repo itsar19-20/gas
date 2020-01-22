@@ -13,8 +13,7 @@ body {
   background-color: #80d8ff;
 }
 .card {
-  background-color: #ff9e80;
-  box-shadow: 0.65em 0.5em #fd8758ad;
+   box-shadow: 0.65em 0.5em #ffffffad;
 }
 .form-signin {
   width: 100%;
@@ -44,4 +43,12 @@ body {
   margin-bottom: 10px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
+}
+.btn-primary{
+  background-color: #495057;
+  border-color: #212529;
+}
+.btn-primary:hover{
+  background-color: #212529;
+  border-color: #495057;
 }
