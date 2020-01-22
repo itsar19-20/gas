@@ -36,6 +36,13 @@
 </head>
 <body>
 	<%
+		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+		response.setHeader("Pragma", "no-cache");
+		response.setHeader("Expires", "0");
+		
+		if(session.getAttribute("nome")==null) {
+			response.sendRedirect("../../index.html");
+		}
 		String name = (String)session.getAttribute("nome");
 	%>
 	<nav
@@ -44,7 +51,7 @@
 		<input class="form-control form-control-dark w-100" type="text"
 			placeholder="Search" aria-label="Search">
 		<ul class="navbar-nav px-3">
-			<li class="nav-item text-nowrap"><a class="nav-link" href="#">Uscita</a>
+			<li class="nav-item text-nowrap"><a class="nav-link" href="/gas/LogoutController">Uscita</a>
 			</li>
 		</ul>
 	</nav>
@@ -103,7 +110,7 @@
 										class="form-control" id="emailUser">
 								</div>
 								<div class="form-group adminUtilsData px-3 mx-3 py-3">
-									<label for="usernameUser">Nome Utente</label> <input
+									<label for="usernameUser">Nome Utente</label> <input 
 										type="text" class="form-control" id="usernameUser">
 								</div>
 								<div class="form-group adminUtilsData px-3 mx-3 py-3">
@@ -117,15 +124,15 @@
 							</form>
 						</div>
 						<div class="adminUtilsBtn d-flex" style="height: 10rem;">
-							<button form="userFound" type="submit"
+							<button form="userFound" type="submit" 
 								class="btn btn-primary mx-3 btnDeleteUser">Cancella
 								Utente</button>
-							<button form="userFound" type="submit"
+							<button form="userFound" type="submit" 
 								class="btn btn-primary mx-3 btnModifyUser">Modifica
 								Utente</button>
-							<button form="userFound" type="submit"
+							<button form="userFound" type="submit" 
 								class="btn btn-primary mx-3 btnAddAdmin">Aggiungi Admin</button>
-							<button form="userFound" type="submit"
+							<button form="userFound" type="submit" 
 								class="btn btn-primary mx-3 btnRemoveAdmin">Rimuovi
 								Admin</button>
 						</div>
@@ -135,19 +142,19 @@
 						<h5 class="text-center mt-4">Trova Utente</h5>
 						<div class="formContainer d-flex flex-column">
 							<div class="imageBook">
-								<img src="book.svg" width="80" height="80" alt="imagine_libro">
+								<img src="/login/admin/db.png" width="80px" height="80px" alt="imagine_libro">
 							</div>
-							<form class="d-flex flex-column formData" action="">
+							<form class="d-flex flex-column formData" action="dashboard_cercaUtente" id="searchForUser">
 								<div class="custom-control custom-radio">
 									<input checked type="radio" id="byUsername" name="trovaUtente"
-										class="custom-control-input"> <label
+										class="custom-control-input" value="byUsername"> <label
 										class="custom-control-label" for="byUsername">Cerca
 										con Nome Utente</label>
 								</div>
 								<br>
 								<div class="custom-control custom-radio">
 									<input type="radio" id="byEmail" name="trovaUtente"
-										class="custom-control-input"> <label
+										class="custom-control-input" value="byEmail"> <label
 										class="custom-control-label" for="byEmail">Cerca con
 										E-mail</label>
 								</div>
@@ -155,10 +162,10 @@
 								<div class="form-group">
 									<label for="datiUtente"></label> <input type="text"
 										class="form-control" id="datiUtente" placeholder="Cerca"
-										value="">
+										name="cerca">
 								</div>
 								<br>
-								<button type="submit" class="btn btn-primary">Avvia
+								<button type="submit" id="searchForUserBtn" class="btn btn-primary">Avvia
 									Ricerca</button>
 							</form>
 						</div>
@@ -176,6 +183,5 @@
 		src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
-
 </body>
 </html>

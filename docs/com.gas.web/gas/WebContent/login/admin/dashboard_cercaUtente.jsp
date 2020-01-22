@@ -1,6 +1,6 @@
-<!--<%@page import="com.mysql.cj.Session"%>
+<%@page import="com.mysql.cj.Session"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>-->
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,20 +32,25 @@
 </style>
 
 <!-- Stili di questa pagina -->
-<link href="dashboard.css" rel="stylesheet" type="text/css">
+<link href="login/admin/admin.css" rel="stylesheet" type="text/css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body>
-	<!--<%
+	<%
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 		response.setHeader("Pragma", "no-cache");
 		response.setHeader("Expires", "0");
 		
 		if(session.getAttribute("nome")==null) {
-			response.sendRedirect("index.html");
+			response.sendRedirect("../../index.html");
 		}
 		String name = (String)session.getAttribute("nome");
-	%> -->
+		String nomeUtente = (String)session.getAttribute("nomeUtente");
+		String cognomeUtente = (String)session.getAttribute("cognomeUtente");
+		String emailUtente = (String)session.getAttribute("emailUtente");
+		String usernameUtente = (String)session.getAttribute("usernameUtente");
+		byte isAdminUtente = (byte)session.getAttribute("isAdminUtente");
+	%>
 	<nav
 		class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
 		<a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">GasAdvisor</a>
@@ -97,26 +102,26 @@
 					<div class="adminUtils border d-flex flex-column">
 						<div
 							class="flex-grow-1 d-flex  justify-content-center align-items-center">
-							<form class="d-flex flex-wrap" id="userFound">
+							<form class="d-flex flex-wrap" id="userFound" action="">
 								<div class="form-group adminUtilsData px-3 mx-3 py-3">
-									<label for="nameUser">Nome</label> <input type="text"
-										class="form-control" id="nameUser" name="nameUser">
+									<label for="nameUser">Nome</label> <input type="text" name="nameUser"
+										class="form-control" id="nameUser" value="<%= nomeUtente %>">
 								</div>
 								<div class="form-group adminUtilsData px-3 mx-3 py-3">
-									<label for="lastNameUser">Cognome</label> <input type="text"
-										class="form-control" id="lastNameUser">
+									<label for="lastNameUser">Cognome</label> <input type="text" name="lastnameUser"
+										class="form-control" id="lastNameUser" value="<%= cognomeUtente %>">
 								</div>
 								<div class="form-group adminUtilsData px-3 mx-3 py-3">
-									<label for="emailUser">E-mail</label> <input type="text"
-										class="form-control" id="emailUser">
+									<label for="emailUser">E-mail</label> <input type="text" name="emailUser"
+										class="form-control" id="emailUser" value="<%= emailUtente %>">
 								</div>
 								<div class="form-group adminUtilsData px-3 mx-3 py-3">
-									<label for="usernameUser">Nome Utente</label> <input
-										type="text" class="form-control" id="usernameUser">
+									<label for="usernameUser">Nome Utente</label> <input 
+										type="text" class="form-control" id="usernameUser" name="usernameUser" value="<%= usernameUtente %>">
 								</div>
 								<div class="form-group adminUtilsData px-3 mx-3 py-3">
 									<label for="isAdminUser">Admin</label> <input disabled
-										type="text" class="form-control" id="isAdminUser">
+										type="text" class="form-control" id="isAdminUser" value="<%= isAdminUtente %>">
 								</div>
 								<div class="form-group adminUtilsData px-3 mx-3 py-3">
 									<label for="reviewsUser">Numero Valutazioni</label> <input
@@ -143,9 +148,9 @@
 						<h5 class="text-center mt-4">Trova Utente</h5>
 						<div class="formContainer d-flex flex-column">
 							<div class="imageBook">
-								<img src="book.svg" width="80px" height="80px" alt="imagine_libro">
+								<img src="/login/admin/book.svg" width="80" height="80" alt="imagine_libro">
 							</div>
-							<form class="d-flex flex-column formData" action="" id="searchForUser">
+							<form class="d-flex flex-column formData" action="dashboard_cercaUtente" id="searchForUser">
 								<div class="custom-control custom-radio">
 									<input checked type="radio" id="byUsername" name="trovaUtente"
 										class="custom-control-input" value="byUsername"> <label
@@ -166,7 +171,7 @@
 										name="cerca">
 								</div>
 								<br>
-								<button type="submit" class="btn btn-primary" id="searchForUserBtn">Avvia
+								<button type="submit" id="searchForUserBtn" class="btn btn-primary">Avvia
 									Ricerca</button>
 							</form>
 						</div>
@@ -184,6 +189,6 @@
 		src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
-    <script src="dashboard.js"></script>
+	<script src="login/admin/dashboard.js"></script>
 </body>
 </html>

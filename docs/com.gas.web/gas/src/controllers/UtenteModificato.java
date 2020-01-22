@@ -1,8 +1,6 @@
 package controllers;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,37 +8,36 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import business.AuthenticationManager;
+import business.AdminManager;
 import model.User;
 
 /**
- * Servlet implementation class LoginController
+ * Servlet implementation class UtenteModificato
  */
-@WebServlet("/dashboard")
-public class LoginController extends HttpServlet {
+@WebServlet("/UtenteModificato")
+public class UtenteModificato extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginController() {
+    public UtenteModificato() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		AuthenticationManager am = new AuthenticationManager();
-		User u = am.login(request.getParameter("username"), request.getParameter("password"));
-		if (u == null) {
-			request.getRequestDispatcher("/").forward(request, response);
-		} else {
-			HttpSession session = request.getSession();
-			session.setAttribute("nome", u.getNome());
-			request.getRequestDispatcher("/login/admin/dashboard.jsp").forward(request, response);
-		}
+		AdminManager am = new AdminManager();
+		HttpSession session = request.getSession();
+		String username = (String)session.getAttribute("username");
+		User u = am.searchUser(username);
+		session.setAttribute("nomeUtente", u.getNome());
+		session.setAttribute("cognomeUtente", u.getCognome());
+		session.setAttribute("emailUtente", u.getEmail());
+		session.setAttribute("usernameUtente", u.getUsername());
+		session.setAttribute("isAdminUtente", u.getIsAdmin());
+		
+		request.getRequestDispatcher("/login/admin/dashboard_cercaUtente.jsp").forward(request, response);
 	}
 
 	/**

@@ -1,8 +1,6 @@
 package controllers;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,20 +8,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import business.AuthenticationManager;
-import model.User;
+import business.AdminManager;
 
 /**
- * Servlet implementation class LoginController
+ * Servlet implementation class RemoveAdmin
  */
-@WebServlet("/dashboard")
-public class LoginController extends HttpServlet {
+@WebServlet("/removeAdmin")
+public class RemoveAdmin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginController() {
+    public RemoveAdmin() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,15 +29,11 @@ public class LoginController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		AuthenticationManager am = new AuthenticationManager();
-		User u = am.login(request.getParameter("username"), request.getParameter("password"));
-		if (u == null) {
-			request.getRequestDispatcher("/").forward(request, response);
-		} else {
-			HttpSession session = request.getSession();
-			session.setAttribute("nome", u.getNome());
-			request.getRequestDispatcher("/login/admin/dashboard.jsp").forward(request, response);
-		}
+		AdminManager am = new AdminManager();
+		am.removeAdmin(request.getParameter("usernameUser"));
+		HttpSession session = request.getSession();
+		session.setAttribute("username", request.getParameter("usernameUser"));
+		request.getRequestDispatcher("UtenteModificato").forward(request, response);
 	}
 
 	/**
