@@ -45,7 +45,7 @@
 			response.sendRedirect("../../index.html");
 		}
 		String name = (String)session.getAttribute("nome");
-		String nomeUtente = (String)session.getAttribute("nomeUtente");
+		//String nomeUtente = (String)session.getAttribute("nomeUtente");
 		String cognomeUtente = (String)session.getAttribute("cognomeUtente");
 		String emailUtente = (String)session.getAttribute("emailUtente");
 		String usernameUtente = (String)session.getAttribute("usernameUtente");
@@ -105,7 +105,7 @@
 							<form class="d-flex flex-wrap" id="userFound" action="">
 								<div class="form-group adminUtilsData px-3 mx-3 py-3">
 									<label for="nameUser">Nome</label> <input type="text" name="nameUser"
-										class="form-control" id="nameUser" value="<%= nomeUtente %>">
+										class="form-control" id="nameUser" value="${ nomeUtente }">
 								</div>
 								<div class="form-group adminUtilsData px-3 mx-3 py-3">
 									<label for="lastNameUser">Cognome</label> <input type="text" name="lastnameUser"
