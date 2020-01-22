@@ -60,7 +60,6 @@ public class AdminManager {
 		u.setNome(nome);
 		u.setCognome(cognome);
 		u.setEmail(email);
-		u.setUsername(username);
 		em.getTransaction().begin();
 		em.getTransaction().commit();
 		em.close();

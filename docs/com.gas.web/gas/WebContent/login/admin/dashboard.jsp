@@ -110,7 +110,7 @@
 										class="form-control" id="emailUser">
 								</div>
 								<div class="form-group adminUtilsData px-3 mx-3 py-3">
-									<label for="usernameUser">Nome Utente</label> <input
+									<label for="usernameUser">Nome Utente</label> <input 
 										type="text" class="form-control" id="usernameUser">
 								</div>
 								<div class="form-group adminUtilsData px-3 mx-3 py-3">
