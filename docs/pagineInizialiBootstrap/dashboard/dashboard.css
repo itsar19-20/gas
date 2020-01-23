@@ -106,8 +106,7 @@ body {
 	/* Scrollable contents if viewport is shorter than content. */
 }
 
-@
-supports ((position: -webkit-sticky ) or (position: sticky )) { .sidebar-sticky
+@supports ((position: -webkit-sticky ) or (position: sticky )) { .sidebar-sticky
 	{ margin-right:1.4rem;
 	margin-left: 1.4rem;
 	position: -webkit-sticky;

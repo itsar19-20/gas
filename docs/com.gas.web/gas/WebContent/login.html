@@ -22,11 +22,11 @@
             <div class="container p-3">
                 <img class="img-fluid mx-auto" src="logo.svg" alt="logo_GasAdvisor" style="width: 15em">
             </div>
-            <form class="form-signin" action="../dashboard" method="post">
+            <form class="form-signin" method="post">
                 <div class="card-body">
                     <h1 class="card-title">Please sign in</h1>
                     <label for="inputUser" class="sr-only">Email address</label>
-                    <input type="text" id="inputUser" class="form-control" placeholder="Username" required autofocus
+                    <input type="text" id="inputUsername" class="form-control" placeholder="Username" required autofocus
                         name="username">
                     <label for="inputPassword" class="sr-only">Password</label>
                     <input type="password" id="inputPassword" class="form-control" placeholder="Password" required name="password">
@@ -35,11 +35,14 @@
                             <input type="checkbox" value="remember-me"> Remember me
                         </label>
                     </div>
-                    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+                    <button class="btn btn-lg btn-primary btn-block" type="button" id="btnLogin">Sign in</button>
                 </div>
             </form>
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" 
+        crossorigin="anonymous"></script>
 </body>
 
 </html>

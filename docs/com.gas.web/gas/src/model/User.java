@@ -14,6 +14,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * The persistent class for the user database table.
  * 
@@ -32,13 +34,18 @@ public class User implements Serializable {
 
 	private String email;
 
-	private byte isAdmin;
+	private Boolean isAdmin;
+	
+	private Boolean isAttivo;
 
 	private String nome;
-
+	@JsonIgnore
 	private String password;
 
 	private String username;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dataUltimaLogin;
 
 	@Temporal(TemporalType.DATE)
 	private Date dataRegistrazione;
@@ -73,11 +80,11 @@ public class User implements Serializable {
 		this.email = email;
 	}
 
-	public byte getIsAdmin() {
+	public Boolean getIsAdmin() {
 		return this.isAdmin;
 	}
 
-	public void setIsAdmin(byte isAdmin) {
+	public void setIsAdmin(Boolean isAdmin) {
 		this.isAdmin = isAdmin;
 	}
 
@@ -133,6 +140,22 @@ public class User implements Serializable {
 		valutazione.setUser(null);
 
 		return valutazione;
+	}
+
+	public Date getDataUltimaLogin() {
+		return dataUltimaLogin;
+	}
+
+	public void setDataUltimaLogin(Date dataUltimaLogin) {
+		this.dataUltimaLogin = dataUltimaLogin;
+	}
+
+	public Boolean getIsAttivo() {
+		return isAttivo;
+	}
+
+	public void setIsAttivo(Boolean isAttivo) {
+		this.isAttivo = isAttivo;
 	}
 
 }
