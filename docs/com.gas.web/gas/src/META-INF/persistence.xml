@@ -8,10 +8,11 @@
 		<class>model.Valutazione</class>
 		<class>model.Notizia</class>
 		<properties>
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/gas"/>
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/gas2"/>
 			<property name="javax.persistence.jdbc.user" value="diego"/>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
 			<property name="javax.persistence.jdbc.password" value="password"/>
+			<property name="javax.persistence.schema-generation.database.action" value="create"/>
 		</properties>
 	</persistence-unit>
 </persistence>

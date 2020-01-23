@@ -1,7 +1,7 @@
 $(() => {
     $('#btnLogin').click(() => {
         $.ajax({
-            url: '/login',
+            url: '/gas/login',
             method: 'post',
             data: {
                 username: $('#inputUsername').val(),
@@ -15,6 +15,8 @@ $(() => {
                 } else {
                     localStorage.removeItem('user');
                 }
+            }).fail(() => {
+                alert("fail ajax")
             })
     });
 });
