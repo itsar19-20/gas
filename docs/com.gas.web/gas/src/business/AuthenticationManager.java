@@ -1,5 +1,7 @@
 package business;
 
+import java.util.Date;
+
 import javax.persistence.EntityManager;
 
 import model.User;
@@ -12,14 +14,16 @@ public class AuthenticationManager {
 		User _return = null;
 		// cerco l'utente nel DB
 		_return = (User) em.createQuery("Select c FROM User c WHERE c.username LIKE :name").setParameter("name", username).getSingleResult();
-		if (_return != null) {
-			// utente trovato; controllo la password
-			if (!password.contentEquals(_return.getPassword()) || _return.getIsAdmin() == 0) {
-				_return = null;
-			}
+		if (_return == null)
+			return null;
+		em.getTransaction().begin();
+		_return.setDataUltimaLogin(new Date());
+		em.getTransaction().commit();
+		if (password.contentEquals(_return.getPassword()) &&
+				_return.getIsAdmin()) {
+			return _return;
 		}
-		em.close();
-		return _return;
+		return null;
 	}
 
 	public User signup(String email, String nome, String cognome, String username, String password) {

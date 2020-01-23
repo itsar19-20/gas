@@ -1,5 +1,78 @@
+/* css non da bootstrap*/
+a.nav-link:hover {
+	font-weight: bold;
+	color: black;
+}
+
+/* da cambiare su ogni html diverso*/
+a.navListUtenti {
+	font-size: 1.4rem;
+	font-weight: bold;
+	color: black;
+}
+
+.navListFlusso, .navListNotizie, .navListDistributori,
+.navListStatistiche, .navListRecensioni  {
+	font-weight: 500;
+	color: #333;
+}
+
+#nomeAdmin {
+	font-weight: 500;
+	border-bottom: 1px solid #dee2e6;
+	padding-bottom: 1rem;
+	text-align: center;
+}
+/* Sezione dati */
+
+/*buttons colore nero quando passi il mouse*/
+.btn-primary {
+	background-color: #495057;
+	border-color: #212529;
+}
+
+.btn-primary:hover {
+	background-color: #212529;
+	border-color: #495057;
+}
+/*serve per tenere l'altezza della pagins 100%*/
+html {
+	height: 100%;
+	position:relative;
+}
+
+#containerAdmin {
+	height: 100%
+}
+
+#containerDatiApp {
+	height: 100%;
+}
+
+#container_main{
+	position:absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    overflow:hidden;
+}
+
+#container_main_two {
+	height: 100%
+}
+
+#adminUtils {
+	flex: 1;
+	height: 80%;
+}
+
+
+/*Css da bootstrap*/
+
 body {
 	font-size: .875rem;
+	height: 100%;
 }
 
 .feather {
@@ -33,8 +106,7 @@ body {
 	/* Scrollable contents if viewport is shorter than content. */
 }
 
-@
-supports ((position: -webkit-sticky ) or (position: sticky )) { .sidebar-sticky
+@supports ((position: -webkit-sticky ) or (position: sticky )) { .sidebar-sticky
 	{ margin-right:1.4rem;
 	margin-left: 1.4rem;
 	position: -webkit-sticky;
@@ -42,10 +114,7 @@ supports ((position: -webkit-sticky ) or (position: sticky )) { .sidebar-sticky
 }
 
 }
-a.nav-link:hover {
-	font-weight: bold;
-	color: black;
-}
+
 
 .nav-link {
 	padding: 1rem 1rem;
@@ -53,18 +122,6 @@ a.nav-link:hover {
 
 .nav.flex-column {
 	padding-top: 3rem;
-}
-
-#nomeAdmin {
-	font-weight: 500;
-	border-bottom: 1px solid #dee2e6;
-	padding-bottom: 1rem;
-	text-align: center;
-}
-
-.sidebar .nav-link {
-	font-weight: 500;
-	color: #333;
 }
 
 .sidebar .nav-link .feather {
@@ -123,56 +180,3 @@ a.nav-link:hover {
 	box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
 }
 
-/* Sezione dati */
-.form-control {
-	text-align: center;
-}
-
-#userFound {
-	width: 70%;
-}
-
-.adminUtilsData {
-	font-style: italic;
-	text-align: center;
-	flex: 1 0 40%;
-}
-
-.adminUtilsBtn {
-	align-items: center;
-	justify-content: center;
-}
-
-.btn-primary {
-	background-color: #495057;
-	border-color: #212529;
-}
-
-.btn-primary:hover {
-	background-color: #212529;
-	border-color: #495057;
-}
-
-.adminUtils {
-	flex: 4;
-	height: 35rem;
-}
-
-.dataSearch {
-	flex: 2;
-}
-
-.formContainer {
-	justify-content: center;
-	align-items: center;
-	flex: 1;
-}
-
-.formData {
-	flex: 3;
-}
-
-.imageBook {
-	padding-top: 2rem;
-	flex: 1;
-}
