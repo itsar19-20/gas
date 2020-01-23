@@ -1,56 +1,44 @@
 package model;
 
 import java.io.Serializable;
+import javax.persistence.*;
 import java.util.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * The persistent class for the user database table.
  * 
  */
 @Entity
-@Table(name = "user")
-@NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
+@Table(name="user")
+@NamedQuery(name="User.findAll", query="SELECT u FROM User u")
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
 	private String cognome;
 
-	private String email;
-
-	private Boolean isAdmin;
-	
-	private Boolean isAttivo;
-
-	private String nome;
-	@JsonIgnore
-	private String password;
-
-	private String username;
-	
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date dataUltimaLogin;
-
 	@Temporal(TemporalType.DATE)
 	private Date dataRegistrazione;
 
-	@OneToMany(mappedBy = "user")
+	private Date dataUltimaLogin;
+
+	private String email;
+
+	private byte isAdmin;
+
+	private String nome;
+
+	private String password;
+
+	private String username;
+
+	//bi-directional many-to-one association to Valutazione
+	@OneToMany(mappedBy="user")
 	private List<Valutazione> valutaziones;
 
 	public User() {
@@ -72,6 +60,22 @@ public class User implements Serializable {
 		this.cognome = cognome;
 	}
 
+	public Date getDataRegistrazione() {
+		return this.dataRegistrazione;
+	}
+
+	public void setDataRegistrazione(Date dataRegistrazione) {
+		this.dataRegistrazione = dataRegistrazione;
+	}
+
+	public Date getDatauUltimaLogin() {
+		return this.dataUltimaLogin;
+	}
+
+	public void setDataUltimaLogin(Date date) {
+		this.dataUltimaLogin = date;
+	}
+
 	public String getEmail() {
 		return this.email;
 	}
@@ -80,11 +84,11 @@ public class User implements Serializable {
 		this.email = email;
 	}
 
-	public Boolean getIsAdmin() {
+	public byte getIsAdmin() {
 		return this.isAdmin;
 	}
 
-	public void setIsAdmin(Boolean isAdmin) {
+	public void setIsAdmin(byte isAdmin) {
 		this.isAdmin = isAdmin;
 	}
 
@@ -112,19 +116,11 @@ public class User implements Serializable {
 		this.username = username;
 	}
 
-	public Date getDataRegistrazione() {
-		return dataRegistrazione;
-	}
-
-	public void setDataRegistrazione(Date dataRegistrazione) {
-		this.dataRegistrazione = dataRegistrazione;
-	}
-
 	public List<Valutazione> getValutaziones() {
-		return valutaziones;
+		return this.valutaziones;
 	}
 
-	public void setValutazioni(List<Valutazione> valutaziones) {
+	public void setValutaziones(List<Valutazione> valutaziones) {
 		this.valutaziones = valutaziones;
 	}
 
@@ -140,22 +136,6 @@ public class User implements Serializable {
 		valutazione.setUser(null);
 
 		return valutazione;
-	}
-
-	public Date getDataUltimaLogin() {
-		return dataUltimaLogin;
-	}
-
-	public void setDataUltimaLogin(Date dataUltimaLogin) {
-		this.dataUltimaLogin = dataUltimaLogin;
-	}
-
-	public Boolean getIsAttivo() {
-		return isAttivo;
-	}
-
-	public void setIsAttivo(Boolean isAttivo) {
-		this.isAttivo = isAttivo;
 	}
 
 }

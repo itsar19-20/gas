@@ -21,7 +21,7 @@ public class AdminManager {
 		EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
 		User u = (User) em.createQuery("Select c FROM User c WHERE c.username LIKE :name")
 				.setParameter("name", username).getSingleResult();
-		u.setIsAdmin((byte)1);
+		//u.setIsAdmin((byte)1);
 		em.getTransaction().begin();
 		em.getTransaction().commit();
 		em.close();
@@ -31,7 +31,7 @@ public class AdminManager {
 		EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
 		User u = (User) em.createQuery("Select c FROM User c WHERE c.username LIKE :name")
 				.setParameter("name", username).getSingleResult();
-		u.setIsAdmin((byte)0);
+		//u.setIsAdmin((byte)0);
 		em.getTransaction().begin();
 		em.getTransaction().commit();
 		em.close();

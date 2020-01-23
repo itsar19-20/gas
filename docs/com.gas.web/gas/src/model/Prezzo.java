@@ -2,6 +2,7 @@ package model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 
@@ -16,8 +17,10 @@ public class Prezzo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+
+	@Temporal(TemporalType.DATE)
+	private Date dataComunicazione;
 
 	private String descCarburante;
 
@@ -45,6 +48,14 @@ public class Prezzo implements Serializable {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public Date getDataComunicazione() {
+		return this.dataComunicazione;
+	}
+
+	public void setDataComunicazione(Date dataComunicazione) {
+		this.dataComunicazione = dataComunicazione;
 	}
 
 	public String getDescCarburante() {
