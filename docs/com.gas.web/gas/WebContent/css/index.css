@@ -2,7 +2,7 @@
 /* Aggiustando Background*/
 
 body {
-    background: url(images/259.gif) no-repeat center center fixed;
+    background: url(../images/259.gif) no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
