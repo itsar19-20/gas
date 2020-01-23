@@ -2,9 +2,11 @@
   max-width: 98%
   }
   
-  /*
-   * Custom translucent site header
-   */
+  html{
+    height: 100%;
+	  position:relative;
+  }
+
   .immagine {
     width: 3em;
     height: auto;
@@ -34,7 +36,7 @@
   }
   
   /*
-   * Dummy devices (replace them with your own or something else entirely!)
+   * Dummy devices
    */
   
   .product-device {
@@ -46,7 +48,8 @@
     background-color: #333;
     border-radius: 21px;
     -webkit-transform: rotate(30deg);
-    transform: rotate(30deg);
+    transform: rotate(40deg);
+    color: blanchedalmond;
   }
   
   .product-device::before {
@@ -55,7 +58,7 @@
     right: 10px;
     bottom: 10%;
     left: 10px;
-    content: "";
+    content: "Samuele qui puoi inserire quello che ti piace Samuele qui puoi inserire quello che ti piace Samuele qui puoi inserire quello che ti piace";
     background-color: rgba(255, 255, 255, .1);
     border-radius: 5px;
   }

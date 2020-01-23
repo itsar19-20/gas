@@ -16,7 +16,7 @@ $(() => {
                     localStorage.removeItem('user');
                 }
             }).fail(() => {
-                alert("fail ajax")
+                alert("OOPS...Qualcosa e' andato storto!")
             })
     });
 });

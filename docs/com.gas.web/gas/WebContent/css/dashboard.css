@@ -4,6 +4,10 @@ a.nav-link:hover {
 	color: black;
 }
 
+#logout:hover {
+	cursor: pointer;
+}
+
 /* da cambiare su ogni html diverso*/
 a.navListUtenti {
 	font-size: 1.4rem;
@@ -18,6 +22,7 @@ a.navListUtenti {
 }
 
 #nomeAdmin {
+	text-transform: capitalize;
 	font-weight: 500;
 	border-bottom: 1px solid #dee2e6;
 	padding-bottom: 1rem;
