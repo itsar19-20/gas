@@ -1,19 +1,30 @@
 .container {
   max-width: 98%
   }
+<<<<<<< HEAD
+  .scoiattolo{
+   
+    ;
+  }
+  /*
+   * Custom translucent site header
+   */
+=======
   
   html{
     height: 100%;
 	  position:relative;
   }
 
+>>>>>>> 90ae3a31f0bded40b753d79aad20834fddc9753f
   .immagine {
     width: 3em;
     height: auto;
   }
   .wow {
-    background-color: rgba(255, 255, 255, 0.85);
+    background-color: rgba(206, 206, 206, 0.85);
     z-index: 100;
+    border-radius: 50px 5px 50px 5px;
     }
     @media (min-width: 768px) {
       .wow {
@@ -58,8 +69,13 @@
     right: 10px;
     bottom: 10%;
     left: 10px;
+<<<<<<< HEAD
+    content: "";
+    background-color: rgba(255, 255, 255, 0.5);
+=======
     content: "Samuele qui puoi inserire quello che ti piace Samuele qui puoi inserire quello che ti piace Samuele qui puoi inserire quello che ti piace";
     background-color: rgba(255, 255, 255, .1);
+>>>>>>> 90ae3a31f0bded40b753d79aad20834fddc9753f
     border-radius: 5px;
   }
   
