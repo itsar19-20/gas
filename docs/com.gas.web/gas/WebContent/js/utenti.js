@@ -11,7 +11,7 @@ $(document).ready(() => {
                     {
                         data: null,
                         render: function (data, type, row) {
-                            return '<button class="btnUser" data-id="' + row.id + '">Cancella</button>';
+                            return '<button class="btnUser" data-id="' + row.id + '">Modifica</button>';
                         }
                     },
                     { title: 'ID Utente', data: 'id' },
@@ -30,7 +30,7 @@ $(document).ready(() => {
             });
             $('#tblUsers tbody').on('click', '.btnUser', function () { 
                 let data_row = table.row($(this).closest('tr')).data();
-                console.log(data_row);
+                console.log(data_row.nome);
              })
         })
         .fail(() => {
