@@ -1,5 +1,7 @@
 package business;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 
 import model.User;
@@ -37,12 +39,11 @@ public class AdminManager {
 		em.close();
 	}
 	
-	public User searchUser(String username) {
+	public static List<User> getUsers() {
 		EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
-		User u = (User) em.createQuery("Select c FROM User c WHERE c.username LIKE :name")
-				.setParameter("name", username).getSingleResult();
+		List<User> lista = em.createQuery("Select c FROM User c", User.class).getResultList();
 		em.close();
-		return u;
+		return lista;
 	}
 	
 	public User searchUserByEmail (String email) {

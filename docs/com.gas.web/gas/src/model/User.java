@@ -2,6 +2,9 @@ package model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Date;
 import java.sql.Timestamp;
 import java.util.List;
@@ -25,7 +28,7 @@ public class User implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date dataRegistrazione;
 
-	private Date dataUltimaLogin;
+	private Date dataUltimaLogin; 
 
 	private String email;
 
@@ -39,6 +42,7 @@ public class User implements Serializable {
 
 	//bi-directional many-to-one association to Valutazione
 	@OneToMany(mappedBy="user")
+	@JsonIgnore
 	private List<Valutazione> valutaziones;
 
 	public User() {
@@ -68,8 +72,9 @@ public class User implements Serializable {
 		this.dataRegistrazione = dataRegistrazione;
 	}
 
-	public Date getDatauUltimaLogin() {
-		return this.dataUltimaLogin;
+
+	public Date getDataUltimaLogin() {
+		return dataUltimaLogin;
 	}
 
 	public void setDataUltimaLogin(Date date) {

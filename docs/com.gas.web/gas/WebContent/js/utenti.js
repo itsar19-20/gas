@@ -1,0 +1,45 @@
+$(document).ready(() => {
+    $.ajax({
+        url: '/gas/cercaUtenti',
+        method: 'get'
+    })
+        .done((users) => {
+
+            $('#tblUsers').DataTable({
+                data: users,
+                columns: [
+                    {
+                        data: null,
+                        render: function (data, type, row) {
+                            return '<button class="btnUser" data-id="' + row.id + '">Cancella</button>';
+                        }
+                    },
+                    { title: 'ID Utente', data: 'id' },
+                    { title: 'Nome', data: 'nome' },
+                    { title: 'Cognome', data: 'cognome' },
+                    { title: 'Data di Registrazione', data: 'dataRegistrazione' },
+                    { title: 'Ultimo Login', data: 'dataUltimaLogin' },
+                    { title: 'Username', data: 'username' },
+                    { title: 'Admin', data: 'isAdmin' },
+                    { title: 'E-Mail', data: 'email' },
+                ]
+            });
+            table = $('#tblUsers').DataTable({
+                retrieve: true,
+                paging: false
+            });
+            $('.btnUser').click(() => {
+                console.log($(this).data());
+            });
+            console.log(table.data());
+            var data = table.row().data();
+            let nome = JSON.stringify(data);
+            alert('The table has ' + nome + ' records');
+
+        })
+        .fail(() => {
+            alert('OOPS, Utenti non sono caricati!');
+        })
+});
+
+

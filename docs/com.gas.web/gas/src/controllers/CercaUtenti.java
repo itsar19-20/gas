@@ -1,13 +1,15 @@
 package controllers;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import business.AdminManager;
 import model.User;
@@ -15,14 +17,14 @@ import model.User;
 /**
  * Servlet implementation class cercaUtente
  */
-@WebServlet("/dashboard_cercaUtente")
-public class CercaUtente extends HttpServlet {
+@WebServlet("/cercaUtenti")
+public class CercaUtenti extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CercaUtente() {
+    public CercaUtenti() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,16 +34,10 @@ public class CercaUtente extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		AdminManager am = new AdminManager();
-		User u = am.searchUser(request.getParameter("cerca"));
-		HttpSession session = request.getSession();
-		session.setAttribute("nomeUtente", u.getNome());
-		session.setAttribute("cognomeUtente", u.getCognome());
-		session.setAttribute("emailUtente", u.getEmail());
-		session.setAttribute("usernameUtente", u.getUsername());
-		session.setAttribute("isAdminUtente", u.getIsAdmin());
-		
-		request.getRequestDispatcher("/login/admin/dashboard_cercaUtente.jsp").forward(request, response);
+		List<User> lista = AdminManager.getUsers();
+		ObjectMapper om = new ObjectMapper();
+		response.setContentType("application/json");
+		response.getWriter().append(om.writeValueAsString(lista));
 	}
 
 	/**
