@@ -1,35 +1,80 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
-    <title>Gas Advisor</title>
-    <link href="css/index.css" rel="stylesheet" type="text/css">
+    <title>GasAdvisor</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="css/index.css" rel="stylesheet">
 </head>
 
 <body>
-    
-    <nav class="flexItem"><a href="./login.html">Admin</a></nav>
-    <br><br>
-    <header class="flexItem">
-        <h1 class="titolo">Gas Advisor</h1>
-        <br>
-        <h3 class="descrizione">Viaggia senza pensieri, del carburante ci pensiamo noi!</h3>
-    </header>
-    <br><br>
-    <section class="flexItem">
-        <img class="appMockup" src="images/mockup.jpg" alt="pagina_principale_app">
-    </section>
-    <br><br>
-    <footer class="flexItem">
-        <a class="download" href="https://play.google.com/store" target="_blank">Scarica App!</a>
-        
-        <a class="contact" href="mailto:n.tsipas@itsrizzoli.it?subject=Info%App&body=Vorrei%chiedere%info">Contattaci</a>
-    </footer>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" 
-    crossorigin="anonymous"></script>
+    <nav class="site-header sticky-top py-1">
+        <div class="container d-flex flex-column flex-md-row justify-content-between">
+            <a class="py-0" href="#" aria-label="Product">
+                <img class="img-fluid immagine pull-left" src="../logo.svg">
+            </a>
+            <button type="button" class="btn btn-secondary" id="areaRiservata">Area Riservata</button>
+        </div>
+    </nav>
+
+    <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light" id="containerPhones">
+        <div class="wow col-md-5 p-lg-5 mx-auto my-5 justify-content-center">
+            <h1 class="display-4 font-weight-normal">GasAdvisor</h1>
+            <p class="lead font-weight-normal">Trova il posto migliore dove fare il pieno al tuo veicolo!</p>
+
+        </div>
+        <div class="product-device shadow-sm d-none d-md-block"></div>
+        <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
+    </div>
+
+    <div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3"></div>
+    <div class="bg-dark mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
+        <div class="my-3 py-3">
+            <h2 class="display-5"></h2>
+            <button type="button" class="btn btn-light" id="scaricaApp">Scarica L'Applicazione</button>
+        </div>
+        <div class="" style="width: 80%; height: 100px; border-radius: 21px 21px 0 0;">
+        </div>
+    </div>
+    <div class=" bottonemail bg-light mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden" style="height: 100%;">
+        <div class="my-3 p-3">
+            <h2 class="display-5"></h2>
+            <button type="button"
+                onclick="location.href='mailto:loscoiattolodellabenzina@gmail.com?Subject=Hello%20again'"
+                class="bottonemail btn btn-dark">Contattaci</button>
+            <p id="indirizzomail">
+
+                Mail: loscoiattolodellabenzina@gmail.com
+            </p>
+        </div>
+    </div>
+   <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="/docs/4.4/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm"
+        crossorigin="anonymous"></script>
+        <script src="js/index.js"></script>
 </body>
 
 </html>
-
