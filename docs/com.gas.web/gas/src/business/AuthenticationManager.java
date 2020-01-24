@@ -19,7 +19,7 @@ public class AuthenticationManager {
 		em.getTransaction().begin();
 		_return.setDataUltimaLogin(new Date());
 		em.getTransaction().commit();
-		if (password.contentEquals(_return.getPassword())) {
+		if (password.contentEquals(_return.getPassword()) && _return.getIsAdmin()) {
 			return _return;
 		}
 		return null;

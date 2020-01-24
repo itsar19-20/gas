@@ -32,7 +32,7 @@ public class User implements Serializable {
 
 	private String email;
 
-	private byte isAdmin;
+	private Boolean isAdmin;
 
 	private String nome;
 
@@ -89,14 +89,6 @@ public class User implements Serializable {
 		this.email = email;
 	}
 
-	public byte getIsAdmin() {
-		return this.isAdmin;
-	}
-
-	public void setIsAdmin(byte isAdmin) {
-		this.isAdmin = isAdmin;
-	}
-
 	public String getNome() {
 		return this.nome;
 	}
@@ -141,6 +133,14 @@ public class User implements Serializable {
 		valutazione.setUser(null);
 
 		return valutazione;
+	}
+
+	public Boolean getIsAdmin() {
+		return isAdmin;
+	}
+
+	public void setIsAdmin(Boolean isAdmin) {
+		this.isAdmin = isAdmin;
 	}
 
 }

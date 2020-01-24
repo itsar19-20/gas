@@ -28,18 +28,12 @@ $(document).ready(() => {
                 retrieve: true,
                 paging: false
             });
-            $('.btnUser').click(() => {
-                console.log($(this).data());
-            });
-            console.log(table.data());
-            var data = table.row().data();
-            let nome = JSON.stringify(data);
-            alert('The table has ' + nome + ' records');
-
+            $('#tblUsers tbody').on('click', '.btnUser', function () { 
+                let data_row = table.row($(this).closest('tr')).data();
+                console.log(data_row);
+             })
         })
         .fail(() => {
             alert('OOPS, Utenti non sono caricati!');
         })
 });
-
-
