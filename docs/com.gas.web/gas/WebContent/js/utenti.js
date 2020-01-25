@@ -11,7 +11,7 @@ $(document).ready(() => {
                     {
                         data: null,
                         render: function (data, type, row) {
-                            return '<button class="btnUser" data-id="' + row.id + '">Modifica</button>';
+                            return '<button class="btnEdit" data-id="' + row.id + '">Modifica</button>';
                         }
                     },
                     { title: 'ID Utente', data: 'id' },
@@ -28,10 +28,35 @@ $(document).ready(() => {
                 retrieve: true,
                 paging: false
             });
-            $('#tblUsers tbody').on('click', '.btnUser', function () { 
+            
+            $('#tblUsers tbody').on('click', '.btnEdit', function () { 
                 let data_row = table.row($(this).closest('tr')).data();
-                console.log(data_row.nome);
+                $('#modalEdit').modal();
+                $('#editUsername').val(data_row.username);
+                $('#editName').val(data_row.nome);
+                $('#editLastname').val(data_row.cognome);
+                $('#editEmail').val(data_row.email);
+                //$('#div.editForm select').val(data_row.isAdmin);
              })
+             $('#btnSaveEdit').click(() => { 
+                $.ajax({
+                    url: '/gas/editUser',
+                    method: 'get',
+                    contentType: 'application/json; charset=utf-8',
+                    data: {
+                        editName: $('#editName').val(),
+                        editLastname: $('#editLastname').val(),
+                        editEmail: $('#editEmail').val(),
+                        editAdmin: $('select[name=editAdmin]').val(),
+                        editUsername: $('#editUsername').val()
+                    },
+                    dataType: 'text json'
+                }).done((user) => {
+                    if (user) {
+                        location.href = './utenti.html';
+                    }
+                })
+             });
         })
         .fail(() => {
             alert('OOPS, Utenti non sono caricati!');

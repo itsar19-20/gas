@@ -19,26 +19,6 @@ public class AdminManager {
 		em.close();
 	}
 
-	public void addAdmin(String username) {
-		EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
-		User u = (User) em.createQuery("Select c FROM User c WHERE c.username LIKE :name")
-				.setParameter("name", username).getSingleResult();
-		//u.setIsAdmin((byte)1);
-		em.getTransaction().begin();
-		em.getTransaction().commit();
-		em.close();
-	}
-	
-	public void removeAdmin(String username) {
-		EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
-		User u = (User) em.createQuery("Select c FROM User c WHERE c.username LIKE :name")
-				.setParameter("name", username).getSingleResult();
-		//u.setIsAdmin((byte)0);
-		em.getTransaction().begin();
-		em.getTransaction().commit();
-		em.close();
-	}
-	
 	public static List<User> getUsers() {
 		EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
 		List<User> lista = em.createQuery("Select c FROM User c", User.class).getResultList();
@@ -46,24 +26,18 @@ public class AdminManager {
 		return lista;
 	}
 	
-	public User searchUserByEmail (String email) {
-		EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
-		User u = (User) em.createQuery("Select c FROM User c WHERE c.email LIKE :mail")
-				.setParameter("mail", email).getSingleResult();
-		em.close();
-		return u;
-	}
-	
-	public void editUser(String nome, String cognome, String email, String username) {
+	public User editUser(String nome, String cognome, String email, Boolean isAdmin, String username) {
 		EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
 		User u = (User) em.createQuery("Select c FROM User c WHERE c.username LIKE :name")
 				.setParameter("name", username).getSingleResult();
 		u.setNome(nome);
 		u.setCognome(cognome);
 		u.setEmail(email);
+		u.setIsAdmin(isAdmin);
 		em.getTransaction().begin();
 		em.getTransaction().commit();
 		em.close();
+		return u;
 	}
 
 }

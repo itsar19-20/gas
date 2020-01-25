@@ -7,9 +7,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import business.AdminManager;
+import model.User;
 
 /**
  * Servlet implementation class EditUser
@@ -30,12 +32,15 @@ public class EditUser extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("inizio cercare");
 		AdminManager am = new AdminManager();
-		am.editUser(request.getParameter("nameUser"), request.getParameter("lastnameUser"), 
-				request.getParameter("emailUser"), request.getParameter("usernameUser"));
-		HttpSession session = request.getSession();
-		session.setAttribute("username", request.getParameter("usernameUser"));
-		request.getRequestDispatcher("UtenteModificato").forward(request, response);
+		boolean editAdmin = Boolean.parseBoolean(request.getParameter("editAdmin"));
+		User u = am.editUser(request.getParameter("editName"), request.getParameter("editLastname"),
+				request.getParameter("editEmail"), editAdmin, request.getParameter("editUsername"));
+		System.out.println("modificato");
+		ObjectMapper om = new ObjectMapper();
+		response.setContentType("application/json");
+		response.getWriter().append(om.writeValueAsString(u));
 	}
 
 	/**
