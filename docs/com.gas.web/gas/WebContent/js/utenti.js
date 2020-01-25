@@ -1,4 +1,5 @@
 $(document).ready(() => {
+    /**Inizio creazione tabella */
     $.ajax({
         url: '/gas/cercaUtenti',
         method: 'get'
@@ -24,11 +25,12 @@ $(document).ready(() => {
                     { title: 'E-Mail', data: 'email' },
                 ]
             });
+            /**Serve perche la tabella da errore quando viene chiamata */
             table = $('#tblUsers').DataTable({
                 retrieve: true,
                 paging: false
             });
-            
+            /** Funzione onClick per bottone Modifica, attiva e mette parametri in modal */
             $('#tblUsers tbody').on('click', '.btnEdit', function () { 
                 let data_row = table.row($(this).closest('tr')).data();
                 $('#modalEdit').modal();
@@ -38,6 +40,8 @@ $(document).ready(() => {
                 $('#editEmail').val(data_row.email);
                 //$('#div.editForm select').val(data_row.isAdmin);
              })
+
+             /** Funzione onClick per bottone salva modifiche dentro il modal */
              $('#btnSaveEdit').click(() => { 
                 $.ajax({
                     url: '/gas/editUser',
@@ -58,6 +62,7 @@ $(document).ready(() => {
                 })
              });
         })
+        /**Fail del caricamento tabella */
         .fail(() => {
             alert('OOPS, Utenti non sono caricati!');
         })
