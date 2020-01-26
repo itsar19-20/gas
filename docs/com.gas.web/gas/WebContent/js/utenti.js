@@ -12,7 +12,13 @@ $(document).ready(() => {
                     {
                         data: null,
                         render: function (data, type, row) {
-                            return '<button class="btnEdit" data-id="' + row.id + '">Modifica</button>';
+                            return '<button class="btnEdit btn btn-primary btn-sm" data-id="' + row.id + '">Modifica</button>';
+                        }
+                    },
+                    {
+                        data: null,
+                        render: function (data, type, row) {
+                            return '<button class="btnDelete btn btn-danger btn-sm" data-id="' + row.id + '">Cancella</button>';
                         }
                     },
                     { title: 'ID Utente', data: 'id' },
@@ -30,19 +36,47 @@ $(document).ready(() => {
                 retrieve: true,
                 paging: false
             });
+
+            /** Funzione onClick per bottone Cancella, attiva e mette parametri in modal */
+            $('#tblUsers tbody').on('click', '.btnDelete', function () {
+                let data_row = table.row($(this).closest('tr')).data();
+                $('#modalDelete').modal();
+                $('#deleteUsername').text(data_row.username);
+                $('#deleteName').text(data_row.nome);
+                $('#deleteLastname').text(data_row.cognome);
+                $('#deleteEmail').text(data_row.email);
+            })
+
+            /** Funzione onClick per bottone Cancella dentro il modal Delete */
+            $('#btnDeleteUser').click(() => {
+                $.ajax({
+                    url: '/gas/deleteUser',
+                    method: 'get',
+                    data: {
+                        deleteUsername: $('#deleteUsername').text()
+                    },
+                }).done((risposta) => {
+                    if(risposta) {
+                    location.href = './utenti.html';
+                    }
+                }).fail(() => {
+                    alert("Qualcosa e' andato storto!")
+                })
+            });
+
             /** Funzione onClick per bottone Modifica, attiva e mette parametri in modal */
-            $('#tblUsers tbody').on('click', '.btnEdit', function () { 
+            $('#tblUsers tbody').on('click', '.btnEdit', function () {
                 let data_row = table.row($(this).closest('tr')).data();
                 $('#modalEdit').modal();
-                $('#editUsername').val(data_row.username);
+                $('#editUsername').text(data_row.username);
                 $('#editName').val(data_row.nome);
                 $('#editLastname').val(data_row.cognome);
                 $('#editEmail').val(data_row.email);
                 //$('#div.editForm select').val(data_row.isAdmin);
-             })
+            })
 
-             /** Funzione onClick per bottone salva modifiche dentro il modal */
-             $('#btnSaveEdit').click(() => { 
+            /** Funzione onClick per bottone Salva Modifiche dentro il modal Modifica */
+            $('#btnSaveEdit').click(() => {
                 $.ajax({
                     url: '/gas/editUser',
                     method: 'get',
@@ -52,15 +86,17 @@ $(document).ready(() => {
                         editLastname: $('#editLastname').val(),
                         editEmail: $('#editEmail').val(),
                         editAdmin: $('select[name=editAdmin]').val(),
-                        editUsername: $('#editUsername').val()
+                        editUsername: $('#editUsername').text()
                     },
                     dataType: 'text json'
                 }).done((user) => {
                     if (user) {
                         location.href = './utenti.html';
                     }
+                }).fail(() => {
+                    alert("Qualcosa e' andato storto!")
                 })
-             });
+            });
         })
         /**Fail del caricamento tabella */
         .fail(() => {

@@ -25,7 +25,8 @@ public class DeleteUser extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		AdminManager am = new AdminManager();
-		am.deleteUser(request.getParameter("username"));
+		am.deleteUser(request.getParameter("deleteUsername"));
+		response.getWriter().append("Utente Cancellato");
 	}
 
 	/**

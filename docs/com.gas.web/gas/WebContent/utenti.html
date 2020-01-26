@@ -62,11 +62,11 @@
 									data-feather="shopping-cart"></span>
 								Notizie
 							</a></li>
-						<li class="nav-item"><a class="nav-link navListRecensioni" href="/gas/recenzioni.html"> <span
+						<li class="nav-item"><a class="nav-link navListRecensioni" href="/gas/recensioni.html"> <span
 									data-feather="users"></span> Recensioni
 							</a></li>
-						<li class="nav-item"><a class="nav-link navListDistributori" href="/gas/distributori.html"> <span
-									data-feather="bar-chart-2"></span>
+						<li class="nav-item"><a class="nav-link navListDistributori" href="/gas/distributori.html">
+								<span data-feather="bar-chart-2"></span>
 								Distributori
 							</a></li>
 						<li class="nav-item"><a class="nav-link navListStatistiche" href="/gas/statistiche.html"> <span
@@ -85,14 +85,15 @@
 				<!--tutto il container con dati utenti a destra-->
 				<div class="border d-flex flex-column" id="adminUtils">
 					<table id="tblUsers" class="display"></table>
-					
+
 					<!-- Modal Modifica -->
 					<div class="modal" id="modalEdit">
 						<div class="modal-dialog modal-dialog-centered">
 							<div class="modal-content">
 								<!-- Modal Header -->
 								<div class="modal-header">
-									<h4 class="modal-title" id="modalEditHeader">Modifica dati Utente: <span id="editUsername"></span></h4>
+									<h4 class="modal-title pr-2" id="modalEditHeader">Modifica Dati Utente: <span
+											id="editUsername"></span></h4>
 									<button type="button" class="close" data-dismiss="modal">&times;</button>
 								</div>
 								<!-- Modal body -->
@@ -111,12 +112,14 @@
 										<option value="true">true</option>
 										<option value="false" selected>false</option>
 									</select>
-									<small class="font-weight-bold">Seleziona 'true' solo se l'Utente e' un Amministratore.</small>
+									<small class="font-weight-bold">Seleziona 'true' solo se l'Utente e' un
+										Amministratore.</small>
 								</div>
 								<!-- Modal footer -->
 								<div class="modal-footer">
-									<button type="button" class="btn btn-danger" data-dismiss="modal">Esci</button>
-									<button type="button" class="btn btn-primary" id="btnSaveEdit">Salva Modifiche</button>
+									<button type="button" class="btn btn-primary" data-dismiss="modal">Esci</button>
+									<button type="button" class="btn btn-danger" id="btnSaveEdit">Salva
+										Modifiche</button>
 								</div>
 							</div>
 						</div>
@@ -133,17 +136,21 @@
 								</div>
 								<!-- Modal body -->
 								<div class="modal-body font-weight-bold">
-									Attenzione! Questa azione non e' reversibile!
+									<h5>Username: <span id="deleteUsername"></span></h5>
+									<h5>Nome: <span id="deleteName"></span></h5>
+									<h5>Cognome: <span id="deleteLastname"></span></h5>
+									<h5>Email: <span id="deleteEmail"></span></h5>
+									<br>
 								</div>
 								<!-- Modal footer -->
 								<div class="modal-footer">
-									<button type="button" class="btn btn-danger" data-dismiss="modal">Esci</button>
-									<button type="button" class="btn btn-primary">Cancella</button>
+									<button type="button" class="btn btn-primary" data-dismiss="modal">Esci</button>
+									<button type="button" class="btn btn-danger" id="btnDeleteUser">Cancella</button>
 								</div>
 							</div>
 						</div>
 					</div>
-					
+
 
 
 				</div>

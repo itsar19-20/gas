@@ -35,7 +35,8 @@ public class User implements Serializable {
 	private Boolean isAdmin;
 
 	private String nome;
-
+	
+	@JsonIgnore
 	private String password;
 
 	private String username;
