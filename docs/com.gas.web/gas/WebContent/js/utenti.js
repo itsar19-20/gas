@@ -29,7 +29,21 @@ $(document).ready(() => {
                     { title: 'Username', data: 'username' },
                     { title: 'Admin', data: 'isAdmin' },
                     { title: 'E-Mail', data: 'email' },
-                ]
+                ],
+                language: {
+                    lengthMenu: "Mostra _MENU_ Utenti per pagina",
+                    zeroRecords: "Nessun Utente trovato - ci dispiace!",
+                    info: "Mostrando pagina _PAGE_ di _PAGES_",
+                    infoEmpty: "Niente dati disponibili!",
+                    infoFiltered: "(Filtrato da _MAX_ Utenti totali)",
+                    search: "Cerca",
+                    paginate: {
+                        first: "Inizio",
+                        last: "Fine",
+                        next: "Prossimo",
+                        previous: "Precedente"
+                    }
+                }
             });
             /**Serve perche la tabella da errore quando viene chiamata */
             table = $('#tblUsers').DataTable({
@@ -56,8 +70,8 @@ $(document).ready(() => {
                         deleteUsername: $('#deleteUsername').text()
                     },
                 }).done((risposta) => {
-                    if(risposta) {
-                    location.href = './utenti.html';
+                    if (risposta) {
+                        location.href = './utenti.html';
                     }
                 }).fail(() => {
                     alert("Qualcosa e' andato storto!")
