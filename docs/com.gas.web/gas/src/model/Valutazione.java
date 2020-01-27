@@ -33,7 +33,7 @@ public class Valutazione implements Serializable {
 
 	//bi-directional many-to-one association to User
 	@ManyToOne
-	@JoinColumn(name="idUser")
+	@JoinColumn(name="username")
 	private User user;
 
 	public Valutazione() {
