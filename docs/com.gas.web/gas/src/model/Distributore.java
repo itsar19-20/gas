@@ -198,4 +198,9 @@ public class Distributore implements Serializable {
 		return valutazione;
 	}
 
+	@Override
+	public String toString() {
+		return nomeImpianto;
+	}
+
 }

@@ -12,13 +12,13 @@ $(document).ready(() => {
                     {
                         data: null,
                         render: function (data, type, row) {
-                            return '<button class="btnEdit btn btn-primary btn-sm" data-id="' + row.id + '">Modifica</button>';
+                            return '<button class="btnEdit btn btn-primary btn-sm">Modifica</button>';
                         }
                     },
                     {
                         data: null,
                         render: function (data, type, row) {
-                            return '<button class="btnDelete btn btn-danger btn-sm" data-id="' + row.id + '">Cancella</button>';
+                            return '<button class="btnDelete btn btn-danger btn-sm">Cancella</button>';
                         }
                     },
                     { title: 'ID Utente', data: 'id' },
