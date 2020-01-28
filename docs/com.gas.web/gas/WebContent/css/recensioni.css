@@ -1,3 +1,8 @@
+#adminUtils {
+    overflow-y: auto; 
+    overflow-x: hidden;
+}
+
 /* da cambiare su ogni html diverso*/
 a.navListRecensioni {
 	font-size: 1.4rem;

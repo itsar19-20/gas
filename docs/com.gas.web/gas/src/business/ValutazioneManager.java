@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 import model.Distributore;
 import model.User;
@@ -19,7 +20,8 @@ public class ValutazioneManager {
 	
 	public static List <Valutazione> getValutazioni() {
 		EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
-		List<Valutazione> lista = em.createQuery("Select c FROM Valutazione c", Valutazione.class).getResultList();
+		Query q = em.createQuery("SELECT e FROM Valutazione e", Valutazione.class);
+		List<Valutazione> lista = q.getResultList();
 		em.close();
 		return lista;
 	}
