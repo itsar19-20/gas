@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 import model.Distributore;
 import model.User;
@@ -12,14 +13,21 @@ import utils.JPAUtil;
 
 public class ValutazioneManager {
 	
-	public void deleteValutazione() {
+	public void deleteValutazione(String idS) {
 		EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
-		
+		int id = Integer.parseInt(idS);
+		Valutazione v = (Valutazione) em.createQuery("Select c FROM Valutazione c WHERE c.id LIKE :id")
+				.setParameter("id", id).getSingleResult();
+		em.getTransaction().begin();
+		em.remove(v);
+		em.getTransaction().commit();
+		em.close();
 	}
 	
 	public static List <Valutazione> getValutazioni() {
 		EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
-		List<Valutazione> lista = em.createQuery("Select c FROM Valutazione c", Valutazione.class).getResultList();
+		Query q = em.createQuery("SELECT e FROM Valutazione e", Valutazione.class);
+		List<Valutazione> lista = q.getResultList();
 		em.close();
 		return lista;
 	}

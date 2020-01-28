@@ -27,6 +27,8 @@
 	</style>
 
 	<!-- Stili di questa pagina -->
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+	<link rel="stylesheet" href="css/table.css">
 	<link href="css/dashboard.css" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="css/recensioni.css">
 </head>
@@ -79,7 +81,35 @@
 				</div>
 				<!--tutto il container con dati utenti a destra-->
 				<div class="border d-flex flex-column" id="adminUtils">
+					<table id="tblRecensioni" class="display"></table>
 
+
+					<!-- Modal Cancella -->
+					<div class="modal" id="modalDelete">
+						<div class="modal-dialog modal-dialog-centered">
+							<div class="modal-content">
+								<!-- Modal Header -->
+								<div class="modal-header">
+									<h4 class="modal-title">Vuoi cancellare questa recensione?</h4>
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+								</div>
+								<!-- Modal body -->
+								<div class="modal-body font-weight-bold">
+									<h5>ID Valutazione: <span id="deleteIdValutazione"></span></h5>
+									<h5>User: <span id="deleteUser"></span></h5>
+									<h5>Distributore: <span id="deleteDistributore"></span></h5>
+									<h5>Giudizio: <span id="deleteGiudizio"></span></h5>
+									<h5>Commento: <span id="deleteDescrizione"></span></h5>
+									<br>
+								</div>
+								<!-- Modal footer -->
+								<div class="modal-footer">
+									<button type="button" class="btn btn-primary" data-dismiss="modal">Esci</button>
+									<button type="button" class="btn btn-danger" id="btnDeleteValutazione">Cancella</button>
+								</div>
+							</div>
+						</div>
+					</div>
 
 
 
@@ -93,6 +123,8 @@
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"
 		integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 	<script src="js/dashboard.js"></script>
 	<script src="js/recensioni.js"></script>
 </body>

@@ -1,3 +1,8 @@
+#adminUtils {
+    overflow-y: auto; 
+    overflow-x: hidden;
+}
+
 /* da cambiare su ogni html diverso*/
 a.navListRecensioni {
 	font-size: 1.4rem;
@@ -9,4 +14,12 @@ a.navListRecensioni {
 .navListStatistiche, .navListUtenti  {
 	font-weight: 500;
 	color: #333;
+}
+/*tabella*/
+td.details-control {
+    background: url('https://legacy.datatables.net/release-datatables/examples/examples_support/details_open.png') no-repeat center center;
+    cursor: pointer;
+}
+tr.shown td.details-control {
+    background: url('https://legacy.datatables.net/release-datatables/examples/examples_support/details_close.png') no-repeat center center;
 }

@@ -10,6 +10,9 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+
 /**
  * The persistent class for the distributore database table.
  * 
@@ -42,14 +45,17 @@ public class Distributore implements Serializable {
 	private String tipoImpianto;
 
 	//bi-directional many-to-one association to Prezzo
+	@JsonIgnore
 	@OneToMany(mappedBy="distributore")
 	private List<Prezzo> prezzos;
 
 	//bi-directional many-to-one association to Statistiche
+	@JsonIgnore
 	@OneToMany(mappedBy="distributore")
 	private List<Statistiche> statistiches;
 
 	//bi-directional many-to-one association to Valutazione
+	@JsonIgnore
 	@OneToMany(mappedBy="distributore")
 	private List<Valutazione> valutaziones;
 
