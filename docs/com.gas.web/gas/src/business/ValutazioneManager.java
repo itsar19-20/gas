@@ -13,9 +13,15 @@ import utils.JPAUtil;
 
 public class ValutazioneManager {
 	
-	public void deleteValutazione() {
+	public void deleteValutazione(String idS) {
 		EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
-		
+		int id = Integer.parseInt(idS);
+		Valutazione v = (Valutazione) em.createQuery("Select c FROM Valutazione c WHERE c.id LIKE :id")
+				.setParameter("id", id).getSingleResult();
+		em.getTransaction().begin();
+		em.remove(v);
+		em.getTransaction().commit();
+		em.close();
 	}
 	
 	public static List <Valutazione> getValutazioni() {
