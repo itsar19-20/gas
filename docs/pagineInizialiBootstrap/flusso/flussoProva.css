@@ -175,23 +175,25 @@ body {
 }
 
 /* qui inizia css flusso giornaliero*/
-#infoValueContainer {
+#containerStations {
     flex: 1;
 }
-#uploadCSVContainer {
-    flex: 2;
+#containerPrice {
+    flex: 1;
 }
-#textContainerPrezzi {
+#textContainerPrice {
     flex:1;
 }
-#formUpload {
+
+#textContainerStations {
+    flex:1;
+}
+
+#formUpdateStation {
     flex: 2;
 }
 
-#alertError {
-    visibility: hidden;
+#formUpdatePrice {
+	flex: 2;
 }
 
-#alertSuccess {
-    visibility: hidden;
-}

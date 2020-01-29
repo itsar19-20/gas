@@ -78,36 +78,21 @@
                 </div>
                 <!--tutto il container con dati utenti a destra-->
                 <div class="border d-flex" id="adminUtils">
-
-                    <div class="border d-flex flex-column justify-content-center" id="infoValueContainer">
-
-                        <div class="d-flex flex-column text-center">
-                            <h4>Totale Utenti:</h4>
-                            <p id="totalUsers"></p>
-                            <br><br>
-                            <h4>Totale Recensioni:</h4>
-                            <p id="totalReview"></p>
-                            <br><br>
-                            <h4>Totale Distributori:</h4>
-                            <p id="totalStations"></p>
-                            <br><br>
-                            <h4>Ultimo Aggiornamento:</h4>
-                            <p id="lastUpdate"></p>
-                            <br><br>
-                        </div>
-                    </div>
-                    <div class="border d-flex flex-column" id="uploadCSVContainer">
-                        <div class="d-flex flex-column-reverse text-center" id="textContainerPrezzi">
-                            <h3 class="pb-5">Aggiornamento Prezzi!</h3>
+                    <!--Container a sinistra-->
+                    <div class="border d-flex flex-column justify-content-center" id="containerStations">
+                        <div class="d-flex flex-column-reverse text-center" id="textContainerStations">
+                            <small>Scegli file CSV da inserire</small>
+                            <h3 class="pb-5">Aggiorna Distributori!</h3>
                         </div>
                         <br>
-                        <form id="formUpload" class="pt-3" action="/gas/caricaCSV" method="GET">
+                        <form id="formUpdateStation" class="pt-3" action="/gas/caricaCSV" method="GET">
                             <div class="form-group d-flex flex-column">
                                 <div class="input-group d-flex justify-content-center pb-5">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">
                                             <input type="file"> <span><a href="https://www.mise.gov.it/index.php/it/open-data/elenco-dataset/2032336-
-                                carburanti-prezzi-praticati-e-anagrafica-degli-impianti" target="_blank">Scarica CSV!</a></span>
+                                carburanti-prezzi-praticati-e-anagrafica-degli-impianti" target="_blank">Scarica
+                                                    CSV!</a></span>
                                         </div>
                                     </div>
                                 </div>
@@ -116,23 +101,32 @@
                                     <button type="" class="btn btn-primary">Carica</button>
                                 </div>
                                 <br>
-                                <!--Allerte da fare vedere quando il vile CSV si carica-->
-                                <div id="alertError" class="alert alert-danger alert-dismissible fade show text-center"
-                                    role="alert">
-                                    <strong>Errore! </strong> File non caricato!
-                                    <button id="dismissError" type="button" class="close" data-dismiss="alert"
-                                        aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
+                            </div>
+                        </form>
+                    </div>
+                    <!--Container a destra-->
+                    <div class="border d-flex flex-column" id="containerPrice">
+                        <div class="d-flex flex-column-reverse text-center" id="textContainerPrice">
+                            <small>Scegli file CSV da inserire</small>
+                            <h3 class="pb-5">Aggiorna Prezzi!</h3>
+                        </div>
+                        <br>
+                        <form id="formUpdatePrice" class="pt-3" action="/gas/caricaCSV" method="GET">
+                            <div class="form-group d-flex flex-column">
+                                <div class="input-group d-flex justify-content-center pb-5">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <input type="file"> <span><a href="https://www.mise.gov.it/index.php/it/open-data/elenco-dataset/2032336-
+                                carburanti-prezzi-praticati-e-anagrafica-degli-impianti" target="_blank">Scarica
+                                                    CSV!</a></span>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div id="alertSuccess" class="alert alert-success alert-dismissible fade show text-center"
-                                    role="alert">
-                                    <strong>Successo! </strong> File caricato!
-                                    <button id="dismissSuccess" type="button" class="close" data-dismiss="alert"
-                                        aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
+                                <br>
+                                <div class="d-flex justify-content-center">
+                                    <button type="" class="btn btn-primary">Carica</button>
                                 </div>
+                                <br>
                             </div>
                         </form>
                     </div>
@@ -143,7 +137,6 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
     <script src="flussoProva.js"></script>
 </body>
 

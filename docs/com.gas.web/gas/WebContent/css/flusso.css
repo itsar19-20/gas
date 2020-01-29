@@ -10,3 +10,29 @@ a.navListFlusso {
 	font-weight: 500;
 	color: #333;
 }
+/* qui inizia css flusso giornaliero*/
+#containerStations {
+    flex: 1;
+}
+#containerPrice {
+    flex: 1;
+}
+#textContainerPrice {
+    flex:1;
+}
+
+#textContainerStations {
+    flex:1;
+}
+
+#formUpdateStation {
+    flex: 2;
+}
+
+#formUpdatePrice {
+	flex: 2;
+}
+
+#msgUploadSuccesful {
+	color: blue;
+}

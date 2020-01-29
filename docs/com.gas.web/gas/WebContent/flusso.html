@@ -78,14 +78,59 @@
 					<h1 class="h2" id="datiApp">Dati Applicazione</h1>
 				</div>
 				<!--tutto il container con dati utenti a destra-->
-				<div class="border d-flex flex-column" id="adminUtils">
-
-
-
-
-
-
-
+				<div class="border d-flex" id="adminUtils">
+					<!--Container a sinistra-->
+					<div class="border d-flex flex-column justify-content-center" id="containerStations">
+						<div class="d-flex flex-column-reverse text-center" id="textContainerStations">
+							<small>Scegli file CSV da inserire</small>
+							<h3 class="pb-5">Aggiorna Distributori!</h3>
+						</div>
+						<br>
+						<form id="formUpdateStation" class="pt-3" action="/gas/aggiornaDistributori" method="POST" enctype="multipart/form-data">
+							<div class="form-group d-flex flex-column">
+								<div class="input-group d-flex justify-content-center pb-5">
+									<div class="input-group-prepend">
+										<div class="input-group-text">
+											<input type="file" name="file"> <span><a href="https://www.mise.gov.it/index.php/it/open-data/elenco-dataset/2032336-
+                                carburanti-prezzi-praticati-e-anagrafica-degli-impianti" target="_blank">Scarica
+													CSV!</a></span>
+										</div>
+									</div>
+								</div>
+								<br>
+								<div class="d-flex justify-content-center">
+									<button type="" class="btn btn-primary">Carica</button>
+								</div>
+								<br>
+							</div>
+						</form>
+					</div>
+					<!--Container a destra-->
+					<div class="border d-flex flex-column" id="containerPrice">
+						<div class="d-flex flex-column-reverse text-center" id="textContainerPrice">
+							<small>Scegli file CSV da inserire</small>
+							<h3 class="pb-5">Aggiorna Prezzi!</h3>
+						</div>
+						<br>
+						<form id="formUpdatePrice" class="pt-3" action="/gas/aggiornaPrezzi" method="POST" enctype="multipart/form-data">
+							<div class="form-group d-flex flex-column">
+								<div class="input-group d-flex justify-content-center pb-5">
+									<div class="input-group-prepend">
+										<div class="input-group-text">
+											<input type="file" name="file"> <span><a href="https://www.mise.gov.it/index.php/it/open-data/elenco-dataset/2032336-
+                                carburanti-prezzi-praticati-e-anagrafica-degli-impianti" target="_blank">Scarica
+													CSV!</a></span>
+										</div>
+									</div>
+								</div>
+								<br>
+								<div class="d-flex justify-content-center">
+									<button type="" class="btn btn-primary">Carica</button>
+								</div>
+								<br>
+							</div>
+						</form>
+					</div>
 				</div>
 			</main>
 		</div>
