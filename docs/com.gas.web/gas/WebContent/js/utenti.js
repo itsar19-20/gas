@@ -24,8 +24,29 @@ $(document).ready(() => {
                     { title: 'ID Utente', data: 'id' },
                     { title: 'Nome', data: 'nome' },
                     { title: 'Cognome', data: 'cognome' },
-                    { title: 'Data di Registrazione', data: 'dataRegistrazione' },
-                    { title: 'Ultimo Login', data: 'dataUltimaLogin' },
+                    {
+                        title: 'Data di Registrazione', data: 'dataRegistrazione', render: function (data) {
+                            var date = new Date(data);
+                            var dt = date.getDate();
+                            var month = date.getMonth() + 1;
+                            return (dt.toString().length > 1 ? dt : "0" + dt) + "/" + (month.toString().length > 1 ? month : "0" + month) + "/" +
+                                date.getFullYear();
+                        }
+                    },
+                    {
+                        title: 'Ultimo Login', data: 'dataUltimaLogin',
+                        render: function (data) {
+                            var date = new Date(data);
+                            var dt = date.getDate();
+                            var month = date.getMonth() + 1;
+                            var hrs = date.getHours() + 1;
+                            var min = date.getMinutes() + 1;
+                            var sec = date.getSeconds() + 1;
+                            return (dt.toString().length > 1 ? dt : "0" + dt) + "/" + (month.toString().length > 1 ? month : "0" + month) + "/" +
+                                date.getFullYear() + ' ' + (hrs.toString().length > 1 ? hrs : "0" + hrs) + ":" + (min.toString().length > 1 ? min : "0" + min)
+                                + ":" + (sec.toString().length > 1 ? sec : "0" + sec);
+                        }
+                    },
                     { title: 'Username', data: 'username' },
                     { title: 'Admin', data: 'isAdmin' },
                     { title: 'E-Mail', data: 'email' },

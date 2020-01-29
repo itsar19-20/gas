@@ -6,23 +6,23 @@ $(document).ready(() => {
     })
         .done((valutazioni) => {
             /* Formatting function for row details - modify as you need */
-            function format ( valutazioni ) {
+            function format(valutazioni) {
                 // `d` is the original data object for the row
-                return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
-                    '<tr>'+
-                        '<td>Commento:</td>'+
-                        '<td>'+valutazioni.descrizione+'</td>'+
-                    '</tr>'+
-                '</table>';
+                return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
+                    '<tr>' +
+                    '<td>Commento:</td>' +
+                    '<td>' + valutazioni.descrizione + '</td>' +
+                    '</tr>' +
+                    '</table>';
             }
 
             $('#tblRecensioni').DataTable({
                 data: valutazioni,
                 columns: [
                     {
-                        className:      'details-control',
-                        orderable:      false,
-                        data:           null,
+                        className: 'details-control',
+                        orderable: false,
+                        data: null,
                         defaultContent: ''
                     },
                     {
@@ -35,7 +35,15 @@ $(document).ready(() => {
                     { title: 'Commento', data: 'descrizione' },
                     { title: 'Giudizio', data: 'giudizio' },
                     { title: 'Distributore', data: 'distributore.nomeImpianto' },
-                    { title: 'Data', data: 'data' },
+                    {
+                        title: 'Data', data: 'data', render: function (data) {
+                            var date = new Date(data);
+                            var dt = date.getDate();
+                            var month = date.getMonth() + 1;
+                            return (dt.toString().length > 1 ? dt : "0" + dt) + "/" + (month.toString().length > 1 ? month : "0" + month) + "/" +
+                                date.getFullYear();
+                        }
+                    },
                     { title: 'User', data: 'user.username' },
                 ],
                 order: [1, 'asc'],
@@ -63,19 +71,19 @@ $(document).ready(() => {
             /** Onclick bottone espandi commento */
             $('#tblRecensioni tbody').on('click', 'td.details-control', function () {
                 var tr = $(this).closest('tr');
-                var row = table.row( tr );
-         
-                if ( row.child.isShown() ) {
+                var row = table.row(tr);
+
+                if (row.child.isShown()) {
                     // This row is already open - close it
                     row.child.hide();
                     tr.removeClass('shown');
                 }
                 else {
                     // Open this row
-                    row.child( format(row.data()) ).show();
+                    row.child(format(row.data())).show();
                     tr.addClass('shown');
                 }
-            } );
+            });
 
             /** Funzione onClick per bottone Cancella, attiva e mette parametri in modal */
             $('#tblRecensioni tbody').on('click', '.btnDelete', function () {
