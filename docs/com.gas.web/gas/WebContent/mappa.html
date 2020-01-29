@@ -3,6 +3,7 @@
 
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
 	<title>Administrator Page</title>
 	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico?" />
 	<!-- Bootstrap core CSS -->
@@ -27,8 +28,9 @@
 	</style>
 
 	<!-- Stili di questa pagina -->
+	<link href="https://api.mapbox.com/mapbox-gl-js/v1.7.0/mapbox-gl.css" rel="stylesheet" />
 	<link href="css/dashboard.css" rel="stylesheet" type="text/css">
-	<link rel="stylesheet" href="css/notizie.css">
+	<link rel="stylesheet" href="css/mappa.css">
 </head>
 
 <body>
@@ -57,9 +59,9 @@
 									data-feather="file"></span> Flusso
 								Giornaliero
 							</a></li>
-						<li class="nav-item"><a class="nav-link navListNotizie" href="/gas/notizie.html"> <span
+						<li class="nav-item"><a class="nav-link navListNotizie" href="/gas/mappa.html"> <span
 									data-feather="shopping-cart"></span>
-								Notizie
+								Mappa
 							</a></li>
 						<li class="nav-item"><a class="nav-link navListRecensioni" href="/gas/recensioni.html"> <span
 									data-feather="users"></span> Recensioni
@@ -77,8 +79,11 @@
 					class="d-flex justify-content-center flex-wrap flex-md-nowrap align-items-center pt-4 mt-2 pb-2 mb-3 border-bottom">
 					<h1 class="h2" id="datiApp">Dati Applicazione</h1>
 				</div>
-				<!--tutto il container con dati utenti a destra-->
+				<!--tutto il container a destra-->
 				<div class="border d-flex flex-column" id="adminUtils">
+
+					<div id="map"></div>
+
 
 
 
@@ -93,8 +98,9 @@
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"
 		integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
+	<script src="https://api.mapbox.com/mapbox-gl-js/v1.7.0/mapbox-gl.js"></script>
 	<script src="js/dashboard.js"></script>
-	<script src="js/notizie.js"></script>
+	<script src="js/mappa.js"></script>
 </body>
 
 </html>

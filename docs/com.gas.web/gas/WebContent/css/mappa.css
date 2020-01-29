@@ -10,3 +10,13 @@ a.navListNotizie {
 	font-weight: 500;
 	color: #333;
 }
+
+/* Mappa */
+body { 
+    margin: 0; 
+    padding: 0; 
+}
+#map { 
+    height: 100%; 
+    width: 100%; 
+}
