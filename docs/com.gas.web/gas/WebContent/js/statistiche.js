@@ -14,7 +14,7 @@ function respondCanvas() {
     c.attr('height', $container.height()); //max height                   
 
     //Call a function to redraw other content (texts, images etc)
-    var chart = new Chart(ctx).Line(chartData, {
+    var myChart = new Chart(ctx).Line(chartData, {
         scaleOverride: true,
         scaleSteps: steps,
         scaleStepWidth: Math.ceil(max / steps),
