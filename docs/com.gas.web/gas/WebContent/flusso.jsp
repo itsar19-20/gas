@@ -146,6 +146,7 @@
 								<br>
 								<div class="d-flex justify-content-center">
 									<p id="msgUploadSuccesful"> ${ messageSuccesful } </p>
+									<p id="msgMessageError"> ${ messageError } </p>
 								</div>
 							</div>
 						</form>

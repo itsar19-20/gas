@@ -91,7 +91,7 @@
 								<div class="input-group d-flex justify-content-center pb-5">
 									<div class="input-group-prepend">
 										<div class="input-group-text">
-											<input type="file" name="file"> <span><a href="https://www.mise.gov.it/index.php/it/open-data/elenco-dataset/2032336-
+											<input id="" type="file" name="file"> <span><a href="https://www.mise.gov.it/index.php/it/open-data/elenco-dataset/2032336-
                                 carburanti-prezzi-praticati-e-anagrafica-degli-impianti" target="_blank">Scarica
 													CSV!</a></span>
 										</div>
@@ -112,12 +112,12 @@
 							<h3 class="pb-5">Aggiorna Prezzi!</h3>
 						</div>
 						<br>
-						<form id="formUpdatePrice" class="pt-3" action="/gas/aggiornaPrezzi" method="POST" enctype="multipart/form-data">
+						<form id="formUpdatePrice" class="pt-3" method="POST" enctype="multipart/form-data">
 							<div class="form-group d-flex flex-column">
 								<div class="input-group d-flex justify-content-center pb-5">
 									<div class="input-group-prepend">
 										<div class="input-group-text">
-											<input type="file" name="file"> <span><a href="https://www.mise.gov.it/index.php/it/open-data/elenco-dataset/2032336-
+											<input type="file" name="file" id="file"> <span><a href="https://www.mise.gov.it/index.php/it/open-data/elenco-dataset/2032336-
                                 carburanti-prezzi-praticati-e-anagrafica-degli-impianti" target="_blank">Scarica
 													CSV!</a></span>
 										</div>
@@ -125,7 +125,7 @@
 								</div>
 								<br>
 								<div class="d-flex justify-content-center">
-									<button type="" class="btn btn-primary">Carica</button>
+									<button id="btnCaricaPrezzo" type="" class="btn btn-primary">Carica</button>
 								</div>
 								<br>
 							</div>

@@ -19,7 +19,8 @@ import javax.servlet.http.Part;
  * Servlet implementation class AggiornaPrezzi
  */
 @WebServlet("/aggiornaPrezzi")
-@MultipartConfig
+@MultipartConfig(location = "/tmp", fileSizeThreshold = 1024 * 1024, maxFileSize = 1024 * 1024
+		* 7, maxRequestSize = 1024 * 1024 * 7 * 2)
 public class AggiornaPrezzi extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -45,14 +46,18 @@ public class AggiornaPrezzi extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		Part part = request.getPart("file"); // Per ricevere <input type="file" name="file">
-		String fileName = Paths.get(part.getSubmittedFileName()).getFileName().toString();
-		// MSIE fix, riceve il nome del file
-		File uploads = new File("/home/diego/Desktop/");
-		File file = new File(uploads, "nomeacaso.csv");
-		try (InputStream fileContent = part.getInputStream()) {
-			Files.copy(fileContent, file.toPath());
+		
+
+		try {
+			Part part = request.getPart("file"); // Per ricevere <input type="file" name="file">
+			String fileName = Paths.get(part.getSubmittedFileName()).getFileName().toString(); // nome del file caricato
+			File uploads = new File("/home/diego/Desktop/"); // crea il path del file nuovo
+			File file = new File(uploads, fileName); // path e nome del file nuovo
+			InputStream fileContent = part.getInputStream(); // fileContent è il file caricato
+			Files.copy(fileContent, file.toPath()); // copia il file filContent (file caricato)
 			request.setAttribute("messageSuccesful", "Dati inseriti correttamente!");
+		} catch (Exception e) {
+			request.setAttribute("messageError", "Errore, caricamento non riuscito!");
 		}
 		RequestDispatcher rd = request.getRequestDispatcher("flusso.jsp");
 		rd.include(request, response);
