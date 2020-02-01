@@ -6,7 +6,6 @@
 		<class>model.Statistiche</class>
 		<class>model.User</class>
 		<class>model.Valutazione</class>
-		<class>model.Notizia</class>
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/gas?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC"/>
 			<property name="javax.persistence.jdbc.user" value="diego"/>

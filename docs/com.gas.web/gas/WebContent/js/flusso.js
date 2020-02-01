@@ -1,4 +1,5 @@
-//cerco se il file caricato ha estensione .CSV e metto l'attributo action
+//cerco se il file caricato ha estensione .CSV e metto l'attributo action nel Form
+//forma a destra
 function getFile(filePath) {
     return filePath.substr(filePath.lastIndexOf('\\') + 1).split('.')[0];
 }
@@ -10,6 +11,19 @@ $('#file').change(() => {
     if(risultato == 0) {
         $('#formUpdatePrice').attr('action', '/gas/aggiornaPrezzi');
     } else {
-        $('#formUpdatePrice').attr('action', '/gas/flusso.html');
+        $('#formUpdatePrice').attr('action', '/gas/flusso.jsp');
+    }
+});
+
+//forma a sinistra
+$('#fileA').change(() => { 
+    let nomeFileA = getFile(fileA.value);
+    let nomeEstensioneA = fileA.value.split('.')[1];
+    let estensioneCorretaA = "csv"
+    let risultatoA = nomeEstensioneA.localeCompare(estensioneCorretaA);
+    if(risultatoA == 0) {
+        $('#formUpdateStation').attr('action', '/gas/aggiornaDistributori');
+    } else {
+        $('#formUpdateStation').attr('action', '/gas/flusso.jsp');
     }
 });

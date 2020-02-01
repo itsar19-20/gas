@@ -17,15 +17,15 @@ import javax.servlet.http.Part;
 import business.DatabaseManager;
 
 /**
- * Servlet implementation class AggiornaPrezzi
+ * Servlet implementation class AggiornaDistributori
  */
-@WebServlet("/aggiornaPrezzi")
+@WebServlet("/aggiornaDistributori")
 @MultipartConfig(location = "/tmp", fileSizeThreshold = 1024 * 1024, maxFileSize = 1024 * 1024
 		* 7, maxRequestSize = 1024 * 1024 * 7 * 2)
-public class AggiornaPrezzi extends HttpServlet {
+public class AggiornaDistributori extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public AggiornaPrezzi() {
+	public AggiornaDistributori() {
 		super();
 	}
 
@@ -36,25 +36,28 @@ public class AggiornaPrezzi extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
 		DatabaseManager dm = new DatabaseManager();
-		Part part = request.getPart("file"); // Per ricevere <input type="file" name="file">
+		Part part = request.getPart("fileA"); // Per ricevere <input type="file" name="file">
 		String fileName = Paths.get(part.getSubmittedFileName()).getFileName().toString(); // nome del file caricato
 		InputStream fileContent = part.getInputStream();// fileContent è il file caricato
 		Scanner s = new Scanner(fileContent).useDelimiter("\\n");
 		try {
 			System.out.println("arrivato");
-			while(s.hasNext() ) {
+			while (s.hasNext()) {
 				String row = s.next();
 				String[] column = row.split(";");
 				dm.aggiornaPrezzi(column[0], column[1], column[2], column[3], column[4]);
+				s.close();
 			}
-			s.close();
-			request.setAttribute("messageSuccesfulPrice", "File: "+ fileName + " Dati inseriti correttamente.");
+			request.setAttribute("messageSuccesfulStation", "File: " + fileName + " Dati inseriti correttamente.");
 		} catch (Exception e) {
 			s.close();
-			request.setAttribute("messageErrorPrice", "Errore, caricamento non riuscito.");
+			request.setAttribute("messageErrorStation", "Errore, caricamento non riuscito.");
 		}
 		RequestDispatcher rd = request.getRequestDispatcher("flusso.jsp");
 		rd.include(request, response);
+
 	}
+
 }

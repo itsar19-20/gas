@@ -32,11 +32,19 @@ a.navListFlusso {
 #formUpdatePrice {
 	flex: 2;
 }
-/*Messagi di errore in upload prezzo*/
-#msgUploadSuccesful {
+/*Messagi di errore in upload prezzo e distributori*/
+#msgUploadSuccesfulPrice {
 	color: blue;
 }
 
-#msgMessageError {
+#msgMessageErrorPrice {
+	color: red;
+}
+
+#msgUploadSuccesfulStation {
+	color: blue;
+}
+
+#msgMessageErrorStation {
 	color: red;
 }
