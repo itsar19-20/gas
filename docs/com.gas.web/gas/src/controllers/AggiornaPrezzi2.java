@@ -6,6 +6,7 @@ import java.nio.file.Paths;
 import java.util.Scanner;
 
 import javax.persistence.EntityManager;
+import javax.persistence.FlushModeType;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -15,6 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import org.hibernate.FlushMode;
+
 import model.Distributore;
 import model.Prezzo;
 import utils.JPAUtil;
@@ -22,13 +25,13 @@ import utils.JPAUtil;
 /**
  * Servlet implementation class AggiornaPrezzi
  */
-@WebServlet("/aggiornaPrezzi")
+@WebServlet("/aggiornaPrezzi2")
 @MultipartConfig(location = "/tmp", fileSizeThreshold = 1024 * 1024, maxFileSize = 1024 * 1024
 		* 7, maxRequestSize = 1024 * 1024 * 7 * 2)
-public class AggiornaPrezzi extends HttpServlet {
+public class AggiornaPrezzi2 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public AggiornaPrezzi() {
+	public AggiornaPrezzi2() {
 		super();
 	}
 
@@ -48,11 +51,16 @@ public class AggiornaPrezzi extends HttpServlet {
 			s.next();
 			s.next(); // skip prime 2 righe
 			System.out.println("arrivato");
-
+			EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
+			em.setFlushMode(FlushModeType.COMMIT);
+			int batchsize = 1000;
+			int i = 0;
+			em.getTransaction().begin();
 			while (s.hasNext() == true) {
+				i = i + 1;
 				// Devo creare distributore e prezzo nuovo da inserire, fare i parse da string
 				try {
-					EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
+					
 					String row = s.next();
 					String[] column = row.split(";");
 					Prezzo p = new Prezzo();
@@ -68,16 +76,18 @@ public class AggiornaPrezzi extends HttpServlet {
 					p.setPrezzo(prezzo);
 					p.setIsSelf(isSelf);
 					p.setDtComu(column[4]);
-					em.getTransaction().begin();
 					em.persist(p);
+					if(i == 999) {
+						em.flush();
+						em.clear();
+					}
 					System.out.println("persisted");
-					em.getTransaction().commit();
-					System.out.println("commited");
 				} catch (Exception e) {
 					System.out.println("exception");
 				}
 			}
 			request.setAttribute("messageSuccesfulPrice", "File: " + fileName + ", dati inseriti correttamente.");
+			em.getTransaction().commit();
 			s.close();
 		} catch (
 

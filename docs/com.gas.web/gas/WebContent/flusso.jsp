@@ -88,7 +88,7 @@
 							<h3 class="pb-5">Aggiorna Distributori!</h3>
 						</div>
 						<br>
-						<form id="formUpdateStation" class="pt-3" action="/gas/aggiornaDistributori" method="POST"
+						<form id="formUpdateStation" class="pt-3" method="POST"
 							enctype="multipart/form-data">
 							<div class="form-group d-flex flex-column">
 								<div class="input-group d-flex justify-content-center pb-5">
@@ -119,7 +119,7 @@
 							<h3 class="pb-5">Aggiorna Prezzi!</h3>
 						</div>
 						<br>
-						<form id="formUpdatePrice" class="pt-3" action="/gas/aggiornaPrezzi" method="POST"
+						<form id="formUpdatePrice" class="pt-3" method="POST"
 							enctype="multipart/form-data">
 							<div class="form-group d-flex flex-column">
 								<div class="input-group d-flex justify-content-center pb-5">
