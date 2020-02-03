@@ -17,7 +17,8 @@ public class Prezzo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "prezzo_generator")
+	@SequenceGenerator(name="prezzo_generator", sequenceName = "prezzo_seq", allocationSize=50)
 	private int id;
 
 	@Temporal(TemporalType.DATE)

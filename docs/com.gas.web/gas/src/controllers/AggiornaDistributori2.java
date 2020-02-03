@@ -2,12 +2,10 @@ package controllers;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.math.BigDecimal;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
 import javax.persistence.EntityManager;
-import javax.persistence.FlushModeType;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -16,24 +14,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-import javax.transaction.Transactional;
 
-import business.DatabaseManager;
 import model.Distributore;
-import model.Prezzo;
 import utils.JPAUtil;
 
 /**
- * Servlet implementation class AggiornaDistributori
+ * Servlet implementation class AggiornaPrezzi
  */
-@WebServlet("/aggiornaDistributori")
-@Transactional
+@WebServlet("/aggiornaDistributori2")
 @MultipartConfig(location = "/tmp", fileSizeThreshold = 1024 * 1024, maxFileSize = 1024 * 1024
 		* 7, maxRequestSize = 1024 * 1024 * 7 * 2)
-public class AggiornaDistributori extends HttpServlet {
+public class AggiornaDistributori2 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public AggiornaDistributori() {
+	public AggiornaDistributori2() {
 		super();
 	}
 
@@ -53,16 +47,11 @@ public class AggiornaDistributori extends HttpServlet {
 			s.next();
 			s.next(); // skip prime 2 righe
 			System.out.println("arrivato");
-			EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
-			em.setFlushMode(FlushModeType.COMMIT);
-			int batchsize = 500;
-			int i = 0;
-			em.getTransaction().begin();
-			long startTime = System.currentTimeMillis();
+
 			while (s.hasNext()) {
-				// Devo creare distributore da inserire, fare i parse da string
+				// Devo creare distributore e prezzo nuovo da inserire, fare i parse da string
 				try {
-					i++;
+					EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
 					String row = s.next();
 					String[] column = row.split(";");
 					Distributore d = new Distributore();
@@ -80,25 +69,21 @@ public class AggiornaDistributori extends HttpServlet {
 					d.setProvincia(column[7]);
 					d.setLatitudine(latitudine);
 					d.setLongitudine(longitudine);
+					em.getTransaction().begin();
 					em.persist(d);
-					if (i % batchsize == 0) {
-						em.flush();
-						em.clear();
-						System.out.println("entitymanager Flushed");
-					}
+					System.out.println("persisted");
+					em.getTransaction().commit();
+					System.out.println("commited");
 				} catch (Exception e) {
 					System.out.println("exception");
 				}
-
 			}
-			request.setAttribute("messageSuccesfulStation", "File: " + fileName + ", dati inseriti correttamente.");
-			System.out.println("commited");
-			em.getTransaction().commit();
+			request.setAttribute("messageSuccesfulPrice", "File: " + fileName + ", dati inseriti correttamente.");
 			s.close();
-			long endTime = System.currentTimeMillis();
-			System.out.println("Tempo di esecuzione: " + (endTime - startTime));
-		} catch (Exception e) {
-			request.setAttribute("messageErrorStation", "Errore, caricamento non riuscito.");
+		} catch (
+
+		Exception e) {
+			request.setAttribute("messageErrorPrice", "Errore, caricamento non riuscito.");
 		}
 
 		RequestDispatcher rd = request.getRequestDispatcher("flusso.jsp");

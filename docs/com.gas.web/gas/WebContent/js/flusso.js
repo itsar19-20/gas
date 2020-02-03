@@ -9,7 +9,7 @@ $('#file').change(() => {
     let estensioneCorreta = "csv"
     let risultato = nomeEstensione.localeCompare(estensioneCorreta);
     if(risultato == 0) {
-        $('#formUpdatePrice').attr('action', '/gas/aggiornaPrezzi2');
+        $('#formUpdatePrice').attr('action', '/gas/aggiornaPrezzi');
     } else {
         $('#formUpdatePrice').attr('action', '/gas/flusso.jsp');
     }
@@ -27,3 +27,4 @@ $('#fileA').change(() => {
         $('#formUpdateStation').attr('action', '/gas/flusso.jsp');
     }
 });
+

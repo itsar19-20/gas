@@ -34,9 +34,9 @@ public class Distributore implements Serializable {
 
 	private String indirizzo;
 
-	private BigDecimal latitudine;
+	private Double latitudine;
 
-	private BigDecimal longitudine;
+	private Double longitudine;
 
 	private String nomeImpianto;
 
@@ -102,19 +102,19 @@ public class Distributore implements Serializable {
 		this.indirizzo = indirizzo;
 	}
 
-	public BigDecimal getLatitudine() {
+	public Double getLatitudine() {
 		return this.latitudine;
 	}
 
-	public void setLatitudine(BigDecimal latitudine) {
+	public void setLatitudine(Double latitudine) {
 		this.latitudine = latitudine;
 	}
 
-	public BigDecimal getLongitudine() {
+	public Double getLongitudine() {
 		return this.longitudine;
 	}
 
-	public void setLongitudine(BigDecimal longitudine) {
+	public void setLongitudine(Double longitudine) {
 		this.longitudine = longitudine;
 	}
 
