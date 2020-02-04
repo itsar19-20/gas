@@ -22,6 +22,7 @@ public class DatabaseManager {
 		pr.setPrezzo(prezzo);
 		pr.setIsSelf(isSelf);
 		pr.setDtComu(dtComu);
+		em.persist(pr);
 		em.getTransaction().commit();
 	}
 	
