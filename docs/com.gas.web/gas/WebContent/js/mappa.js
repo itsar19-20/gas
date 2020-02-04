@@ -13,26 +13,17 @@ map.on('load', function () {
     $.ajax({
         url: '/gas/cercaDistributori',
         method: 'get'
-    }).done((distributori) => {
-
-
+    }).done((risposta) => {
+        //metto i distributori dentro un array
+        let distributori = [];
+        risposta.forEach(d => {
+            distributori.push(JSON.parse('{"type": "Feature", "properties": {"Bandiera": "Bandiera - '+d.bandiera+'", "icon": "rocket"}, "geometry": { "type": "Point", "coordinates": [ '+d.longitudine+','+d.latitudine+' ]}}'));
+        });
         map.addSource('places', {
             'type': 'geojson',
             'data': {
                 'type': 'FeatureCollection',
-                'features': [
-                    {
-                        'type': 'Feature',
-                        'properties': {
-                            'Bandiera': distributori[8].bandiera,
-                            'icon': 'rocket'
-                        },
-                        'geometry': {
-                            'type': 'Point',
-                            'coordinates': [distributori[8].longitudine, distributori[8].latitudine]
-                        }
-                    }
-                ]
+                'features': distributori
             }
 
         });
