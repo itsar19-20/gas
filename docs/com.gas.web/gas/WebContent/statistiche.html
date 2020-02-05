@@ -2,40 +2,44 @@
 <html>
 
 <head>
-	<meta charset="UTF-8">
-	<title>Administrator Page</title>
-	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico?" />
-	<!-- Bootstrap core CSS -->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-		integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<meta charset="UTF-8">
+<title>Administrator Page</title>
+<link rel="shortcut icon" type="image/x-icon" href="favicon.ico?" />
+<!-- Bootstrap core CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
 
-	<style>
-		.bd-placeholder-img {
-			font-size: 1.125rem;
-			text-anchor: middle;
-			-webkit-user-select: none;
-			-moz-user-select: none;
-			-ms-user-select: none;
-			user-select: none;
-		}
+<style>
+.bd-placeholder-img {
+	font-size: 1.125rem;
+	text-anchor: middle;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
 
-		@media (min-width : 768px) {
-			.bd-placeholder-img-lg {
-				font-size: 3.5rem;
-			}
-		}
-	</style>
+@media ( min-width : 768px) {
+	.bd-placeholder-img-lg {
+		font-size: 3.5rem;
+	}
+}
+</style>
 
-	<!-- Stili di questa pagina -->
-	<link href="css/dashboard.css" rel="stylesheet" type="text/css">
-	<link rel="stylesheet" href="css/statistiche.css">
+<!-- Stili di questa pagina -->
+<link href="css/dashboard.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="css/statistiche.css">
 </head>
 
 <body>
-	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-	<nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+
+	<nav
+		class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
 		<a class="navbar-brand col-sm-3 col-md-2 mr-0" href="/gas/index.html">GasAdvisor</a>
-		<input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+		<input class="form-control form-control-dark w-100" type="text"
+			placeholder="Search" aria-label="Search">
 		<ul class="navbar-nav px-3">
 			<li class="nav-item text-nowrap"><a class="nav-link" id="logout">Uscita</a></li>
 		</ul>
@@ -43,51 +47,59 @@
 	<!--Inizia il sidebar a sinistra-->
 	<div class="container-fluid" id="container_main">
 		<div class="row" id="container_main_two">
-			<nav class="col-md-2 d-none d-md-block bg-light sidebar" id="containerAdmin">
+			<nav class="col-md-2 d-none d-md-block bg-light sidebar"
+				id="containerAdmin">
 				<div class="sidebar-sticky">
-					<h5 id="nomeAdmin">
-						Ciao</h5>
+					<h5 id="nomeAdmin">Ciao</h5>
 					<!--Inizia la lista delle scelte per l'admin-->
 					<ul class="nav flex-column border-left pl-3">
-						<li class="nav-item"><a class="nav-link navListUtenti" href="/gas/utenti.html"> <span
-									data-feather="home"></span> Utenti
-								<span class="sr-only"></span>
-							</a></li>
-						<li class="nav-item"><a class="nav-link navListFlusso" href="/gas/flusso.jsp"> <span
-									data-feather="file"></span> Flusso
-								Giornaliero
-							</a></li>
-						<li class="nav-item"><a class="nav-link navListNotizie" href="/gas/mappa.html"> <span
-									data-feather="shopping-cart"></span>
-									Mappa
-							</a></li>
-						<li class="nav-item"><a class="nav-link navListRecensioni" href="/gas/recensioni.html"> <span
-									data-feather="users"></span> Recensioni
-							</a></li>
-						<li class="nav-item"><a class="nav-link navListStatistiche" href="/gas/statistiche.html"> <span
-									data-feather="layers"></span>
+						<li class="nav-item"><a class="nav-link navListUtenti"
+							href="/gas/utenti.html"> <span data-feather="home"></span>
+								Utenti <span class="sr-only"></span>
+						</a></li>
+						<li class="nav-item"><a class="nav-link navListFlusso"
+							href="/gas/flusso.jsp"> <span data-feather="file"></span>
+								Flusso Giornaliero
+						</a></li>
+						<li class="nav-item"><a class="nav-link navListNotizie"
+							href="/gas/mappa.html"> <span data-feather="shopping-cart"></span>
+								Mappa
+						</a></li>
+						<li class="nav-item"><a class="nav-link navListRecensioni"
+							href="/gas/recensioni.html"> <span data-feather="users"></span>
+								Recensioni
+						</a></li>
+						<li class="nav-item"><a class="nav-link navListStatistiche"
+							href="/gas/statistiche.html"> <span data-feather="layers"></span>
 								Statistiche
-							</a></li>
+						</a></li>
 					</ul>
 				</div>
 			</nav>
 
-			<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4" id="containerDatiApp">
+			<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4"
+				id="containerDatiApp">
 				<div
 					class="d-flex justify-content-center flex-wrap flex-md-nowrap align-items-center pt-4 mt-2 pb-2 mb-3 border-bottom">
 					<h1 class="h2" id="datiApp">Dati Applicazione</h1>
 				</div>
 				<!--tutto il container con dati utenti a destra-->
 				<div class="border d-flex flex-column" id="adminUtils">
-					<canvas id="myChart" style="display: block; width: 926px; height: 463px;" width="926" height="463" class="chartjs-render-monitor"></canvas>
+					<div id="chartContainer" style="height: 370px; width: 100%;"></div>
 
 				</div>
 			</main>
 		</div>
 	</div>
-	<script src="https://code.jquery.com/jquery-3.4.1.min.js"
-		integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.js"
+		integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+		crossorigin="anonymous"></script>
+	
+	<script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+	<script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+	
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
 	<script src="js/dashboard.js"></script>
 	<script src="js/statistiche.js"></script>
 </body>
