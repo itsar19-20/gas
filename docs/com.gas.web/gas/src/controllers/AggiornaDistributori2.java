@@ -78,12 +78,12 @@ public class AggiornaDistributori2 extends HttpServlet {
 					System.out.println("exception");
 				}
 			}
-			request.setAttribute("messageSuccesfulPrice", "File: " + fileName + ", dati inseriti correttamente.");
+			request.setAttribute("messageSuccesfulStation", "File: " + fileName + ", dati inseriti correttamente.");
 			s.close();
 		} catch (
 
 		Exception e) {
-			request.setAttribute("messageErrorPrice", "Errore, caricamento non riuscito.");
+			request.setAttribute("messageErrorStation", "Errore, caricamento non riuscito.");
 		}
 
 		RequestDispatcher rd = request.getRequestDispatcher("flusso.jsp");

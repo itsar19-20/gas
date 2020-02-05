@@ -22,7 +22,7 @@ $('#fileA').change(() => {
     let estensioneCorretaA = "csv"
     let risultatoA = nomeEstensioneA.localeCompare(estensioneCorretaA);
     if(risultatoA == 0) {
-        $('#formUpdateStation').attr('action', '/gas/aggiornaDistributori');
+        $('#formUpdateStation').attr('action', '/gas/aggiornaDistributori2');
     } else {
         $('#formUpdateStation').attr('action', '/gas/flusso.jsp');
     }

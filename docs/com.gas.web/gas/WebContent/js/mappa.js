@@ -17,7 +17,7 @@ map.on('load', function () {
         //metto i distributori dentro un array
         let distributori = [];
         risposta.forEach(d => {
-            distributori.push(JSON.parse('{"type": "Feature", "properties": {"Bandiera": "Bandiera - '+d.bandiera+'", "icon": "rocket"}, "geometry": { "type": "Point", "coordinates": [ '+d.longitudine+','+d.latitudine+' ]}}'));
+            distributori.push(JSON.parse('{"type": "Feature", "properties": {"Bandiera": "Bandiera - '+d.bandiera+'", "Provincia": "<br>Provincia - '+d.provincia+'", "Comune": "<br>Comune - '+d.comune+'", "icon": "rocket"}, "geometry": { "type": "Point", "coordinates": [ '+d.longitudine+','+d.latitudine+' ]}}'));
         });
         map.addSource('places', {
             'type': 'geojson',
@@ -41,7 +41,7 @@ map.on('load', function () {
         //when click event occurs, open popup at location
         map.on('click', 'places', function (e) {
             var coordinates = e.features[0].geometry.coordinates.slice();
-            var description = e.features[0].properties.Bandiera;
+            var description = e.features[0].properties.Bandiera + e.features[0].properties.Comune + e.features[0].properties.Provincia;
             while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
                 coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
             }

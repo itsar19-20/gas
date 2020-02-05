@@ -2,7 +2,6 @@ package controllers;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.math.BigDecimal;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
@@ -20,14 +19,12 @@ import javax.transaction.Transactional;
 
 import business.DatabaseManager;
 import model.Distributore;
-import model.Prezzo;
 import utils.JPAUtil;
 
 /**
  * Servlet implementation class AggiornaDistributori
  */
 @WebServlet("/aggiornaDistributori")
-@Transactional
 @MultipartConfig(location = "/tmp", fileSizeThreshold = 1024 * 1024, maxFileSize = 1024 * 1024
 		* 7, maxRequestSize = 1024 * 1024 * 7 * 2)
 public class AggiornaDistributori extends HttpServlet {
@@ -44,7 +41,7 @@ public class AggiornaDistributori extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		DatabaseManager dm = new DatabaseManager();
 		try {
 			Part part = request.getPart("fileA"); // Per ricevere <input type="file" name="file">
 			String fileName = Paths.get(part.getSubmittedFileName()).getFileName().toString(); // nome del file caricato
@@ -52,48 +49,52 @@ public class AggiornaDistributori extends HttpServlet {
 			Scanner s = new Scanner(fileContent).useDelimiter("\\n");
 			s.next();
 			s.next(); // skip prime 2 righe
-			System.out.println("arrivato");
 			EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
-			em.setFlushMode(FlushModeType.COMMIT);
+			//em.setFlushMode(FlushModeType.COMMIT);
 			int batchsize = 500;
 			int i = 0;
 			em.getTransaction().begin();
 			long startTime = System.currentTimeMillis();
+			
 			while (s.hasNext()) {
-				// Devo creare distributore da inserire, fare i parse da string
+
 				try {
-					i++;
 					String row = s.next();
 					String[] column = row.split(";");
-					Distributore d = new Distributore();
 					int idImpianto = Integer.parseInt(column[0]);
 					Double latitudine = Double.parseDouble(column[8]);
 					Double longitudine = Double.parseDouble(column[9]);
-					System.out.println("creato nuovo");
-					d.setIdImpianto(idImpianto);
-					d.setGestore(column[1]);
-					d.setBandiera(column[2]);
-					d.setTipoImpianto(column[3]);
-					d.setNomeImpianto(column[4]);
-					d.setIndirizzo(column[5]);
-					d.setComune(column[6]);
-					d.setProvincia(column[7]);
-					d.setLatitudine(latitudine);
-					d.setLongitudine(longitudine);
-					em.persist(d);
-					if (i % batchsize == 0) {
-						em.flush();
-						em.clear();
-						System.out.println("entitymanager Flushed");
-					}
+					em.createNativeQuery("INSERT INTO distributore (idImpianto, gestore, bandiera, tipoImpianto, nomeImpianto, indirizzo, comune, provincia, latitudine, longitudine) "
+							+ "VALUES (?,?,?,?,?,?,?,?,?,?)")
+				      .setParameter(1, column[0])
+				      .setParameter(2, column[1])
+				      .setParameter(3, column[2])
+				      .setParameter(4, column[3])
+				      .setParameter(5, column[4])
+				      .setParameter(6, column[5])
+				      .setParameter(7, column[6])
+				      .setParameter(8, column[7])
+				      .setParameter(9, latitudine)
+				      .setParameter(10, longitudine)
+				      .executeUpdate();
+//				
+//					Distributore d = dm.aggiornaDistributori(column[0], column[1], column[2], column[3], column[4], column[5], column[6],
+//							column[7], column[8], column[9]);
+//					em.persist(d);
+//					if (++i % batchsize == 0) {
+//						
+//						em.clear();
+//						System.out.println("entitymanager Flushed");
+//					}
 				} catch (Exception e) {
-					System.out.println("exception");
+					System.out.println("eccezione  " + e.toString());
 				}
 
 			}
 			request.setAttribute("messageSuccesfulStation", "File: " + fileName + ", dati inseriti correttamente.");
 			System.out.println("commited");
-			em.getTransaction().commit();
+//			em.getTransaction().commit();
+//			em.close();
 			s.close();
 			long endTime = System.currentTimeMillis();
 			System.out.println("Tempo di esecuzione: " + (endTime - startTime));

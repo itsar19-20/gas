@@ -12,8 +12,6 @@
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
 			<property name="javax.persistence.jdbc.password" value="password"/>
 			
-			<property name="hibernate.jdbc.batch_size" value="500"/>
-			
 		</properties>
 	</persistence-unit>
 </persistence>

@@ -57,15 +57,22 @@ public class AggiornaPrezzi extends HttpServlet {
 			em.getTransaction().begin();
 			long startTime = System.currentTimeMillis();
 			while (s.hasNext()) {
-				// Devo creare distributore e prezzo nuovo da inserire, fare i parse da string
+				
 				try {
-					i++;
 					String row = s.next();
 					String[] column = row.split(";");
 					Prezzo p = new Prezzo();
 					int id = Integer.parseInt(column[0]);
 					float prezzo = Float.parseFloat(column[2]);
 					int isSelf = Integer.parseInt(column[3]);
+//					em.createNativeQuery("INSERT INTO prezzo (idImpianto, descCarburante, prezzo, isSelf, dtComu) "
+//							+ "VALUES (?,?,?,?,?)")
+//				      .setParameter(1, id)
+//				      .setParameter(2, column[1])
+//				      .setParameter(3, prezzo)
+//				      .setParameter(4, isSelf)
+//				      .setParameter(5, column[4])
+//				      .executeUpdate();
 					Distributore d = (Distributore) em
 							.createQuery("Select c FROM Distributore c WHERE c.idImpianto LIKE :name")
 							.setParameter("name", id).getSingleResult();
@@ -76,19 +83,18 @@ public class AggiornaPrezzi extends HttpServlet {
 					p.setIsSelf(isSelf);
 					p.setDtComu(column[4]);
 					em.persist(p);
-					if (i % batchsize == 0) {
+					if (++i % batchsize == 0) {
 						em.flush();
 						em.clear();
 						System.out.println("entitymanager Flushed");
 					}
 					System.out.println("persisted");
 				} catch (Exception e) {
-					System.out.println("exception");
+					System.out.println("exception " + e.toString());
 				}
 			}
 			request.setAttribute("messageSuccesfulPrice", "File: " + fileName + ", dati inseriti correttamente.");
-			System.out.println("commited");
-			em.getTransaction().commit();
+ 			em.getTransaction().commit();
 			s.close();
 			long endTime = System.currentTimeMillis();
 			System.out.println("Tempo di esecuzione: " + (endTime - startTime));
