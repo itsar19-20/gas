@@ -13,6 +13,7 @@ import java.util.List;
 @Entity
 @Table(name="prezzo")
 @NamedQuery(name="Prezzo.findAll", query="SELECT p FROM Prezzo p")
+
 public class Prezzo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -38,8 +39,8 @@ public class Prezzo implements Serializable {
 	private Distributore distributore;
 
 	//bi-directional many-to-one association to Statistiche
-	@OneToMany(mappedBy="prezzo")
-	private List<Statistiche> statistiches;
+	//@OneToMany(mappedBy="prezzo")
+	//private List<Statistiche> statistiches;
 
 	public Prezzo() {
 	}
@@ -100,26 +101,26 @@ public class Prezzo implements Serializable {
 		this.distributore = distributore;
 	}
 
-	public List<Statistiche> getStatistiches() {
-		return this.statistiches;
-	}
+//	public List<Statistiche> getStatistiches() {
+//		return this.statistiches;
+//	}
+//
+//	public void setStatistiches(List<Statistiche> statistiches) {
+//		this.statistiches = statistiches;
+//	}
 
-	public void setStatistiches(List<Statistiche> statistiches) {
-		this.statistiches = statistiches;
-	}
-
-	public Statistiche addStatistich(Statistiche statistich) {
-		getStatistiches().add(statistich);
-		statistich.setPrezzo(this);
-
-		return statistich;
-	}
-
-	public Statistiche removeStatistich(Statistiche statistich) {
-		getStatistiches().remove(statistich);
-		statistich.setPrezzo(null);
-
-		return statistich;
-	}
+//	public Statistiche addStatistich(Statistiche statistich) {
+//		getStatistiches().add(statistich);
+//		statistich.setPrezzo(this);
+//
+//		return statistich;
+//	}
+//
+//	public Statistiche removeStatistich(Statistiche statistich) {
+//		getStatistiches().remove(statistich);
+//		statistich.setPrezzo(null);
+//
+//		return statistich;
+//	}
 
 }
