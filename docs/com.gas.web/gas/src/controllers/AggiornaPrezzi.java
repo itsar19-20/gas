@@ -25,7 +25,6 @@ import utils.JPAUtil;
  * Servlet implementation class AggiornaPrezzi
  */
 @WebServlet("/aggiornaPrezzi")
-@Transactional
 @MultipartConfig(location = "/tmp", fileSizeThreshold = 1024 * 1024, maxFileSize = 1024 * 1024
 		* 7, maxRequestSize = 1024 * 1024 * 7 * 2)
 public class AggiornaPrezzi extends HttpServlet {
