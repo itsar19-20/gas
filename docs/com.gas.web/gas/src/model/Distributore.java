@@ -1,7 +1,6 @@
 package model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -11,7 +10,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 
 /**
  * The persistent class for the distributore database table.

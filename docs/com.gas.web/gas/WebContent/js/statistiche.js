@@ -3,15 +3,16 @@ $(() =>{
 
 var options =  {
 	animationEnabled: true,
-	theme: "light2",
+	theme: "light1",
 	title: {
-		text: "Daily New Users"
+		text: "Andamento prezzi",
+		fontFamily: "tahoma"
 	},
 	axisX: {
-		valueFormatString: "DD MMM YYYY",
+		valueFormatString: "YYYY MM DD",
 	},
 	axisY: {
-		title: "Users",
+		title: "Prezzi",
 		titleFontSize: 24,
 		includeZero: false
 	},
@@ -23,22 +24,29 @@ var options =  {
 };
 
 	$.ajax({
-		url: '/OttieniStat',
+		url: '/gas/OttieniStat',
 		method: 'get'
 	})
 	.done((stat) => {
+		console.log('ciao');
 		if(stat){
 
             for (var i = 0; i < stat.length; i++) {
-
+            	console.log(stat);
+            	console.log(stat[i].dataComunicazione);
+            	console.log(stat[i].prezzo);
 
                 dataPoints.push({
-                    x: new Date(stat[i][0]),
-                    y: stat[i][1]
+                    x: new Date(stat[i].dataComunicazione),
+                    
+                    y: stat[i].prezzo
                 });
             }
-
+            
+           
         }
+		
         $("#chartContainer").CanvasJSChart(options);
+        $("#chartContainer").render;
 	})
 })
