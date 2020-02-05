@@ -17,10 +17,12 @@ public class Prova {
 		 
 		  List<Integer> l=(em.createQuery("Select c.idImpianto FROM Distributore c", Integer.class).getResultList());
 		  int i=0;
-		 for (i=0;i<l.size();i++) {
-			 System.out.println(l.get(i).toString());
-			 
-		 }
+//		 for (i=0;i<l.size();i++) {
+//			 System.out.println(l.get(i).toString());
+//		 }
+		 int a = 446145;
+		 System.out.println(l.contains(a));
+		 
 		// System.out.println(u.getValutaziones().toString());
 
 		

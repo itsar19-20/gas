@@ -3,6 +3,7 @@ package controllers;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Scanner;
 
 import javax.persistence.EntityManager;
@@ -57,7 +58,7 @@ public class AggiornaPrezzi extends HttpServlet {
 			em.getTransaction().begin();
 			long startTime = System.currentTimeMillis();
 			while (s.hasNext()) {
-				
+
 				try {
 					String row = s.next();
 					String[] column = row.split(";");
@@ -89,12 +90,13 @@ public class AggiornaPrezzi extends HttpServlet {
 						System.out.println("entitymanager Flushed");
 					}
 					System.out.println("persisted");
+
 				} catch (Exception e) {
 					System.out.println("exception " + e.toString());
 				}
 			}
 			request.setAttribute("messageSuccesfulPrice", "File: " + fileName + ", dati inseriti correttamente.");
- 			em.getTransaction().commit();
+			em.getTransaction().commit();
 			s.close();
 			long endTime = System.currentTimeMillis();
 			System.out.println("Tempo di esecuzione: " + (endTime - startTime));
