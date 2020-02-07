@@ -64,7 +64,7 @@ public class AggiornaPrezzi extends HttpServlet {
 					String[] column = row.split(";");
 					Prezzo p = new Prezzo();
 					int id = Integer.parseInt(column[0]);
-					float prezzo = Float.parseFloat(column[2]);
+					Double prezzo = Double.parseDouble(column[2]);
 					int isSelf = Integer.parseInt(column[3]);
 //					em.createNativeQuery("INSERT INTO prezzo (idImpianto, descCarburante, prezzo, isSelf, dtComu) "
 //							+ "VALUES (?,?,?,?,?)")

@@ -21,7 +21,7 @@ public class StatManager {
 		int i = 0;
 		int k = 0;
 		int counter = 1;
-		float dep = lista.get(i).getPrezzo();
+		Double dep = lista.get(i).getPrezzo();
 		for (i = 0; i < lista.size(); i++) {
 			for (k = i; k < lista.size(); k++) {
 				if ((lista.get(i).getDataComunicazione().compareTo(lista.get(k).getDataComunicazione())) == 0) {

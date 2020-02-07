@@ -11,7 +11,7 @@ public class DatabaseManager {
 
 	public void aggiornaPrezzi(String s, String desc, String p, String i, String dtComu) {
 		int idImpianto = Integer.parseInt(s);
-		float prezzo = Float.parseFloat(p);
+		Double prezzo = Double.parseDouble(p);
 		int isSelf = Integer.parseInt(i);
 		EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
 

@@ -55,7 +55,7 @@ public class AggiornaDistributori extends HttpServlet {
 			em.setFlushMode(FlushModeType.COMMIT);
 			int batchsize = 500;
 			int i = 0;
-			em.getTransaction().begin();
+//			em.getTransaction().begin();
 			long startTime = System.currentTimeMillis();
 
 			while (s.hasNext()) {
@@ -80,12 +80,14 @@ public class AggiornaDistributori extends HttpServlet {
 //				
 					Distributore d = dm.aggiornaDistributori(column[0], column[1], column[2], column[3], column[4], column[5], column[6],
 							column[7], column[8], column[9]);
+					em.getTransaction().begin();
 					em.persist(d);
-					if (++i % batchsize == 0) {
-						em.flush();
-						em.clear();
+					em.getTransaction().commit();
+//					if (++i % batchsize == 0) {
+//						em.flush();
+//						em.clear();
 						System.out.println("entitymanager Flushed");
-					}
+//					}
 					}
 				} catch (Exception e) {
 					System.out.println("eccezione  " + e.toString());
