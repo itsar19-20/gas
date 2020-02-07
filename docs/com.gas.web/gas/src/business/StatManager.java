@@ -12,7 +12,9 @@ import utils.JPAUtil;
 public class StatManager {
 	public static List<Prezzo> getStat() {
 		EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
-		List<Prezzo> lista = em.createQuery("Select c FROM Prezzo c WHERE descCarburante = 'Blue Diesel'", Prezzo.class).getResultList();
+		List<Prezzo> lista = em.createQuery("Select c FROM Prezzo c "
+		// + "WHERE descCarburante = 'Benzina'"
+				, Prezzo.class).getResultList();
 		Comparator<Prezzo> compareById = (Prezzo o1, Prezzo o2) -> o1.getDataComunicazione()
 				.compareTo(o2.getDataComunicazione());
 		lista.sort(compareById);
