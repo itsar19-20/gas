@@ -84,21 +84,28 @@
 					<h1 class="h2" id="datiApp">Dati Applicazione</h1>
 				</div>
 				<!--tutto il container con dati utenti a destra-->
+
 				<div class="border d-flex flex-column" id="adminUtils">
+					<label for="carburanti">Scegli un carburante:</label> <select id="carburanti" name="carburanti">
+						<option value="Benzina">Benzina</option>
+						<option value="'Diesel'">Diesel</option>
+						<option value="'GPL'">GPL</option>
+						<option value="'Metano'">Metano</option>
+					</select>
 					<canvas id="myChart" width="400" height="auto"></canvas>
 
 				</div>
 			</main>
 		</div>
 	</div>
-	
+
 	<script src="https://code.jquery.com/jquery-3.4.1.js"
 		integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
 		crossorigin="anonymous"></script>
-	
+
 	<script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
 	<script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
-	
+
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
 	<script src="js/dashboard.js"></script>

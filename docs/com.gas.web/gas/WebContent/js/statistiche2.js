@@ -1,5 +1,14 @@
 
 $(() => {
+	$('#carburanti').change(() => {
+		alert( "Messaggio" );
+        $.ajax({
+            url: '/gas/OttieniStat',
+            method: 'get',
+            data:  { "select" : $('#carburanti').val()},
+        	//dataType :'text/plain'
+        })
+	.done(() => {
 	var wow= [];
 	var wowow=[];
 	var ahahah=[];
@@ -64,5 +73,7 @@ $.ajax({
 			}
 
 			myChart.update();		
+		})
 	})
-})
+	})
+});
