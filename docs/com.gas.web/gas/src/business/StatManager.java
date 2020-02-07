@@ -21,12 +21,8 @@ public class StatManager {
 		int i = 0;
 		int k = 0;
 		int counter = 1;
-<<<<<<< HEAD
 		Double dep = lista.get(i).getPrezzo();
-=======
-		float dep = lista.get(i).getPrezzo();
 		float a;
->>>>>>> refs/remotes/origin/master
 		for (i = 0; i < lista.size(); i++) {
 			System.out.println(lista.get(i).getPrezzo());
 			for (k = i+1; k < lista.size(); k++) {
