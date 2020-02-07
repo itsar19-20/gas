@@ -1,9 +1,5 @@
 
 $(() => {
-	function formatDate(value)
-	{
-	   return value.getDate()+1 + "/" + value.getMonth() + "/" + value.getYear();
-	}
 	var wow= [];
 	var wowow=[];
 	var ahahah=[];
@@ -15,8 +11,9 @@ var myChart = new Chart(ctx, {
         datasets: [{
             label: 'Prezzo',
             data: wow,
-           
-            borderWidth: 1
+            backgroundColor: "rgba(4,23,1,0.2)",
+			borderColor: "rgba(4,23,1,1)",
+            borderWidth: 3
         }]
     },
     options: {
@@ -42,7 +39,7 @@ $.ajax({
 		    for (var i = 0; i < myChart.data.length; i++) {
 		        dataset.data.pop();
 		    }
-		    //myChart.update();
+		    // myChart.update();
 			
 
 			console.log(stat);
@@ -50,8 +47,19 @@ $.ajax({
 			for (var i = 0; i < stat.length; i++) {
 				var stat1 = (stat[i]);
 				wow[i]=(stat1.prezzo);
-				wowow[i]=new Date(parseInt(stat1.dataComunicazione));
-				formatDate(wowow[i]);
+				var dt=new Date(parseInt(stat1.dataComunicazione));
+				
+				var giorno = dt.getDate();
+				console.log(giorno);
+// var mese=dtc.getMonth()+1;
+// var anno=dtc.getFullYear();
+				
+                var month = dt.getMonth() + 1;
+				var dataCompleta=
+					(giorno	< 10 ? "0" + giorno : giorno )+ "/" + (month.toString().length > 1 ? month : "0" + month) + "/" +
+                dt.getFullYear();
+				console.log(dataCompleta);
+				wowow[i]=dataCompleta;					
 				ahahah.push({labels:wowow[i],data:wowow[i]});
 			}
 

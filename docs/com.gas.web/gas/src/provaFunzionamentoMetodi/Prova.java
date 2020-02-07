@@ -40,13 +40,14 @@ public class Prova {
 //		 for (i=0;i<l.size();i++) {
 //			 System.out.println(l.get(i).toString());
 //		 }
-//		 int a = 446145;
-//		 System.out.println(l.contains(a));
-//		 LOG.trace("Hello World!");
-//		 LOG.debug("How are you today?");
-//		 LOG.info("I am fine.");
-//		 LOG.warn("I love programming.");
-//		 LOG.error("I am programming.");
+		 int a = 446145;
+		 System.out.println(l.contains(a));
+		 LOG.trace("Hello World!");
+		 LOG.debug("How are you today?");
+		 LOG.info("I am fine.");
+		 LOG.warn("I love programming.");
+		 LOG.error("I am programming.");
+		 
 		// System.out.println(u.getValutaziones().toString());
 
 	}
