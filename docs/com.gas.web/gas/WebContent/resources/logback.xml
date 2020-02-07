@@ -13,6 +13,7 @@
     </encoder>
   </appender>
 
+
   <logger name="controllers" level="DEBUG">
     <appender-ref ref="FILE1" />
   </logger>

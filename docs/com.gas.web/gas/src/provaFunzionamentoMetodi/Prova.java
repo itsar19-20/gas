@@ -1,29 +1,18 @@
 package provaFunzionamentoMetodi;
 
-import java.io.IOException;
-import java.util.logging.FileHandler;
-import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
-
 import javax.persistence.EntityManager;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import model.Prezzo;
 import utils.JPAUtil;
 
 public class Prova {
 	// static final Logger LOG = LoggerFactory.getLogger(Prova.class);
+	private static final Logger logger = LoggerFactory.getLogger(Prova.class);
+
 	public static void main(String[] args) {
-		Logger logger = Logger.getLogger("MyLog");
-		FileHandler fh;
-		try {
-			fh = new FileHandler("./logs/aggiornaDistributori.log");
-			logger.addHandler(fh);
-			SimpleFormatter formatter = new SimpleFormatter();
-			fh.setFormatter(formatter);
-		} catch (SecurityException | IOException e) {
-			e.printStackTrace();
-		}
-		logger.setUseParentHandlers(false);
 
 		
 		EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
