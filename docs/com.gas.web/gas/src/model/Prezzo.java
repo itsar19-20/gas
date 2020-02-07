@@ -31,7 +31,7 @@ public class Prezzo implements Serializable {
 
 	private int isSelf;
 
-	private float prezzo;
+	private Double prezzo;
 
 	//bi-directional many-to-one association to Distributore
 	@ManyToOne
@@ -85,11 +85,11 @@ public class Prezzo implements Serializable {
 		this.isSelf = isSelf;
 	}
 
-	public float getPrezzo() {
+	public Double getPrezzo() {
 		return this.prezzo;
 	}
 
-	public void setPrezzo(float prezzo) {
+	public void setPrezzo(Double prezzo) {
 		this.prezzo = prezzo;
 	}
 
@@ -99,6 +99,12 @@ public class Prezzo implements Serializable {
 
 	public void setDistributore(Distributore distributore) {
 		this.distributore = distributore;
+	}
+
+	@Override
+	public String toString() {
+		return "Prezzo [descCarburante=" + descCarburante + ", dtComu=" + dtComu + ", isSelf=" + isSelf
+				+ ", distributore=" + distributore + "]";
 	}
 
 //	public List<Statistiche> getStatistiches() {

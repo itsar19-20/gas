@@ -24,7 +24,7 @@ public class StatManager {
 		int i = 0;
 		int k = 0;
 		int counter = 1;
-		float dep = lista.get(i).getPrezzo();
+		Double dep = lista.get(i).getPrezzo();
 		float a;
 		for (i = 0; i < lista.size(); i++) {
 			
