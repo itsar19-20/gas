@@ -11,8 +11,9 @@ var myChart = new Chart(ctx, {
         datasets: [{
             label: 'Prezzo',
             data: wow,
-           
-            borderWidth: 1
+            backgroundColor: "rgba(4,23,1,0.2)",
+			borderColor: "rgba(4,23,1,1)",
+            borderWidth: 3
         }]
     },
     options: {

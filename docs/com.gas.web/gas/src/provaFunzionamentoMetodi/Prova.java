@@ -28,6 +28,7 @@ public class Prova {
 		 LOG.info("I am fine.");
 		 LOG.warn("I love programming.");
 		 LOG.error("I am programming.");
+		 
 		// System.out.println(u.getValutaziones().toString());
 
 		
