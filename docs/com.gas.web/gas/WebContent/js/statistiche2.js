@@ -1,17 +1,16 @@
 $(() => {
-	//console.log("Quindi?");
+	
 	$('#carburanti').change(() => {
-		alert(  $('#carburanti').val());
+		
         $.ajax({
             url: '/gas/OttieniStat',
             method: 'get',
             data: {
                 carburanti :$('#carburanti').val()
                   }
-//        , 	dataType :'json'
+
         })
 	.done((stat) => {
-		console.log("Me stesso");
 		var wow= [];
 		var wowow=[];
 		var ahahah=[];
@@ -47,7 +46,7 @@ $(() => {
 			
 			for (var i = 0; i < stat.length; i++) {
 				var stat1 = (stat[i]);
-				wow[i]=(stat1.prezzo);
+				wow[i]=((stat1.prezzo).toFixed(3));
 				var dt=new Date(parseInt(stat1.dataComunicazione));				
 				var giorno = dt.getDate();
 				console.log(giorno);
