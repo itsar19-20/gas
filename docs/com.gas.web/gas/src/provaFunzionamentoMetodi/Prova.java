@@ -1,15 +1,17 @@
 package provaFunzionamentoMetodi;
 
-import javax.persistence.EntityManager;
+import java.io.IOException;
+import java.util.List;
+import java.util.logging.FileHandler;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 import model.Prezzo;
 import utils.JPAUtil;
 
 public class Prova {
-
 	public static void main(String[] args) {
 
-		
 		EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
 		Prezzo u = null;
 		u = (Prezzo) em.createQuery(
@@ -22,9 +24,8 @@ public class Prova {
 //		 for (i=0;i<l.size();i++) {
 //			 System.out.println(l.get(i).toString());
 //		 }
-		 int a = 446145;
-		
-		 
+		int a = 446145;
+
 		// System.out.println(u.getValutaziones().toString());
 
 	}

@@ -35,7 +35,10 @@ public class OttieniStat extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		List<Prezzo> lista = StatManager.getStat();
+		String carburanti=request.getParameter("carburanti");
+		
+
+		List<Prezzo> lista = StatManager.getStat(carburanti);
 		ObjectMapper om = new ObjectMapper();
 
 		response.setContentType("application/json");
