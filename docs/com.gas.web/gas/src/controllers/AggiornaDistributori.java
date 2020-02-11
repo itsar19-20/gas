@@ -1,13 +1,13 @@
 package controllers;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.Scanner;
 
 import javax.persistence.EntityManager;
-import javax.persistence.FlushModeType;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -22,7 +22,7 @@ import model.Distributore;
 import utils.JPAUtil;
 
 /**
- * Servlet implementation class AggiornaDistributori
+ * Servlet implementation class AggiornaPrezzi
  */
 @WebServlet("/aggiornaDistributori")
 @MultipartConfig(location = "/tmp", fileSizeThreshold = 1024 * 1024, maxFileSize = 1024 * 1024
@@ -41,70 +41,70 @@ public class AggiornaDistributori extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		DatabaseManager dm = new DatabaseManager();
+		// inizializzo i variabili per usarli dentro il try/catch e anche fuori
+		Part part;
+		String fileName = null;
+		InputStream fileContent;
+		BufferedReader br = null;
+		List<Integer> listaID = null;
+		EntityManager em = null;
 		try {
-			Part part = request.getPart("fileA"); // Per ricevere <input type="file" name="file">
-			String fileName = Paths.get(part.getSubmittedFileName()).getFileName().toString(); // nome del file caricato
-			InputStream fileContent = part.getInputStream();// fileContent è il file caricato
-			Scanner s = new Scanner(fileContent).useDelimiter("\\n");
-			s.next();
-			s.next(); // skip prime 2 righe
-			EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
-			List<Integer> listaID = (em.createQuery("Select c.idImpianto FROM Distributore c", Integer.class)
-					.getResultList());
-			em.setFlushMode(FlushModeType.COMMIT);
-			int batchsize = 500;
-			int i = 0;
-//			em.getTransaction().begin();
-			long startTime = System.currentTimeMillis();
-
-			while (s.hasNext()) {
-
-				try {
-					String row = s.next();
-					String[] column = row.split(";");
-					int idImpianto = Integer.parseInt(column[0]);
-					if (listaID.contains(idImpianto)) {
-						continue;
-					} else {
-//
-//						Double latitudine = Double.parseDouble(column[8]);
-//						Double longitudine = Double.parseDouble(column[9]);
-//						em.createNativeQuery(
-//								"INSERT INTO distributore (idImpianto, gestore, bandiera, tipoImpianto, nomeImpianto, indirizzo, comune, provincia, latitudine, longitudine) "
-//										+ "VALUES (?,?,?,?,?,?,?,?,?,?)")
-//								.setParameter(1, column[0]).setParameter(2, column[1]).setParameter(3, column[2])
-//								.setParameter(4, column[3]).setParameter(5, column[4]).setParameter(6, column[5])
-//								.setParameter(7, column[6]).setParameter(8, column[7]).setParameter(9, latitudine)
-//								.setParameter(10, longitudine).executeUpdate();
-//				
-					Distributore d = dm.aggiornaDistributori(column[0], column[1], column[2], column[3], column[4], column[5], column[6],
-							column[7], column[8], column[9]);
-					em.getTransaction().begin();
-					em.persist(d);
-					em.getTransaction().commit();
-//					if (++i % batchsize == 0) {
-//						em.flush();
-//						em.clear();
-						System.out.println("entitymanager Flushed");
-//					}
-					}
-				} catch (Exception e) {
-					System.out.println("eccezione  " + e.toString());
-				}
-
-			}
-			request.setAttribute("messageSuccesfulStation", "File: " + fileName + ", dati inseriti correttamente.");
-			System.out.println("commited");
-//			em.getTransaction().commit();
-//			em.close();
-			s.close();
-			long endTime = System.currentTimeMillis();
-			System.out.println("Tempo di esecuzione: " + (endTime - startTime));
+			// Per ricevere <input type="file" name="file">
+			part = request.getPart("fileA");
+			// nome del file caricato
+			fileName = Paths.get(part.getSubmittedFileName()).getFileName().toString();
+			// fileContent è il file caricato
+			fileContent = part.getInputStream();
+			br = new BufferedReader(new InputStreamReader(fileContent));
+			br.readLine(); // prime 2 righe sono senza dati
 		} catch (Exception e) {
 			request.setAttribute("messageErrorStation", "Errore, caricamento non riuscito.");
+			RequestDispatcher rd = request.getRequestDispatcher("flusso.jsp");
+			rd.include(request, response);
+			System.out.println("errore: " + e.toString());
 		}
-
+		try {
+			em = JPAUtil.getInstance().getEmf().createEntityManager();
+			listaID = em
+					.createQuery("Select c.idImpianto FROM Distributore c WHERE c.provincia LIKE 'MI'", Integer.class)
+					.getResultList();
+		} catch (Exception e) {
+			request.setAttribute("messageErrorStation", "Errore Generico");
+			RequestDispatcher rd = request.getRequestDispatcher("flusso.jsp");
+			rd.include(request, response);
+			System.out.println("EntityManager non creato, errore: " + e.toString());
+		}
+		long startTime = System.currentTimeMillis();
+		String row = br.readLine();
+		while (row != null) {
+			try {
+				row = br.readLine();
+				String[] column = row.split(";");
+				int idImpianto = Integer.parseInt(column[0]);
+				if (listaID.contains(idImpianto)) {
+					System.out.println("passed");
+					continue; // impianto duplicato
+				} else if (column[7].equals("MI")) { // il caso che ci interessa
+					DatabaseManager dm = new DatabaseManager();
+					Distributore nuovo = dm.aggiornaDistributori(idImpianto, column[1], column[2], column[3], column[4],
+							column[5], column[6], column[7], column[8], column[9]);
+					System.out.println("passed2");
+					em.getTransaction().begin();
+					System.out.println("passed3");
+					em.persist(nuovo);
+					em.getTransaction().commit();
+				} else {
+					continue;
+				}
+			} catch (Exception e) {
+				System.out.println(e.getStackTrace());
+				System.out.println("exception" + e.toString());
+			}
+		}
+		
+		long endTime = System.currentTimeMillis();
+		System.out.println("Tempo di esecuzione: " + ((endTime - startTime) / 1000) + " secondi.");
+		request.setAttribute("messageSuccesfulStation", "File: " + fileName + ", dati inseriti correttamente.");
 		RequestDispatcher rd = request.getRequestDispatcher("flusso.jsp");
 		rd.include(request, response);
 	}
