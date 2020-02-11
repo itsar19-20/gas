@@ -6,23 +6,19 @@ import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
-import javax.persistence.EntityManager;
-
 import model.Prezzo;
 import utils.JPAUtil;
 
 public class Prova {
-	// static final Logger LOG = LoggerFactory.getLogger(Prova.class);
 	public static void main(String[] args) {
 
 		EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
-		String scelta="Benzina";
-		List<Prezzo> lista = em.createQuery("Select c FROM Prezzo c WHERE descCarburante= :scelta", Prezzo.class)
-				.setParameter("scelta", scelta)
-				.getResultList();
-
-		
-		System.out.println(lista);
+		Prezzo u = null;
+		u = (Prezzo) em.createQuery(
+				"Select c FROM Prezzo c WHERE c.descCarburante LIKE :descCarburante AND c.isSelf LIKE : isSelf AND c.dtComu LIKE : dtComu")
+				.setParameter("descCarburante", "Benzina").setParameter("isSelf", 1)
+				.setParameter("dtComu", "01/01/2018 10:20:52").getSingleResult();
+		System.out.println(u);
 //		  List<Integer> l=(em.createQuery("Select c.idImpianto FROM Distributore c", Integer.class).getResultList());
 //		  int i=0;
 //		 for (i=0;i<l.size();i++) {

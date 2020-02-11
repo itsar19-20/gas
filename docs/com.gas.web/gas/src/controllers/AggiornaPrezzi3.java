@@ -16,9 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import model.Distributore;
 import model.Prezzo;
 import utils.JPAUtil;
@@ -31,7 +28,6 @@ import utils.JPAUtil;
 		* 7, maxRequestSize = 1024 * 1024 * 7 * 2)
 public class AggiornaPrezzi3 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	public static Logger log = LoggerFactory.getLogger(AggiornaPrezzi3.class);
 
 	public AggiornaPrezzi3() {
 		super();
@@ -52,7 +48,6 @@ public class AggiornaPrezzi3 extends HttpServlet {
 			InputStream fileContent = part.getInputStream();// fileContent è il file caricato
 			BufferedReader br = new BufferedReader(new InputStreamReader(fileContent));
 			br.readLine();
-			log.info("arrivato");
 			long startTime = System.currentTimeMillis();
 			EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
 			String row = br.readLine();
