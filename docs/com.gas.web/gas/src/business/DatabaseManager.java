@@ -28,13 +28,12 @@ public class DatabaseManager {
 		em.getTransaction().commit();
 	}
 
-	public Distributore aggiornaDistributori(String id, String gestore, String bandiera, String tipoImpianto, String nomeImpianto,
+	public Distributore aggiornaDistributori(int id, String gestore, String bandiera, String tipoImpianto, String nomeImpianto,
 			String indirizzo, String comune, String provincia, String lat, String lon) {
-		int idImpianto = Integer.parseInt(id);
 		Double latitudine = Double.parseDouble(lat);
 		Double longitudine = Double.parseDouble(lon);
 		Distributore d = new Distributore();
-		d.setIdImpianto(idImpianto);
+		d.setIdImpianto(id);
 		d.setGestore(gestore);
 		d.setBandiera(bandiera);
 		d.setTipoImpianto(tipoImpianto);
