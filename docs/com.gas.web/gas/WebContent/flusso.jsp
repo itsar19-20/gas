@@ -90,7 +90,7 @@
 						<form id="formUpdateStation" class="pt-3" method="POST"
 							enctype="multipart/form-data">
 							<div class="form-group d-flex flex-column">
-								<div class="input-group d-flex justify-content-center pb-5">
+								<div class="input-group d-flex justify-content-center pb-5 formInputs">
 									<div class="input-group-prepend">
 										<div class="input-group-text">
 											<input type="file" name="fileA" id="fileA"> <span><a href="https://www.mise.gov.it/index.php/it/open-data/elenco-dataset/2032336-
@@ -121,7 +121,7 @@
 						<form id="formUpdatePrice" class="pt-3" method="POST"
 							enctype="multipart/form-data">
 							<div class="form-group d-flex flex-column">
-								<div class="input-group d-flex justify-content-center pb-5">
+								<div class="input-group d-flex justify-content-center pb-5 formInputs">
 									<div class="input-group-prepend">
 										<div class="input-group-text">
 											<input type="file" name="file" id="file"> <span><a href="https://www.mise.gov.it/index.php/it/open-data/elenco-dataset/2032336-

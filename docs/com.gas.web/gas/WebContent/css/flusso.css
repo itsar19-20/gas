@@ -12,11 +12,21 @@ a.navListFlusso {
 }
 /* qui inizia css flusso giornaliero*/
 #containerStations {
-    flex: 1;
+	flex: 1;
+	flex-shrink: 2;
+	min-width: 10em;
 }
 #containerPrice {
+	min-width: 10em;
+	flex-shrink: 2;
     flex: 1;
 }
+.formInputs {
+	min-width: 0;
+	min-height: 0;
+	overflow: hidden;
+}
+
 #textContainerPrice {
     flex:1;
 }

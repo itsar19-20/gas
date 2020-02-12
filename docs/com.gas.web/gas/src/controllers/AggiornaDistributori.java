@@ -48,6 +48,7 @@ public class AggiornaDistributori extends HttpServlet {
 		BufferedReader br = null;
 		List<Integer> listaID = null;
 		EntityManager em = null;
+		String row;
 		try {
 			// Per ricevere <input type="file" name="file">
 			part = request.getPart("fileA");
@@ -68,6 +69,7 @@ public class AggiornaDistributori extends HttpServlet {
 			listaID = em
 					.createQuery("Select c.idImpianto FROM Distributore c WHERE c.provincia LIKE 'MI'", Integer.class)
 					.getResultList();
+			row = br.readLine();
 		} catch (Exception e) {
 			request.setAttribute("messageErrorStation", "Errore Generico");
 			RequestDispatcher rd = request.getRequestDispatcher("flusso.jsp");
@@ -75,20 +77,19 @@ public class AggiornaDistributori extends HttpServlet {
 			System.out.println("EntityManager non creato, errore: " + e.toString());
 		}
 		long startTime = System.currentTimeMillis();
-		String row = br.readLine();
-		while (row != null) {
+		
+		while ((row = br.readLine())!= null) {
 			try {
-				row = br.readLine();
 				String[] column = row.split(";");
 				int idImpianto = Integer.parseInt(column[0]);
 				if (listaID.contains(idImpianto)) {
-					System.out.println("passed");
+					System.out.println("Duplicato");
 					continue; // impianto duplicato
 				} else if (column[7].equals("MI")) { // il caso che ci interessa
 					DatabaseManager dm = new DatabaseManager();
 					Distributore nuovo = dm.aggiornaDistributori(idImpianto, column[1], column[2], column[3], column[4],
 							column[5], column[6], column[7], column[8], column[9]);
-					System.out.println("passed2");
+					System.out.println("nuovo");
 					em.getTransaction().begin();
 					System.out.println("passed3");
 					em.persist(nuovo);
