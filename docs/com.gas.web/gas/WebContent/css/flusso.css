@@ -58,4 +58,13 @@ a.navListFlusso {
 #msgMessageErrorStation {
 	color: red;
 }
-
+/*loading screen*/
+#loading {
+	background: url('https://static-steelkiwi-dev.s3.amazonaws.com/media/filer_public/1c/1e/1c1ef198-ca28-42f0-866e-056d6ba5fc44/68f1c83f-5881-4e6b-9e6c-b213f987b21f.gif') no-repeat center center;
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	z-index: 9999;
+}
