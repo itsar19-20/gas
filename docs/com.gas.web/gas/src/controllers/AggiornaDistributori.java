@@ -91,9 +91,9 @@ public class AggiornaDistributori extends HttpServlet {
 							column[5], column[6], column[7], column[8], column[9]);
 					System.out.println("nuovo");
 					em.getTransaction().begin();
-					System.out.println("passed3");
 					em.persist(nuovo);
 					em.getTransaction().commit();
+					System.out.println("commited");
 				} else {
 					continue;
 				}
