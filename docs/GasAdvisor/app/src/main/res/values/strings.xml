@@ -1,4 +1,6 @@
 <resources>
+    <string name="user_location_permission_explanation">Permessi neccessari per usare la Mappa.</string>
+    <string name="user_location_permission_not_granted">Permessi di localizzazione non abilitati.</string>
     <string name="app_name">GasAdvisor</string>
     <string name="viaggio">Viaggio</string>
     <string name="cerca">Cerca</string>
