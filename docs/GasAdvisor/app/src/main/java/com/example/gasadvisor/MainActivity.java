@@ -2,6 +2,7 @@ package com.example.gasadvisor;
 
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -11,6 +12,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.google.android.material.navigation.NavigationView;
 import com.mapbox.mapboxsdk.camera.CameraPosition;
 import com.mapbox.mapboxsdk.location.modes.CameraMode;
 import com.mapbox.mapboxsdk.location.modes.RenderMode;
@@ -26,7 +28,7 @@ import com.mapbox.mapboxsdk.maps.Style;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, PermissionsListener {
+public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, PermissionsListener, NavigationView.OnNavigationItemSelectedListener {
     private MapView mapView;
     private DrawerLayout drawer;
     private PermissionsManager permissionsManager;
@@ -40,6 +42,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         Toolbar toolbar = findViewById(R.id.toolbar);
         drawer = findViewById(R.id.drawer_layout);
         setSupportActionBar(toolbar);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -111,6 +115,38 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             Toast.makeText(this, R.string.user_location_permission_not_granted, Toast.LENGTH_LONG).show();
             finish();
         }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.nav_cheapest:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new CheapestFragment()).commit();
+                break;
+            case R.id.nav_favourite:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new FavouriteFragment()).commit();
+                break;
+            case R.id.nav_settings:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new ImpostazioniFragment()).commit();
+                break;
+            case R.id.nav_map:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new MapFragment()).commit();
+                break;
+            case R.id.nav_profile:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new ProfileFragment()).commit();
+                break;
+            case R.id.nav_stats:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new StatisticheFragment()).commit();
+                break;
+        }
+        drawer.closeDrawer(GravityCompat.START);
+        return true; //se return false nessun elemento si seleziona on click
     }
     @Override
     public void onBackPressed() {
