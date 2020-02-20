@@ -9,9 +9,9 @@
         android:icon="@drawable/ic_directions_car_24px"
        ></item>
     <item android:id="@+id/menu3"
-        android:title="Cerca"
+        android:title="@string/cerca"
     android:icon="@drawable/ic_search_24px"></item>
     <item android:id="@+id/menu4"
         android:title="Mappa"
-        android:icon="@drawable/ic_navigation_24px"></item>
+        android:icon="@drawable/ic_navigation_24px"/>
 </menu>

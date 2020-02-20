@@ -34,6 +34,7 @@
 </head>
 
 <body>
+	<div id="loading"></div>
 	<nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
 		<a class="navbar-brand col-sm-3 col-md-2 mr-0" href="/gas/index.html">GasAdvisor</a>
 		<input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
@@ -87,8 +88,7 @@
 							<h3 class="pb-5">Aggiorna Distributori!</h3>
 						</div>
 						<br>
-						<form id="formUpdateStation" class="pt-3" method="POST"
-							enctype="multipart/form-data">
+						<form id="formUpdateStation" class="pt-3" method="POST" enctype="multipart/form-data">
 							<div class="form-group d-flex flex-column">
 								<div class="input-group d-flex justify-content-center pb-5 formInputs">
 									<div class="input-group-prepend">
@@ -101,7 +101,7 @@
 								</div>
 								<br>
 								<div class="d-flex justify-content-center">
-									<button type="" class="btn btn-primary">Carica</button>
+									<button id="btnCaricaDistributori" type="" class="btn btn-primary">Carica</button>
 								</div>
 								<br>
 								<div class="d-flex justify-content-center">
@@ -118,8 +118,7 @@
 							<h3 class="pb-5">Aggiorna Prezzi!</h3>
 						</div>
 						<br>
-						<form id="formUpdatePrice" class="pt-3" method="POST"
-							enctype="multipart/form-data">
+						<form id="formUpdatePrice" class="pt-3" method="POST" enctype="multipart/form-data">
 							<div class="form-group d-flex flex-column">
 								<div class="input-group d-flex justify-content-center pb-5 formInputs">
 									<div class="input-group-prepend">
