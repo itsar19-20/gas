@@ -2,13 +2,19 @@ package com.example.gasadvisor;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
 import com.mapbox.android.core.permissions.PermissionsListener;
 import com.mapbox.android.core.permissions.PermissionsManager;
 import com.mapbox.mapboxsdk.Mapbox;
@@ -24,12 +30,12 @@ import com.mapbox.mapboxsdk.maps.Style;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, PermissionsListener {
+public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, PermissionsListener, NavigationView.OnNavigationItemSelectedListener {
     private MapView mapView;
     private PermissionsManager permissionsManager;
     private MapboxMap mapboxMap;
     private FloatingActionButton btnHome;
-
+    private DrawerLayout drawer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +47,15 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         mapView.getMapAsync(this);
 // Map is set up and the style has loaded.
         //toolbar
+        Toolbar toolbar = findViewById(R.id.toolbar_mainActivity);
+        drawer = findViewById(R.id.drawer_layout_home);
+        setSupportActionBar(toolbar);
+        NavigationView navigationView = findViewById(R.id.nav_view_mainActivity);
+        navigationView.setNavigationItemSelectedListener(this);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer,
+                toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
         btnHome = findViewById(R.id.btnHome);
         btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,6 +64,31 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 startActivity(homeIntent);
             }
         });
+    }
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.nav_profile:
+
+                break;
+            case R.id.nav_settings:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new StatisticheFragment()).commit();
+                break;
+        }
+        drawer.closeDrawer(GravityCompat.START);
+        return true; //se return false nessun elemento si seleziona on click
+    }
+    @Override
+    public void onBackPressed() {
+        //serve quando clichiamo indietro dal telefono, non
+        //lasciare l`activity ma solo chiudere drawer
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+            //se drawer fosse a destra scrivi GravityCompat.END
+        } else {
+            super.onBackPressed();
+        }
     }
 
     public void onMapReady(@NonNull final MapboxMap mapboxMap) {

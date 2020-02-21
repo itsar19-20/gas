@@ -105,7 +105,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         super.onSaveInstanceState(outState);
     }
 
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         return true;
     }
