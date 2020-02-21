@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/menu1"
-        android:title="Preferiti"
-        android:icon="@drawable/ic_star_24px"></item>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/menu2"
-        android:title="@string/viaggio"
-        android:icon="@drawable/ic_directions_car_24px"
-       ></item>
-    <item android:id="@+id/menu3"
-        android:title="@string/cerca"
-    android:icon="@drawable/ic_search_24px"></item>
-    <item android:id="@+id/menu4"
-        android:title="Mappa"
-        android:icon="@drawable/ic_navigation_24px"/>
+        android:id="@+id/homeItem"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="@string/menu_home" />
+    <item
+        android:id="@+id/starredItem"
+        android:icon="@drawable/ic_star_24px"
+        android:title="@string/preferiti"></item>
+
+
+    <item
+        android:id="@+id/mapItem"
+        android:icon="@drawable/ic_map_black_24dp"
+        android:title="@string/mappa" />
+    <item
+        android:id="@+id/profileItem"
+        android:icon="@drawable/ic_profile"
+        android:title="@string/profilo" />
 </menu>

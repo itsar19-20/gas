@@ -4,6 +4,9 @@
     <string name="app_name">GasAdvisor</string>
     <string name="viaggio">Viaggio</string>
     <string name="cerca">Cerca</string>
+    <string name="mappa">Mappa</string>
+    <string name="profilo">Profilo</string>
+    <string name="preferiti">Preferiti</string>
     <string name="greetings">Buongiorno SabaIlBianco</string>
     <string name="appName">GasAdvisor</string>
     <string name="txtPrezzoMedio">Il prezzo medio della benzina e` di:</string>
