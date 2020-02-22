@@ -1,4 +1,12 @@
 <resources>
+    <string name="login">Entra</string>
+    <string name="signup">Registrati</string>
+    <string name="forgot_password">Password Dimenticata?</string>
+    <string name="log_form_username">Username</string>
+    <string name="log_form_email">Email</string>
+    <string name="log_form_name">Nome</string>
+    <string name="log_form_last_name">Cognome</string>
+    <string name="log_form_password">Password</string>
     <string name="logged_username">Nome Utente</string>
     <string name="MAPBOX_ACCESS_TOKEN_DEFAULT">pk.eyJ1IjoiZGllZ29jaXBhIiwiYSI6ImNrNXozOGRrOTA1eGczZ3FqazR2amthb2UifQ.Kyzu-TDi7MYZPhBe4s_WqA</string>
     <string name="user_location_permission_explanation">Permessi neccessari per usare la Mappa.</string>

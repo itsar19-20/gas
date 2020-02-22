@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="#232930"
     android:fitsSystemWindows="true"
-    tools:context=".HomeActivity">
+    tools:context=".view.HomeActivity">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -108,6 +108,16 @@
             android:focusable="true"
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="24dp"/>
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Button"
+            app:layout_constraintBottom_toTopOf="@+id/fragment_container"
+            app:layout_constraintEnd_toEndOf="@+id/fragment_container"
+            app:layout_constraintStart_toStartOf="@+id/fragment_container"
+            app:layout_constraintTop_toBottomOf="@+id/txtPrezzoMedio" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

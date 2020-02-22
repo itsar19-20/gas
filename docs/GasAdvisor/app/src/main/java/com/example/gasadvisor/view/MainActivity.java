@@ -1,4 +1,4 @@
-package com.example.gasadvisor;
+package com.example.gasadvisor.view;
 
 import android.content.Intent;
 import android.location.Location;
@@ -16,6 +16,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.gasadvisor.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.mapbox.android.core.permissions.PermissionsListener;
@@ -54,10 +55,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private MapboxMap mapboxMap;
     private FloatingActionButton btnHome;
     private DrawerLayout drawer;
-    private Location originLocation;
     private Point originPosition;
     private Point destinationPosition;
-    private Marker destinationMarker;
+    private Marker destinationMarker; //marker deprecato, da sostituire
     private Button btnStartNavigation;
     private NavigationMapRoute navigationMapRoute;
     private static final String TAG = "MainActivity";
@@ -72,18 +72,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
-        // Mappa è caricata
-        //toolbar
-        Toolbar toolbar = findViewById(R.id.toolbar_mainActivity);
-        drawer = findViewById(R.id.drawer_layout_home);
-        setSupportActionBar(toolbar);
-        NavigationView navigationView = findViewById(R.id.nav_view_mainActivity);
-        navigationView.setNavigationItemSelectedListener(this);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer,
-                toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-        btnHome = findViewById(R.id.btnHome);
+        // Mappa è caricata, aggiungiamo button navigazione
         btnStartNavigation = findViewById(R.id.btnStartNavigation);
         btnStartNavigation.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,6 +85,18 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 NavigationLauncher.startNavigation(MainActivity.this, options);
             }
         });
+        //toolbar
+        Toolbar toolbar = findViewById(R.id.toolbar_mainActivity);
+        drawer = findViewById(R.id.drawer_layout_home);
+        setSupportActionBar(toolbar);
+        NavigationView navigationView = findViewById(R.id.nav_view_mainActivity);
+        navigationView.setNavigationItemSelectedListener(this);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer,
+                toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+        //floating button HOME
+        btnHome = findViewById(R.id.btnHome);
         btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -104,7 +105,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
     }
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
@@ -119,7 +119,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         drawer.closeDrawer(GravityCompat.START);
         return true; //se return false nessun elemento si seleziona on click
     }
-
     @Override
     public void onBackPressed() {
         //serve quando clichiamo indietro dal telefono, non
@@ -131,7 +130,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             super.onBackPressed();
         }
     }
-
     public void onMapReady(@NonNull final MapboxMap mapboxMap) {
         MainActivity.this.mapboxMap = mapboxMap;
         mapboxMap.setCameraPosition(new CameraPosition.Builder().zoom(11).build());
@@ -144,10 +142,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 });
         mapboxMap.addOnMapClickListener(this);
     }
-
     @Override
     public boolean onMapClick(@NonNull LatLng point) {
-        //con markerOptions possiamo cambiare tanti stili
+        //mettiamo Marker in mappa e prendiamo latitudine longitudine
         if (destinationMarker != null) {
             mapboxMap.removeMarker(destinationMarker);
         }
@@ -160,7 +157,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         btnStartNavigation.setBackgroundResource(R.color.mapbox_blue);
         return true;
     }
-
     private void getRoute(Point origin, Point destination) {
         NavigationRoute.builder(this).accessToken(Mapbox.getAccessToken()).origin(origin)
                 .destination(destination).build().getRoute(new Callback<DirectionsResponse>() {
@@ -193,20 +189,15 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private void enableLocationComponent(@NonNull Style loadedMapStyle) {
 // Check if permissions are enabled and if not request
         if (PermissionsManager.areLocationPermissionsGranted(this)) {
-
 // Get an instance of the component
             LocationComponent locationComponent = mapboxMap.getLocationComponent();
-
 // Activate with options
             locationComponent.activateLocationComponent(
                     LocationComponentActivationOptions.builder(this, loadedMapStyle).build());
-
 // Enable to make component visible
             locationComponent.setLocationComponentEnabled(true);
-
 // Set the component's camera mode
             locationComponent.setCameraMode(CameraMode.TRACKING);
-
 // Set the component's render mode
             locationComponent.setRenderMode(RenderMode.COMPASS);
         } else {
