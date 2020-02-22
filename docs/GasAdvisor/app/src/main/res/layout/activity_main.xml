@@ -30,7 +30,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="24dp"
-            android:background="@color/mapbox_navigation_view_color_accent"
+            android:background="@color/common_google_signin_btn_text_light_disabled"
             android:enabled="false"
             android:text="@string/naviga"
             android:textColor="@color/mapbox_navigation_view_color_banner_primary_text"

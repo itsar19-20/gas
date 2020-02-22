@@ -3,6 +3,7 @@ package com.example.gasadvisor;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -19,6 +20,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.mapbox.android.core.permissions.PermissionsListener;
 import com.mapbox.android.core.permissions.PermissionsManager;
+import com.mapbox.api.directions.v5.models.DirectionsResponse;
+import com.mapbox.api.directions.v5.models.DirectionsRoute;
 import com.mapbox.geojson.Point;
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.annotations.Marker;
@@ -33,8 +36,16 @@ import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import com.mapbox.mapboxsdk.maps.Style;
+import com.mapbox.services.android.navigation.ui.v5.NavigationLauncher;
+import com.mapbox.services.android.navigation.ui.v5.NavigationLauncherOptions;
+import com.mapbox.services.android.navigation.ui.v5.route.NavigationMapRoute;
+import com.mapbox.services.android.navigation.v5.navigation.NavigationRoute;
 
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, PermissionsListener,
         MapboxMap.OnMapClickListener, NavigationView.OnNavigationItemSelectedListener {
@@ -48,6 +59,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private Point destinationPosition;
     private Marker destinationMarker;
     private Button btnStartNavigation;
+    private NavigationMapRoute navigationMapRoute;
+    private static final String TAG = "MainActivity";
+    private DirectionsRoute currentRoute;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +89,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onClick(View view) {
 
+                NavigationLauncherOptions options = NavigationLauncherOptions.builder()
+                        .directionsRoute(currentRoute)
+                        .shouldSimulateRoute(true)
+                        .build();
+                NavigationLauncher.startNavigation(MainActivity.this, options);
             }
         });
         btnHome.setOnClickListener(new View.OnClickListener() {
@@ -84,6 +104,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
     }
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
@@ -98,6 +119,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         drawer.closeDrawer(GravityCompat.START);
         return true; //se return false nessun elemento si seleziona on click
     }
+
     @Override
     public void onBackPressed() {
         //serve quando clichiamo indietro dal telefono, non
@@ -122,20 +144,51 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 });
         mapboxMap.addOnMapClickListener(this);
     }
+
     @Override
     public boolean onMapClick(@NonNull LatLng point) {
         //con markerOptions possiamo cambiare tanti stili
-        if(destinationMarker!=null) {
+        if (destinationMarker != null) {
             mapboxMap.removeMarker(destinationMarker);
         }
         destinationMarker = mapboxMap.addMarker(new MarkerOptions().position(point));
         destinationPosition = Point.fromLngLat(point.getLongitude(), point.getLatitude());
         originPosition = Point.fromLngLat(mapboxMap.getLocationComponent().getLastKnownLocation().getLongitude(),
                 mapboxMap.getLocationComponent().getLastKnownLocation().getLatitude());
+        getRoute(originPosition, destinationPosition);
         btnStartNavigation.setEnabled(true);
         btnStartNavigation.setBackgroundResource(R.color.mapbox_blue);
         return true;
     }
+
+    private void getRoute(Point origin, Point destination) {
+        NavigationRoute.builder(this).accessToken(Mapbox.getAccessToken()).origin(origin)
+                .destination(destination).build().getRoute(new Callback<DirectionsResponse>() {
+            @Override
+            public void onResponse(Call<DirectionsResponse> call, Response<DirectionsResponse> response) {
+                if (response.body() == null) {
+                    Log.e(TAG, "No routes found, check user and access token");
+                    return;
+                } else if (response.body().routes().size() == 0) {
+                    Toast.makeText(MainActivity.this, "Nessun percorso trovato", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                currentRoute = response.body().routes().get(0);
+                if (navigationMapRoute != null) {
+                    navigationMapRoute.removeRoute();
+                } else {
+                    navigationMapRoute = new NavigationMapRoute(null, mapView, mapboxMap);
+                }
+                navigationMapRoute.addRoute(currentRoute);
+            }
+
+            @Override
+            public void onFailure(Call<DirectionsResponse> call, Throwable t) {
+                Toast.makeText(MainActivity.this, "Non è possibile ottenere percorsi.", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     @SuppressWarnings({"MissingPermission"})
     private void enableLocationComponent(@NonNull Style loadedMapStyle) {
 // Check if permissions are enabled and if not request
