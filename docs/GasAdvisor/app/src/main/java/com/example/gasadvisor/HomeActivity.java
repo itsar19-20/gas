@@ -24,6 +24,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        //Inizio Toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         drawer = findViewById(R.id.drawer_layout);
         setSupportActionBar(toolbar);
@@ -33,6 +34,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+        //button torna in main activity
         btnMap = findViewById(R.id.btnMappaMain);
         btnMap.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,43 +70,35 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             super.onBackPressed();
         }
     }
-
     @Override
     @SuppressWarnings( {"MissingPermission"})
     public void onStart() {
         super.onStart();
     }
-
     @Override
     public void onResume() {
         super.onResume();
     }
-
     @Override
     public void onPause() {
         super.onPause();
     }
-
     @Override
     public void onStop() {
         super.onStop();
     }
-
     @Override
     public void onLowMemory() {
         super.onLowMemory();
     }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
     }
-
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
     }
-
     public boolean onCreateOptionsMenu(Menu menu) {
         return true;
     }

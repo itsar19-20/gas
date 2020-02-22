@@ -1,9 +1,11 @@
 package com.example.gasadvisor;
 
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -17,8 +19,12 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.mapbox.android.core.permissions.PermissionsListener;
 import com.mapbox.android.core.permissions.PermissionsManager;
+import com.mapbox.geojson.Point;
 import com.mapbox.mapboxsdk.Mapbox;
+import com.mapbox.mapboxsdk.annotations.Marker;
+import com.mapbox.mapboxsdk.annotations.MarkerOptions;
 import com.mapbox.mapboxsdk.camera.CameraPosition;
+import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.location.LocationComponent;
 import com.mapbox.mapboxsdk.location.LocationComponentActivationOptions;
 import com.mapbox.mapboxsdk.location.modes.CameraMode;
@@ -30,22 +36,28 @@ import com.mapbox.mapboxsdk.maps.Style;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, PermissionsListener, NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, PermissionsListener,
+        MapboxMap.OnMapClickListener, NavigationView.OnNavigationItemSelectedListener {
     private MapView mapView;
     private PermissionsManager permissionsManager;
     private MapboxMap mapboxMap;
     private FloatingActionButton btnHome;
     private DrawerLayout drawer;
+    private Location originLocation;
+    private Point originPosition;
+    private Point destinationPosition;
+    private Marker destinationMarker;
+    private Button btnStartNavigation;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //inizializazzione mappa
-        Mapbox.getInstance(this, "pk.eyJ1IjoiZGllZ29jaXBhIiwiYSI6ImNrNXozOGRrOTA1eGczZ3FqazR2amthb2UifQ.Kyzu-TDi7MYZPhBe4s_WqA");
+        Mapbox.getInstance(this, getString(R.string.MAPBOX_ACCESS_TOKEN_DEFAULT));
         setContentView(R.layout.activity_main);
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
-// Map is set up and the style has loaded.
+        // Mappa è caricata
         //toolbar
         Toolbar toolbar = findViewById(R.id.toolbar_mainActivity);
         drawer = findViewById(R.id.drawer_layout_home);
@@ -57,6 +69,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         btnHome = findViewById(R.id.btnHome);
+        btnStartNavigation = findViewById(R.id.btnStartNavigation);
+        btnStartNavigation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
         btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -94,15 +113,29 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onMapReady(@NonNull final MapboxMap mapboxMap) {
         MainActivity.this.mapboxMap = mapboxMap;
         mapboxMap.setCameraPosition(new CameraPosition.Builder().zoom(11).build());
-        mapboxMap.setStyle(new Style.Builder().fromUri("mapbox://styles/mapbox/cjerxnqt3cgvp2rmyuxbeqme7"),
+        mapboxMap.setStyle(new Style.Builder().fromUri("mapbox://styles/mapbox/navigation-preview-day-v4"),
                 new Style.OnStyleLoaded() {
                     @Override
                     public void onStyleLoaded(@NonNull Style style) {
                         enableLocationComponent(style);
                     }
                 });
+        mapboxMap.addOnMapClickListener(this);
     }
-
+    @Override
+    public boolean onMapClick(@NonNull LatLng point) {
+        //con markerOptions possiamo cambiare tanti stili
+        if(destinationMarker!=null) {
+            mapboxMap.removeMarker(destinationMarker);
+        }
+        destinationMarker = mapboxMap.addMarker(new MarkerOptions().position(point));
+        destinationPosition = Point.fromLngLat(point.getLongitude(), point.getLatitude());
+        originPosition = Point.fromLngLat(mapboxMap.getLocationComponent().getLastKnownLocation().getLongitude(),
+                mapboxMap.getLocationComponent().getLastKnownLocation().getLatitude());
+        btnStartNavigation.setEnabled(true);
+        btnStartNavigation.setBackgroundResource(R.color.mapbox_blue);
+        return true;
+    }
     @SuppressWarnings({"MissingPermission"})
     private void enableLocationComponent(@NonNull Style loadedMapStyle) {
 // Check if permissions are enabled and if not request
@@ -195,5 +228,4 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         super.onSaveInstanceState(outState);
         mapView.onSaveInstanceState(outState);
     }
-
 }
