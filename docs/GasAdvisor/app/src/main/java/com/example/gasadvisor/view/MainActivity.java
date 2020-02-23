@@ -1,12 +1,14 @@
 package com.example.gasadvisor.view;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -55,13 +57,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private MapboxMap mapboxMap;
     private FloatingActionButton btnHome;
     private DrawerLayout drawer;
-    private Point originPosition;
-    private Point destinationPosition;
+    private Point originPosition, destinationPosition;
     private Marker destinationMarker; //marker deprecato, da sostituire
     private Button btnStartNavigation;
     private NavigationMapRoute navigationMapRoute;
     private static final String TAG = "MainActivity";
     private DirectionsRoute currentRoute;
+    TextView username;
+    SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,16 +98,30 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+        //mettiamo nome Utente su drawer
+        preferences = getApplicationContext().getSharedPreferences("preferences", 0);
+        username = navigationView.getHeaderView(0).findViewById(R.id.nav_username);
+        try {
+            String name = preferences.getString("username", null);
+            username.setText(name.toUpperCase());
+        } catch (Exception e) {
+        }
         //floating button HOME
         btnHome = findViewById(R.id.btnHome);
         btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent homeIntent = new Intent(MainActivity.this, HomeActivity.class);
-                startActivity(homeIntent);
+                if (preferences.getString("username", null) == null) {
+                    Intent homeIntent = new Intent(MainActivity.this, LoginActivity.class);
+                    startActivity(homeIntent);
+                } else {
+                    Intent toLogin = new Intent(MainActivity.this, HomeActivity.class);
+                    startActivity(toLogin);
+                }
             }
         });
     }
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
@@ -115,10 +132,17 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new StatisticheFragment()).commit();
                 break;
+            case R.id.nav_logout:
+                SharedPreferences preferences = getApplicationContext().getSharedPreferences("preferences", 0);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.remove("username");
+                editor.commit();
+                break;
         }
         drawer.closeDrawer(GravityCompat.START);
         return true; //se return false nessun elemento si seleziona on click
     }
+
     @Override
     public void onBackPressed() {
         //serve quando clichiamo indietro dal telefono, non
@@ -130,6 +154,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             super.onBackPressed();
         }
     }
+
     public void onMapReady(@NonNull final MapboxMap mapboxMap) {
         MainActivity.this.mapboxMap = mapboxMap;
         mapboxMap.setCameraPosition(new CameraPosition.Builder().zoom(11).build());
@@ -142,6 +167,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 });
         mapboxMap.addOnMapClickListener(this);
     }
+
     @Override
     public boolean onMapClick(@NonNull LatLng point) {
         //mettiamo Marker in mappa e prendiamo latitudine longitudine
@@ -157,6 +183,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         btnStartNavigation.setBackgroundResource(R.color.mapbox_blue);
         return true;
     }
+
     private void getRoute(Point origin, Point destination) {
         NavigationRoute.builder(this).accessToken(Mapbox.getAccessToken()).origin(origin)
                 .destination(destination).build().getRoute(new Callback<DirectionsResponse>() {

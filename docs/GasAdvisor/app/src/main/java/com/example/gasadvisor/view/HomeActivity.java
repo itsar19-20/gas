@@ -1,11 +1,13 @@
 package com.example.gasadvisor.view;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -19,14 +21,16 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-
+    TextView username;
     private DrawerLayout drawer;
     private FloatingActionButton btnMap;
+    SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        preferences = getApplicationContext().getSharedPreferences("preferences", 0);
         //Inizio Toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         drawer = findViewById(R.id.drawer_layout);
@@ -37,6 +41,13 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+        //mettiamo nome Utente su drawer
+        username = navigationView.getHeaderView(0).findViewById(R.id.nav_username);
+        try {
+            String name = preferences.getString("username", null);
+            username.setText(name.toUpperCase());
+        } catch (Exception e) {
+        }
         //button torna in main activity
         btnMap = findViewById(R.id.btnMappaMain);
         btnMap.setOnClickListener(new View.OnClickListener() {
@@ -46,15 +57,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(mapIntent);
             }
         });
-        Button b = findViewById(R.id.button);
-        b.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent a = new Intent(HomeActivity.this, LoginActivity.class);
-                startActivity(a);
-            }
-        });
-
     }
 
     @Override
@@ -67,10 +69,18 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new StatisticheFragment()).commit();
                 break;
+            case R.id.nav_logout:
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.remove("username");
+                editor.commit();
+                Intent logoutIntent = new Intent(HomeActivity.this, MainActivity.class);
+                startActivity(logoutIntent);
+                break;
         }
         drawer.closeDrawer(GravityCompat.START);
         return true; //se return false nessun elemento si seleziona on click
     }
+
     @Override
     public void onBackPressed() {
         //serve quando clichiamo indietro dal telefono, non
@@ -82,35 +92,43 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             super.onBackPressed();
         }
     }
+
     @Override
-    @SuppressWarnings( {"MissingPermission"})
+    @SuppressWarnings({"MissingPermission"})
     public void onStart() {
         super.onStart();
     }
+
     @Override
     public void onResume() {
         super.onResume();
     }
+
     @Override
     public void onPause() {
         super.onPause();
     }
+
     @Override
     public void onStop() {
         super.onStop();
     }
+
     @Override
     public void onLowMemory() {
         super.onLowMemory();
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
     }
+
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
     }
+
     public boolean onCreateOptionsMenu(Menu menu) {
         return true;
     }

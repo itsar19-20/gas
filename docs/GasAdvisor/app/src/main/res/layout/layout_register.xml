@@ -17,7 +17,7 @@
         <TextView
             style="@style/headerTextPrimary"
             android:layout_marginTop="@dimen/loginViewsMargin"
-            android:text="@string/signup" />
+            android:text="@string/create_your_account" />
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/parent"
@@ -85,6 +85,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
+            android:id="@+id/btn_signup_layoutRegister"
             style="@style/loginButton"
             android:layout_gravity="center"
             android:text="@string/signup" />
