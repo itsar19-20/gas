@@ -11,16 +11,18 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/ic_launcher_round" />
+        android:src="@mipmap/ic_launcher_round"
+        android:contentDescription="@string/img_description_backgroud"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="8dp"
-        android:text="GasAdvisor"
+        android:text="@string/appName"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/nav_username"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Nome Utente Dopo Login" />
+        android:textAlignment="center" />
 
 </LinearLayout>

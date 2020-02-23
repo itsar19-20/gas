@@ -2,5 +2,11 @@
 <resources>
     <color name="colorPrimary">#343A40</color>
     <color name="colorPrimaryDark">#343A40</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorAccent">#00A5FF</color>
+    <!-- colors for modern ui -->
+    <color name="whiteTextColor">#fff</color>
+    <color name="primaryTextColor">#00a5ff</color>
+    <color name="loginBkColor">#f0f0f0</color>
+    <!-- colros for card -->
+    <color name="whiteCardColor">#fff</color>
 </resources>
