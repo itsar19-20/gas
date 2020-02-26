@@ -62,9 +62,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.nav_profile:
-
-                break;
             case R.id.nav_settings:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new StatisticheFragment()).commit();
@@ -94,7 +91,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
-    @SuppressWarnings({"MissingPermission"})
     public void onStart() {
         super.onStart();
     }
