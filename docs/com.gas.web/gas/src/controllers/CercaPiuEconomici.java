@@ -11,33 +11,36 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import business.MapManager;
-import model.Distributore;
+import business.DistributoreManager;
+import model.Prezzo;
 
 /**
- * Servlet implementation class CercaDistributori
+ * Servlet implementation class CercaPiuEconomici
  */
-@WebServlet("/cercaDistributori")
-public class CercaDistributori extends HttpServlet {
+@WebServlet("/cercaPiuEconomici")
+public class CercaPiuEconomici extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CercaDistributori() {
+    public CercaPiuEconomici() {
         super();
-        // TODO Auto-generated constructor stub
+        
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<Distributore> lista = MapManager.getDistributori();
+		// TODO Auto-generated method stub
+		String carburante = request.getParameter("carburante");
+		DistributoreManager dm = new DistributoreManager();
+        List<Prezzo> lista = dm.cercaPiuEconomici(carburante);
 		ObjectMapper om = new ObjectMapper();
 		response.setContentType("application/json");
 		response.getWriter().append(om.writeValueAsString(lista));
-	
+    
 	}
 
 	/**
