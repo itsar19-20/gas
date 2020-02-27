@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        preferences = getApplicationContext().getSharedPreferences("preferences", 0);
         //inizializazzione mappa
         Mapbox.getInstance(this, getString(R.string.MAPBOX_ACCESS_TOKEN_DEFAULT));
         setContentView(R.layout.activity_main);
@@ -88,24 +89,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 NavigationLauncher.startNavigation(MainActivity.this, options);
             }
         });
-        //toolbar
-        Toolbar toolbar = findViewById(R.id.toolbar_mainActivity);
-        drawer = findViewById(R.id.drawer_layout_home);
-        setSupportActionBar(toolbar);
-        NavigationView navigationView = findViewById(R.id.nav_view_mainActivity);
-        navigationView.setNavigationItemSelectedListener(this);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer,
-                toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-        //mettiamo nome Utente su drawer
-        preferences = getApplicationContext().getSharedPreferences("preferences", 0);
-        username = navigationView.getHeaderView(0).findViewById(R.id.nav_username);
-        try {
-            String name = preferences.getString("username", null);
-            username.setText(name.toUpperCase());
-        } catch (Exception e) {
-        }
+        createDrawer();
         //floating button HOME
         btnHome = findViewById(R.id.btnHome);
         btnHome.setOnClickListener(new View.OnClickListener() {
@@ -122,15 +106,34 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         });
     }
 
+    public void createDrawer() {
+        //toolbar
+        Toolbar toolbar = findViewById(R.id.toolbar_mainActivity);
+        drawer = findViewById(R.id.drawer_layout_home);
+        setSupportActionBar(toolbar);
+        NavigationView navigationView = findViewById(R.id.nav_view_mainActivity);
+        navigationView.setNavigationItemSelectedListener(this);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer,
+                toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+        //mettiamo nome Utente su drawer
+        username = navigationView.getHeaderView(0).findViewById(R.id.nav_username);
+        try {
+            String name = preferences.getString("username", null);
+            username.setText(name.toUpperCase());
+        } catch (Exception e) {
+        }
+    }
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_settings:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_home,
                         new StatisticheFragment()).commit();
                 break;
             case R.id.nav_logout:
-                SharedPreferences preferences = getApplicationContext().getSharedPreferences("preferences", 0);
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.remove("username");
                 editor.commit();

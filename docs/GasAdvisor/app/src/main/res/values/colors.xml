@@ -3,6 +3,7 @@
     <color name="colorPrimary">#343A40</color>
     <color name="colorPrimaryDark">#343A40</color>
     <color name="colorAccent">#00A5FF</color>
+    <color name="colorBackground">#232930</color>
     <!-- colors for modern ui -->
     <color name="whiteTextColor">#fff</color>
     <color name="primaryTextColor">#00a5ff</color>

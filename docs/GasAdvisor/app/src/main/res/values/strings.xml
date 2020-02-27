@@ -1,5 +1,9 @@
 <resources>
     <string name="login">Entra</string>
+    <string name="flag">Bandiera</string>
+    <string name="comune">Comune</string>
+    <string name="lastUpdate">Data</string>
+    <string name="price">Prezzo</string>
     <string name="enter_in_your_account">Accedi al tuo account</string>
     <string name="create_your_account">Crea il tuo profilo</string>
     <string name="signup">Registrati</string>

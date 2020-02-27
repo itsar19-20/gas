@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="?android:starStyle" />
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_Bandiera_layoutCheapest"
+        android:layout_width="fill_parent"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:paddingBottom="5dp"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="fill_parent"
+        android:layout_weight="1"
+        android:id="@+id/tv_Comune_LayoutCheapest"
+        android:layout_height="wrap_content"
+        android:paddingBottom="5dp"
+        android:textColor="@color/primaryTextColor"
+        android:textAlignment="center" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="fill_parent"
+        android:layout_weight="1"
+        android:id="@+id/tv_Data_LayoutCheapest"
+        android:layout_height="wrap_content"
+        android:paddingBottom="5dp"
+        android:textColor="@color/primaryTextColor"
+        android:textAlignment="center" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="fill_parent"
+        android:layout_weight="1"
+        android:id="@+id/tv_Prezzo_LayoutCheapest"
+        android:layout_height="wrap_content"
+        android:paddingBottom="5dp"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:background="@android:color/holo_red_dark"/>
+</LinearLayout>
