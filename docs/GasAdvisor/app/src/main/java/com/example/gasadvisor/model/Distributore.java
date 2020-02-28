@@ -4,11 +4,17 @@ public class Distributore {
     //annotation @serializedName("name") se vogliamo
     //usare un nome diverso su android da quello che
     //ci da il json
+    private Integer _id;
+
     private int idImpianto;
 
     private String bandiera;
 
     private String comune;
+
+    public Integer get_id() {
+        return _id;
+    }
 
     public int getIdImpianto() {
         return idImpianto;
