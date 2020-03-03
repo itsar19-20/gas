@@ -11,6 +11,8 @@ public class Prezzo {
 
     private String descCarburante;
 
+    private Date dataComunicazione;
+
     private String dtComu;
 
     private int isSelf;
@@ -18,6 +20,7 @@ public class Prezzo {
     private Double prezzo;
 
     private String id_impianto;
+    private Distributore distributore;
 
     public Integer get_id() {
         return _id;
@@ -25,6 +28,14 @@ public class Prezzo {
 
     public String getDescCarburante() {
         return descCarburante;
+    }
+
+    public Distributore getDistributore() {
+        return distributore;
+    }
+
+    public Date getDataComunicazione() {
+        return dataComunicazione;
     }
 
     public String getDtComu() {

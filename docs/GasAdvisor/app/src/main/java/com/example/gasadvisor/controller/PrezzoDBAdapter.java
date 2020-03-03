@@ -49,6 +49,13 @@ public class PrezzoDBAdapter {
         ContentValues values = createContentValues(descCarb, prezzo, isSelf, dtComu, id_impianto);
         return db.insertOrThrow(DB_TABLE, null, values);
     }
+    public void addPrezzoVeloce(int id_impianto, String descCarb, Double prezzo,
+                                String dtComu, int isSelf) {
+        String query = "insert into prezzo(descCarburante, prezzo, isSelf, dtComu, id_impianto)" +
+                "values ('" + descCarb + "'," + prezzo + "," + isSelf + ",'" + dtComu
+                + "'," + id_impianto + ");";
+        db.execSQL(query);
+    }
     public Cursor getPiuEconomici(){
         String query = "select prezzo."+KEY_PREZZO+",prezzo."+KEY_DTCOMU+", distributore.bandiera," +
                 "distributore.comune from prezzo inner join distributore on distributore.idImpianto = prezzo.id_impianto;";

@@ -65,6 +65,22 @@ public class DistributoreDBAdapter {
                 tipoImpianto, nomeImpianto, indirizzo, comune, provincia, lat, longit);
         return db.insertOrThrow(DB_TABLE, null, values);
     }
+    public void addDistributoreVeloce(int idImpianto, String gestore, String bandiera,
+                                      String tipoImpianto, String nomeImpianto, String indirizzo,
+                                      String comune, String provincia, Double lat, Double longit) {
+        String query = "insert into distributore(idImpianto, gestore, bandiera, tipoImpianto," +
+                "nomeImpianto, indirizzo, comune, provincia, latitudine, longitudine)" +
+                "values (" + idImpianto + ",'" + gestore + "','" + bandiera + "','" + tipoImpianto
+                + "','" + nomeImpianto + "','" + indirizzo + "','"
+                + comune + "','" + provincia + "'," + lat + "," + longit + ");";
+        db.execSQL(query);
+    }
+    public Cursor getPiuEconomici(){
+        String query ="select distinct prezzo.prezzo,prezzo.dtComu, distributore.comune,distributore.bandiera,distributore.idImpianto,distributore._id " +
+                "from prezzo inner join distributore on distributore.idImpianto = prezzo.id_impianto " +
+                "order by prezzo.prezzo limit 40";
+        return  db.rawQuery(query, null);
+    }
     public Cursor getDistributori(){
         return db.query(DB_TABLE, new String[] {
                 KEY_BANDIERA, KEY_COMUNE

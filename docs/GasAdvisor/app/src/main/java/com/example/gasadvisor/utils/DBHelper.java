@@ -15,7 +15,9 @@ public class DBHelper extends SQLiteOpenHelper {
             "latitudine real default null, longitudine real default null);";
     private static final String DB_CREATE_PREZZO ="create table prezzo (_id integer primary key autoincrement," +
             " descCarburante text default null, prezzo real not null, isSelf integer default null, " +
-            "dtComu text default null, id_impianto integer not null, foreign key(id_impianto) references distributore(idImpianto);";
+            "dtComu text default null, id_impianto integer not null unique, foreign key(id_impianto) references distributore(idImpianto));";
+    private static final String DB_CREATE_PREFERITI="create table preferiti(_id integer primary key autoincrement, " +
+            "user text not null, id_impianto integer not null);";
     public DBHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
     }
@@ -25,6 +27,7 @@ public class DBHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(DB_CREATE_USER);
         sqLiteDatabase.execSQL(DB_CREATE_DISTRIBUTORE);
         sqLiteDatabase.execSQL(DB_CREATE_PREZZO);
+        sqLiteDatabase.execSQL(DB_CREATE_PREFERITI);
     }
 
     @Override
@@ -32,6 +35,7 @@ public class DBHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS user");
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS distributore");
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS prezzo");
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS preferiti");
         onCreate(sqLiteDatabase);
     }
 }
