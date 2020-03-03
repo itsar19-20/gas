@@ -5,13 +5,13 @@ import android.os.Parcelable;
 
 import java.util.Date;
 
-public class Prezzo implements Parcelable {
+public class Prezzo {
 
-    private int id;
-
-    private Date dataComunicazione;
+    private Integer _id;
 
     private String descCarburante;
+
+    private Date dataComunicazione;
 
     private String dtComu;
 
@@ -19,61 +19,23 @@ public class Prezzo implements Parcelable {
 
     private Double prezzo;
 
+    private String id_impianto;
     private Distributore distributore;
 
-    protected Prezzo(Parcel in) {
-        id = in.readInt();
-        descCarburante = in.readString();
-        dtComu = in.readString();
-        isSelf = in.readInt();
-        if (in.readByte() == 0) {
-            prezzo = null;
-        } else {
-            prezzo = in.readDouble();
-        }
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeInt(id);
-        parcel.writeString(descCarburante);
-        parcel.writeString(dtComu);
-        parcel.writeInt(isSelf);
-        if (prezzo == null) {
-            parcel.writeByte((byte) 0);
-        } else {
-            parcel.writeByte((byte) 1);
-            parcel.writeDouble(prezzo);
-        }
-    }
-
-    public static final Creator<Prezzo> CREATOR = new Creator<Prezzo>() {
-        @Override
-        public Prezzo createFromParcel(Parcel in) {
-            return new Prezzo(in);
-        }
-
-        @Override
-        public Prezzo[] newArray(int size) {
-            return new Prezzo[size];
-        }
-    };
-
-    public int getId() {
-        return id;
-    }
-
-    public Date getDataComunicazione() {
-        return dataComunicazione;
+    public Integer get_id() {
+        return _id;
     }
 
     public String getDescCarburante() {
         return descCarburante;
+    }
+
+    public Distributore getDistributore() {
+        return distributore;
+    }
+
+    public Date getDataComunicazione() {
+        return dataComunicazione;
     }
 
     public String getDtComu() {
@@ -88,9 +50,7 @@ public class Prezzo implements Parcelable {
         return prezzo;
     }
 
-    public Distributore getDistributore() {
-        return distributore;
+    public String getId_impianto() {
+        return id_impianto;
     }
-
-
 }

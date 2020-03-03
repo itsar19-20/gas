@@ -19,6 +19,11 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.gasadvisor.R;
+import com.example.gasadvisor.controller.DistributoreDBAdapter;
+import com.example.gasadvisor.controller.PrezzoDBAdapter;
+import com.example.gasadvisor.model.Prezzo;
+import com.example.gasadvisor.utils.GasAdvisorApi;
+import com.example.gasadvisor.utils.RetrofitUtils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.mapbox.android.core.permissions.PermissionsListener;
@@ -44,6 +49,7 @@ import com.mapbox.services.android.navigation.ui.v5.NavigationLauncherOptions;
 import com.mapbox.services.android.navigation.ui.v5.route.NavigationMapRoute;
 import com.mapbox.services.android.navigation.v5.navigation.NavigationRoute;
 
+import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -65,6 +71,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private DirectionsRoute currentRoute;
     TextView username;
     SharedPreferences preferences;
+    private String carburantePreferito, gestore, bandiera, tipoImpianto, nomeImpianto,
+            indirizzo, comune, provincia, dtComu, descCarb;
+    private GasAdvisorApi gasAdvisorApi;
+    private PrezzoDBAdapter prezzoDBAdapter;
+    private DistributoreDBAdapter distributoreDBAdapter;
+    private int idImpianto, isSelf;
+    private Double lat, longit, prezzo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +103,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
         createDrawer();
+        updateDB();
         //floating button HOME
         btnHome = findViewById(R.id.btnHome);
         btnHome.setOnClickListener(new View.OnClickListener() {
@@ -124,6 +138,70 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             username.setText(name.toUpperCase());
         } catch (Exception e) {
         }
+    }
+
+    public void updateDB() {
+        carburantePreferito = "Benzina";
+        gasAdvisorApi = RetrofitUtils.getInstance().getGasAdvisorApi();
+        int anno = new Date().getYear();
+        prezzoDBAdapter = new PrezzoDBAdapter(this);
+        distributoreDBAdapter = new DistributoreDBAdapter(this);
+        Call<List<Prezzo>> callPrezzi = gasAdvisorApi.getPrezziPiuEconomici(carburantePreferito);
+        callPrezzi.enqueue(new Callback<List<Prezzo>>() {
+            @Override
+            public void onResponse(Call<List<Prezzo>> call, Response<List<Prezzo>> response) {
+                if (!response.isSuccessful()) {
+                    Toast.makeText(MainActivity.this, "Chiamata al server non completata", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                List<Prezzo> listRisposta = response.body();
+                prezzoDBAdapter.open();
+                for (int i = 0; i < listRisposta.size(); i++) {
+                    idImpianto = listRisposta.get(i).getDistributore().getIdImpianto();
+                    descCarb = listRisposta.get(i).getDescCarburante().replace("'", " ");
+                    dtComu = listRisposta.get(i).getDtComu();
+                    prezzo = listRisposta.get(i).getPrezzo();
+                    isSelf = listRisposta.get(i).getIsSelf();
+                    if (listRisposta.get(i).getDataComunicazione().getYear() == anno) {
+                        try {
+                            prezzoDBAdapter.addPrezzoVeloce(idImpianto, descCarb, prezzo, dtComu, isSelf);
+                        } catch (Exception e) {
+                            System.out.println(e.getLocalizedMessage());
+                        }
+                    }
+                }
+                prezzoDBAdapter.close();
+                distributoreDBAdapter.open();
+                for (int i = 0; i < listRisposta.size(); i++) {
+                    idImpianto = listRisposta.get(i).getDistributore().getIdImpianto();
+                    gestore = listRisposta.get(i).getDistributore().getGestore().replace("'", " ");
+                    bandiera = listRisposta.get(i).getDistributore().getBandiera().replace("'", " ");
+                    tipoImpianto = listRisposta.get(i).getDistributore().getTipoImpianto().replace("'", " ");
+                    nomeImpianto = listRisposta.get(i).getDistributore().getNomeImpianto().replace("'", " ");
+                    indirizzo = listRisposta.get(i).getDistributore().getIndirizzo().replace("'", " ");
+                    comune = listRisposta.get(i).getDistributore().getComune().replace("'", " ");
+                    provincia = listRisposta.get(i).getDistributore().getProvincia().replace("'", " ");
+                    lat = listRisposta.get(i).getDistributore().getLatitudine();
+                    longit = listRisposta.get(i).getDistributore().getLongitudine();
+                    if (listRisposta.get(i).getDataComunicazione().getYear() == anno) {
+                        try {
+                            distributoreDBAdapter.addDistributoreVeloce(idImpianto, gestore, bandiera,
+                                    tipoImpianto, nomeImpianto, indirizzo, comune,
+                                    provincia, lat, longit);
+                        } catch (Exception e) {
+                            System.out.println(e.getLocalizedMessage());
+                        }
+                    }
+                }
+                distributoreDBAdapter.close();
+                Toast.makeText(MainActivity.this, "Aggiornamento dati finito", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<List<Prezzo>> call, Throwable t) {
+                Toast.makeText(MainActivity.this, "Connessione al server assente", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
