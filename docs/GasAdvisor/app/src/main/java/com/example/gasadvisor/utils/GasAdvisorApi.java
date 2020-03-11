@@ -4,9 +4,11 @@ import com.example.gasadvisor.model.Prezzo;
 import com.example.gasadvisor.model.User;
 
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
+import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -17,6 +19,8 @@ public interface GasAdvisorApi {
     @FormUrlEncoded
     Call<User> getUserLogin(@Field("username") String username,
                             @Field("password") String password);
+@POST("AggiungiValutazione")
+Call<String> aggiungiValutazione(@FieldMap Map<String, String> params);
 
     @GET("cercaPiuEconomici")
     Call<List<Prezzo>> getPrezziPiuEconomici(@Query("carburante") String carburante);

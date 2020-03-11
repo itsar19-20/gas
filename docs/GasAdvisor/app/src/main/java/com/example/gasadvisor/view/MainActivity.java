@@ -348,6 +348,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     Bundle extras = new Bundle();
                     extras.putString("idImpianto", idImpianto);
                     extras.putString("indirizzo", indirizzo);
+                    extras.putString("bandiera",bandiera);
                     toReview.putExtras(extras);
                     startActivity(toReview);
                 }
