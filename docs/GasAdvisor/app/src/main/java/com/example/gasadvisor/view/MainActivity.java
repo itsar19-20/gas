@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     TextView username;
     SharedPreferences preferences;
     private String carburantePreferito, gestore, bandiera, tipoImpianto, nomeImpianto,
-            indirizzo, comune, provincia, dtComu, descCarb, idImpianto, prezzo;
+            indirizzo, comune, provincia, dtComu, descCarb, idImpianto, prezzo, nameUser;
     private GasAdvisorApi gasAdvisorApi;
     private PrezzoDBAdapter prezzoDBAdapter;
     private DistributoreDBAdapter distributoreDBAdapter;
@@ -135,7 +135,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (preferences.getString("username", null) == null) {
+                if (nameUser == null) {
                     Intent homeIntent = new Intent(MainActivity.this, LoginActivity.class);
                     startActivity(homeIntent);
                 } else {
@@ -160,8 +160,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         //mettiamo nome Utente su drawer
         username = navigationView.getHeaderView(0).findViewById(R.id.nav_username);
         try {
-            String name = preferences.getString("username", null);
-            username.setText(name.toUpperCase());
+            nameUser = preferences.getString("username", null);
+            username.setText(nameUser.toUpperCase());
         } catch (Exception e) {
         }
     }
@@ -208,7 +208,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         drawable = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_fuel_15, null);
         imgDistributore = BitmapUtils.getBitmapFromDrawable(drawable);
         mapboxMap.setCameraPosition(new CameraPosition.Builder().zoom(11).build());
-        if (carburantePreferito==null) {
+        if (carburantePreferito == null) {
             mapboxMap.setStyle(new Style.Builder().fromUri("mapbox://styles/mapbox/navigation-preview-day-v4"),
                     new Style.OnStyleLoaded() {
                         @Override
@@ -341,7 +341,16 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         tvRecensione.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "Diciamo che ha funzionato", Toast.LENGTH_SHORT).show();
+                if (nameUser == null) {
+                    Toast.makeText(MainActivity.this, "Effetua il login per scrivere una recensione", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent toReview = new Intent(MainActivity.this, ReviewActivity.class);
+                    Bundle extras = new Bundle();
+                    extras.putString("idImpianto", idImpianto);
+                    extras.putString("indirizzo", indirizzo);
+                    toReview.putExtras(extras);
+                    startActivity(toReview);
+                }
             }
         });
         tvBandiera.setText(bandiera);
