@@ -56,6 +56,11 @@ public class PrezzoDBAdapter {
                 + "'," + id_impianto + ");";
         db.execSQL(query);
     }
+    public Cursor getMediaPrezzo(String carburanteSelezionato) {
+        String query="select AVG(prezzo) from Prezzo WHERE descCarburante='"+carburanteSelezionato+"'";
+        return db.rawQuery(query,null);
+    }
+
     public Cursor getPiuEconomici(){
         String query = "select prezzo."+KEY_PREZZO+",prezzo."+KEY_DTCOMU+", distributore.bandiera," +
                 "distributore.comune from prezzo inner join distributore on distributore.idImpianto = prezzo.id_impianto;";
