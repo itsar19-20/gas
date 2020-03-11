@@ -10,6 +10,7 @@ import javax.persistence.TypedQuery;
 
 import model.Distributore;
 import model.Prezzo;
+import model.User;
 import utils.JPAUtil;
 
 public class DistributoreManager implements Comparator<Prezzo> {
@@ -63,11 +64,16 @@ public class DistributoreManager implements Comparator<Prezzo> {
 			}
 			//in questo punto per ogni Distributore abbiamo il prezzo piu recente
 		}
-		Collections.sort(prezziPiuRecenti, ordinaConPrezzo);
 		return prezziPiuRecenti;
 	}
 
-	
+	public Distributore getDistributore(int idImpianto) {
+		EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
+		Distributore d =(Distributore) em.createQuery("Select c FROM Distributore c WHERE c.idImpianto LIKE :name")
+				.setParameter("name", idImpianto).getSingleResult();
+		em.close();
+		return d;
+	}
 	
 	
 	
