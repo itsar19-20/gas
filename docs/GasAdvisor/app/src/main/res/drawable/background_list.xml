@@ -5,8 +5,8 @@
         android:color="@color/colorPrimaryDark"/>
     <gradient
         android:angle="45"
-        android:centerX="35%"
-        android:startColor="#408bff"
+        android:centerX="45%"
+        android:startColor="#6D9DE8"
         android:endColor="#79EBFD"
         android:type="linear"
         />
@@ -16,5 +16,5 @@
         android:bottom="1dp"
         android:top="1dp" />
 
-    <corners android:radius="20dp" />
+    <corners android:radius="15dp" />
 </shape>

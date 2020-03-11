@@ -27,6 +27,9 @@
             android:name=".view.SignupActivity"
             android:theme="@style/Apptheme.Customized" />
         <activity
+            android:name=".view.FirstActivity"
+            android:theme="@style/Apptheme.Customized" />
+        <activity
             android:name=".view.LoginActivity"
             android:theme="@style/Apptheme.Customized" />
         <activity
