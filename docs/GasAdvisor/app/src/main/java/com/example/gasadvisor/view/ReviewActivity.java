@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.gasadvisor.R;
 import com.example.gasadvisor.controller.UserDBAdapter;
+import com.example.gasadvisor.model.Valutazione;
 import com.example.gasadvisor.utils.GasAdvisorApi;
 import com.example.gasadvisor.utils.RetrofitUtils;
 
@@ -65,10 +66,12 @@ public class ReviewActivity extends AppCompatActivity {
         parametri = new HashMap<>();
         parametri.put("username", username);
         parametri.put("password", username);
+        parametri.put("idImpianto", idImpianto);
         parametri.put("nome", username);
         parametri.put("cognome", username);
         parametri.put("email", username);
         ratingBar = findViewById(R.id.ratingBar_reviewAct);
+        etDescrizione = findViewById(R.id.et_descrizzione_reviewAct);
         btnSalva.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -78,21 +81,19 @@ public class ReviewActivity extends AppCompatActivity {
                 parametri.put("descrizione", descrizione);
                 parametri.put("giudizio", giudizio);
                 gasAdvisorApi = RetrofitUtils.getInstance().getGasAdvisorApi();
-                Call<String> aggiungi = gasAdvisorApi.aggiungiValutazione(parametri);
-                aggiungi.enqueue(new Callback<String>() {
+                Call<Valutazione> aggiungi = gasAdvisorApi.aggiungiValutazione(parametri);
+                aggiungi.enqueue(new Callback<Valutazione>() {
                     @Override
-                    public void onResponse(Call<String> call, Response<String> response) {
+                    public void onResponse(Call<Valutazione> call, Response<Valutazione> response) {
                         if (!response.isSuccessful()) {
                             Toast.makeText(ReviewActivity.this, "Chiamata non completata correttamente", Toast.LENGTH_SHORT).show();
-
                         }
-
                         Toast.makeText(ReviewActivity.this, "Commento inserito correttamente", Toast.LENGTH_SHORT).show();
                         finish();
                     }
 
                     @Override
-                    public void onFailure(Call<String> call, Throwable t) {
+                    public void onFailure(Call<Valutazione> call, Throwable t) {
                         Toast.makeText(ReviewActivity.this, "Connessione al server assente", Toast.LENGTH_SHORT).show();
 
                     }

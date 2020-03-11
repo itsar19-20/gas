@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:numStars="5"
-            android:outlineSpotShadowColor="@color/mapbox_navigation_route_alternative_congestion_yellow"
+            android:outlineSpotShadowColor="@color/mapbox_navigation_route_layer_congestion_red"
             android:stepSize="1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
