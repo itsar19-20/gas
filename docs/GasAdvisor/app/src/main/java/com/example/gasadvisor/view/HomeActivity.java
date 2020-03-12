@@ -2,6 +2,7 @@ package com.example.gasadvisor.view;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.SQLException;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.Menu;
@@ -20,6 +21,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import com.example.gasadvisor.R;
+import com.example.gasadvisor.controller.PrezzoDBAdapter;
 import com.example.gasadvisor.model.Prezzo;
 import com.example.gasadvisor.utils.GasAdvisorApi;
 import com.example.gasadvisor.utils.RetrofitUtils;
@@ -40,7 +42,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private FloatingActionButton btnMap;
     SharedPreferences preferences;
     BottomNavigationView bottomNavigationView;
-
+    //TextView prezzo = findViewById(R.id.txtValuePrice);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +51,13 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         preferences = getApplicationContext().getSharedPreferences("preferences", 0);
         createDrawer();
         createBottomNav();
+        try {
+            PrezzoDBAdapter pdba = new PrezzoDBAdapter(this);
+            pdba.open();
+            //prezzo.setText((CharSequence) pdba.getMediaPrezzo("Benzina"));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         //button torna in main activity
         btnMap = findViewById(R.id.btnMappaMain);
         btnMap.setOnClickListener(new View.OnClickListener() {
