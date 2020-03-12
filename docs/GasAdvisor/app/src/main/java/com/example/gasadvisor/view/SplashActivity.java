@@ -17,7 +17,7 @@ public class SplashActivity extends AppCompatActivity {
         Intent toMain = new Intent(SplashActivity.this, MainActivity.class);
         Intent toFirst = new Intent(SplashActivity.this, FirstActivity.class);
         try {
-            Thread.sleep(2000);
+            Thread.sleep(500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

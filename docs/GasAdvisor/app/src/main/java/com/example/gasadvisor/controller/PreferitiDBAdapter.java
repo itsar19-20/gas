@@ -47,7 +47,8 @@ public class PreferitiDBAdapter {
     public Cursor getPreferiti(String user) {
         String query = "select prezzo.prezzo,prezzo.dtComu, distributore.bandiera," +
                 "distributore.comune,distributore.tipoImpianto, distributore.nomeImpianto, distributore.indirizzo, distributore.idImpianto, " +
-                "distributore._id from prezzo inner join distributore on distributore.idImpianto = prezzo.id_impianto " +
+                "distributore._id, distributore.latitudine, distributore.longitudine " +
+                "from prezzo inner join distributore on distributore.idImpianto = prezzo.id_impianto " +
                 "inner join preferiti on preferiti.id_impianto = distributore.idImpianto where " +
                 "preferiti.user = '" + user + "';";
         return db.rawQuery(query, null);
