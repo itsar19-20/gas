@@ -1,7 +1,9 @@
 package com.example.gasadvisor.viewAdapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,7 @@ import android.widget.TextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.gasadvisor.R;
+import com.example.gasadvisor.view.MainActivity;
 
 public class FavoritesCursorAdapter extends CursorAdapter {
 
@@ -28,6 +31,8 @@ public class FavoritesCursorAdapter extends CursorAdapter {
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
+        double latitudine = cursor.getDouble(9);
+        double longitudine = cursor.getDouble(10);
         TextView tvBandiera = view.findViewById(R.id.tv_bandiea_layoutFav);
         tvBandiera.setText(cursor.getString(cursor.getColumnIndex(cursor.getColumnName(2))));
         TextView tvComune = view.findViewById(R.id.tv_comune_layoutFav);
@@ -51,6 +56,18 @@ public class FavoritesCursorAdapter extends CursorAdapter {
                     layout.setVisibility(View.GONE);
                 else
                     layout.setVisibility(View.VISIBLE);
+            }
+        });
+        Button btnNav = view.findViewById(R.id.btn_startNav_layoutFav);
+        btnNav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent toMainNavigation = new Intent(context, MainActivity.class);
+                Bundle extras = new Bundle();
+                extras.putDouble("latitudine", latitudine);
+                extras.putDouble("longitudine", longitudine);
+                toMainNavigation.putExtras(extras);
+                context.startActivity(toMainNavigation);
             }
         });
     }

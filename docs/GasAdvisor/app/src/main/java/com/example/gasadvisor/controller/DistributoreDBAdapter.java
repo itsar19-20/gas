@@ -25,6 +25,7 @@ public class DistributoreDBAdapter {
     public static final String KEY_PROVINCIA = "provincia";
     public static final String KEY_LATITUDINE = "latitudine";
     public static final String KEY_LONGITUDINE = "longitudine";
+    public static final String KEY_MEDIAVAL = "mediaVal";
 
     public DistributoreDBAdapter(Context context) {
         this.context = context;
@@ -66,6 +67,12 @@ public class DistributoreDBAdapter {
         return db.insertOrThrow(DB_TABLE, null, values);
     }
 
+    public boolean updateMediaValutazioni(int idImpianto, float mediaVal) {
+        ContentValues cv = new ContentValues();
+        cv.put(KEY_MEDIAVAL, mediaVal);
+        return db.update(DB_TABLE, cv, KEY_IDIMPIANTO + "=" + idImpianto, null) > 0;
+    }
+
     public void addDistributoreVeloce(int idImpianto, String gestore, String bandiera,
                                       String tipoImpianto, String nomeImpianto, String indirizzo,
                                       String comune, String provincia, Double lat, Double longit) {
@@ -80,7 +87,7 @@ public class DistributoreDBAdapter {
     public Cursor getDistributoriEPrezzo() {
         String query = "select prezzo.prezzo,prezzo.dtComu, distributore.bandiera," +
                 "distributore.comune, distributore.nomeImpianto, distributore.indirizzo, distributore.idImpianto, " +
-                "distributore._id, distributore.latitudine, distributore.longitudine" +
+                "distributore._id, distributore.latitudine, distributore.longitudine, distributore.mediaVal" +
                 " from prezzo inner join distributore on distributore.idImpianto = prezzo.id_impianto;";
         return db.rawQuery(query, null);
     }

@@ -25,6 +25,9 @@ public interface GasAdvisorApi {
     @FormUrlEncoded
     Call<Valutazione> aggiungiValutazione(@FieldMap Map<String, String> params);
 
+    @GET("AggiornaMediaValutazioni")
+    Call<Map<Integer, Float>> getMediaRecensioni();
+
     @GET("cercaPiuEconomici")
     Call<List<Prezzo>> getPrezziPiuEconomici(@Query("carburante") String carburante);
 }

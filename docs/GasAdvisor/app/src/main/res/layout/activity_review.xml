@@ -58,12 +58,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:numStars="5"
-            android:outlineSpotShadowColor="@color/mapbox_navigation_route_layer_congestion_red"
             android:stepSize="1"
+            android:theme="@style/RatingBar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/et_descrizzione_reviewAct"
-            android:outlineAmbientShadowColor="@color/whiteCardColor"/>
+            app:layout_constraintTop_toBottomOf="@id/et_descrizzione_reviewAct"/>
 
         <Button
             android:id="@+id/btn_salva_revieWAct"

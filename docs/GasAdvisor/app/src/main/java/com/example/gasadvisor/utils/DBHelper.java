@@ -12,7 +12,7 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String DB_CREATE_DISTRIBUTORE = "create table distributore (_id integer primary key autoincrement," +
             " idImpianto integer not null unique, gestore text default null, bandiera text default null, tipoImpianto text default null, " +
             "nomeImpianto text default null, indirizzo text default null, comune text default null, provincia text default null, " +
-            "latitudine real default null, longitudine real default null);";
+            "latitudine real default null, longitudine real default null, mediaVal real default null);";
     private static final String DB_CREATE_PREZZO ="create table prezzo (_id integer primary key autoincrement," +
             " descCarburante text default null, prezzo real not null, isSelf integer default null, " +
             "dtComu text default null, id_impianto integer not null unique, foreign key(id_impianto) references distributore(idImpianto));";

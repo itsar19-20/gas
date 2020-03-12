@@ -1,5 +1,6 @@
 package com.example.gasadvisor.view;
 
+import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -72,38 +73,43 @@ public class ReviewActivity extends AppCompatActivity {
         parametri.put("email", username);
         ratingBar = findViewById(R.id.ratingBar_reviewAct);
         etDescrizione = findViewById(R.id.et_descrizzione_reviewAct);
+        ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setIndeterminate(true);
+        progressDialog.setMessage("Salvando recensione...");
         btnSalva.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 descrizione = etDescrizione.getText().toString();
                 int a = (int) ratingBar.getRating();
-                giudizio = String.valueOf(a);
-                parametri.put("descrizione", descrizione);
-                parametri.put("giudizio", giudizio);
-                gasAdvisorApi = RetrofitUtils.getInstance().getGasAdvisorApi();
-                Call<Valutazione> aggiungi = gasAdvisorApi.aggiungiValutazione(parametri);
-                aggiungi.enqueue(new Callback<Valutazione>() {
-                    @Override
-                    public void onResponse(Call<Valutazione> call, Response<Valutazione> response) {
-                        if (!response.isSuccessful()) {
-                            Toast.makeText(ReviewActivity.this, "Chiamata non completata correttamente", Toast.LENGTH_SHORT).show();
+                if (descrizione.trim().length() == 0 || a == 0) {
+                    Toast.makeText(ReviewActivity.this, "Inserire un commento e giudizio per continuare", Toast.LENGTH_SHORT).show();
+                } else {
+                    giudizio = String.valueOf(a);
+                    parametri.put("descrizione", descrizione);
+                    parametri.put("giudizio", giudizio);
+                    gasAdvisorApi = RetrofitUtils.getInstance().getGasAdvisorApi();
+                    progressDialog.show();
+                    Call<Valutazione> aggiungi = gasAdvisorApi.aggiungiValutazione(parametri);
+                    aggiungi.enqueue(new Callback<Valutazione>() {
+                        @Override
+                        public void onResponse(Call<Valutazione> call, Response<Valutazione> response) {
+                            if (!response.isSuccessful()) {
+                                progressDialog.dismiss();
+                                Toast.makeText(ReviewActivity.this, "Chiamata non completata correttamente", Toast.LENGTH_SHORT).show();
+                            }
+                            Toast.makeText(ReviewActivity.this, "Commento inserito correttamente", Toast.LENGTH_SHORT).show();
+                            progressDialog.dismiss();
+                            finish();
                         }
-                        Toast.makeText(ReviewActivity.this, "Commento inserito correttamente", Toast.LENGTH_SHORT).show();
-                        finish();
-                    }
 
-                    @Override
-                    public void onFailure(Call<Valutazione> call, Throwable t) {
-                        Toast.makeText(ReviewActivity.this, "Connessione al server assente", Toast.LENGTH_SHORT).show();
-
-                    }
-                });
-
+                        @Override
+                        public void onFailure(Call<Valutazione> call, Throwable t) {
+                            Toast.makeText(ReviewActivity.this, "Connessione al server assente", Toast.LENGTH_SHORT).show();
+                            progressDialog.dismiss();
+                        }
+                    });
+                }
             }
         });
-
-
     }
-
-
 }

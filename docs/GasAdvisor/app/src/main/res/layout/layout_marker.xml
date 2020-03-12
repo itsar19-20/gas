@@ -80,7 +80,23 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvIndirizzo_marker" />
 
+        <RatingBar
+            android:progressBackgroundTint="@android:color/background_light"
+            android:layout_marginTop="5dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:theme="@style/RatingBar"
+            android:numStars="5"
+            android:isIndicator="true"
+            android:id="@+id/ratingbar_marker"
+            style="@style/Widget.AppCompat.RatingBar.Indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@id/tvRecensione_marker"
+            app:layout_constraintTop_toBottomOf="@id/tvAggiornato_marker" />
+
         <TextView
+            android:layout_marginTop="5dp"
             android:id="@+id/tvRecensione_marker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -90,9 +106,7 @@
             android:textColor="@android:color/background_light"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvAggiornato_marker" />
-
-
+            app:layout_constraintTop_toBottomOf="@id/ratingbar_marker" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>
