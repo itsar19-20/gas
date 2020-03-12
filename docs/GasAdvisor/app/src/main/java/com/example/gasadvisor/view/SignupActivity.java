@@ -53,6 +53,7 @@ public class SignupActivity extends AppCompatActivity {
                         editor.putString("username", username.getText().toString());
                         editor.commit();
                         startActivity(success);
+                        finish();
                     } catch (Exception e) {
                         Toast.makeText(SignupActivity.this, "Impossibile aggiungere questo utente", Toast.LENGTH_SHORT).show();
                     }
