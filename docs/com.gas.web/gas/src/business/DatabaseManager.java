@@ -9,32 +9,23 @@ import utils.JPAUtil;
 
 public class DatabaseManager {
 
-	public void aggiornaPrezzi(String s, String desc, String p, String i, String dtComu) {
-		int idImpianto = Integer.parseInt(s);
-		Double prezzo = Double.parseDouble(p);
-		int isSelf = Integer.parseInt(i);
-		EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
-
-		Distributore d = (Distributore) em.createQuery("Select c FROM Distributore c WHERE c.idImpianto LIKE :name")
-				.setParameter("name", idImpianto).getSingleResult();
+	public Prezzo aggiornaPrezzi(String desc, String price, String selfS, String dtComu) {
+		Double prezzo = Double.parseDouble(price);
+		int isSelf = Integer.parseInt(selfS);
 		Prezzo pr = new Prezzo();
-		em.getTransaction().begin();
-		pr.setDistributore(d);
 		pr.setDescCarburante(desc);
 		pr.setPrezzo(prezzo);
 		pr.setIsSelf(isSelf);
 		pr.setDtComu(dtComu);
-		em.persist(pr);
-		em.getTransaction().commit();
+		return pr;
 	}
 
-	public Distributore aggiornaDistributori(String id, String gestore, String bandiera, String tipoImpianto, String nomeImpianto,
-			String indirizzo, String comune, String provincia, String lat, String lon) {
-		int idImpianto = Integer.parseInt(id);
+	public Distributore aggiornaDistributori(int id, String gestore, String bandiera, String tipoImpianto,
+			String nomeImpianto, String indirizzo, String comune, String provincia, String lat, String lon) {
 		Double latitudine = Double.parseDouble(lat);
 		Double longitudine = Double.parseDouble(lon);
 		Distributore d = new Distributore();
-		d.setIdImpianto(idImpianto);
+		d.setIdImpianto(id);
 		d.setGestore(gestore);
 		d.setBandiera(bandiera);
 		d.setTipoImpianto(tipoImpianto);
@@ -46,10 +37,5 @@ public class DatabaseManager {
 		d.setLongitudine(longitudine);
 		return d;
 	}
-	
-	
-	
-	
-	
-	
+
 }

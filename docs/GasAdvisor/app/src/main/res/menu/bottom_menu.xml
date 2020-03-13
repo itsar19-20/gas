@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/menu1"
-        android:title="Preferiti"
-        android:icon="@drawable/ic_star_24px"></item>
-    <item
-        android:id="@+id/menu2"
-        android:title="@string/viaggio"
-        android:icon="@drawable/ic_directions_car_24px"
-       ></item>
-    <item android:id="@+id/menu3"
-        android:title="Cerca"
-    android:icon="@drawable/ic_search_24px"></item>
-    <item android:id="@+id/menu4"
-        android:title="Mappa"
-        android:icon="@drawable/ic_navigation_24px"></item>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <item
+            android:id="@+id/nav_favourite"
+            android:icon="@drawable/ic_star_black_24dp"
+            android:title="Preferiti" />
+        <item
+            android:id="@+id/nav_cheapest"
+            android:icon="@drawable/ic_euro_symbol_black_24dp"
+            android:title="Piu Economici" />
+        <item
+            android:id="@+id/nav_stats"
+            android:icon="@drawable/ic_trending_up_black_24dp"
+            android:title="Statistiche" />
 </menu>

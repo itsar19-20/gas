@@ -37,16 +37,12 @@ public class OttieniStat extends HttpServlet {
 			throws ServletException, IOException {
 		String carburanti=request.getParameter("carburanti");
 		
-
 		List<Prezzo> lista = StatManager.getStat(carburanti);
 		ObjectMapper om = new ObjectMapper();
-
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
-
-		response.setCharacterEncoding("UTF-8");
 		response.getWriter().append(om.writeValueAsString(lista));
-		// response.append("Served at: ").append(request.getContextPath());
+		
 	}
 
 	/**

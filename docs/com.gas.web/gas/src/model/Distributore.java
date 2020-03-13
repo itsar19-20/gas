@@ -208,7 +208,7 @@ public class Distributore implements Serializable {
 
 	@Override
 	public String toString() {
-		return nomeImpianto;
+		return bandiera  + "-" + nomeImpianto + ", " + provincia;
 	}
 
 }

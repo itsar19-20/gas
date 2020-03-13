@@ -104,7 +104,7 @@ public class Prezzo implements Serializable {
 	@Override
 	public String toString() {
 		return "Prezzo [descCarburante=" + descCarburante + ", dtComu=" + dtComu + ", isSelf=" + isSelf
-				+ ", distributore=" + distributore + "]";
+				+ ", distributore=" + distributore + ", prezzo=" + prezzo + "]";
 	}
 
 //	public List<Statistiche> getStatistiches() {

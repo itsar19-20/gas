@@ -33,7 +33,6 @@ public class CercaDistributori extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 		List<Distributore> lista = MapManager.getDistributori();
 		ObjectMapper om = new ObjectMapper();
 		response.setContentType("application/json");
