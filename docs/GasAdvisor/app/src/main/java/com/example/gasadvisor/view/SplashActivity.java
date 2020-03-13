@@ -25,8 +25,10 @@ public class SplashActivity extends AppCompatActivity {
 
         if (preferences.getString("carburante", null) != null) {
             startActivity(toMain);
+            finish();
         } else {
             startActivity(toFirst);
+            finish();
         }
 
     }
