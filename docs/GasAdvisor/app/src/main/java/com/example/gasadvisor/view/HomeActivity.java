@@ -42,7 +42,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private FloatingActionButton btnMap;
     SharedPreferences preferences;
     BottomNavigationView bottomNavigationView;
-    TextView prezzo=findViewById(R.id.txtValuePrice);
+    //TextView prezzo = findViewById(R.id.txtValuePrice);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,9 +52,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         createDrawer();
         createBottomNav();
         try {
-            PrezzoDBAdapter pdba=new PrezzoDBAdapter(this);
+            PrezzoDBAdapter pdba = new PrezzoDBAdapter(this);
             pdba.open();
-            prezzo.setText((CharSequence) pdba.getMediaPrezzo("benzina"));
+            //prezzo.setText((CharSequence) pdba.getMediaPrezzo("Benzina"));
         } catch (SQLException e) {
             e.printStackTrace();
         }

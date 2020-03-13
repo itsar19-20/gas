@@ -4,22 +4,77 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.ReviewActivity">
+    android:background="@color/colorPrimaryDark"
+    tools:context=".view.ReviewActivity"
+    android:padding="30dp">
 
-    <TextView
-        android:text="prova"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tv_bandiera_reviewAct"/>
-    <TextView
-        android:id="@+id/tv_indirizzo_reviewAct"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="prova2"/>
-    <EditText
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Inserisci un commento"/>
+        android:layout_height="match_parent"
+        android:background="@drawable/background_list">
 
+        <TextView
+            android:id="@+id/tv_bandiera_reviewAct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingVertical="10dp"
+            android:text="Bandiera"
+            android:textStyle="bold"
+            android:textSize="25dp"
+            app:layout_constraintBottom_toTopOf="@id/tv_indirizzo_reviewAct"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
+        <TextView
+            android:id="@+id/tv_indirizzo_reviewAct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:paddingVertical="10dp"
+            android:text="Indirizzo"
+          android:textStyle="italic"
+            android:textSize="20dp"
+            app:layout_constraintBottom_toTopOf="@id/et_descrizzione_reviewAct"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <EditText
+            android:id="@+id/et_descrizzione_reviewAct"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@color/loginBkColor"
+            android:hint="Inserisci un commento..."
+            android:inputType="text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <RatingBar
+            android:id="@+id/ratingBar_reviewAct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:numStars="5"
+            android:stepSize="1"
+            android:theme="@style/RatingBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_descrizzione_reviewAct"/>
+
+        <Button
+            android:id="@+id/btn_salva_revieWAct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/button_nero"
+            android:text="Salva"
+            android:textColor="@color/loginBkColor"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

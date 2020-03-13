@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.PopupWindow;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
@@ -74,6 +75,7 @@ import org.json.JSONObject;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -97,6 +99,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private String carburantePreferito, gestore, bandiera, tipoImpianto, nomeImpianto,
             indirizzo, comune, provincia, dtComu, descCarb, idImpianto, prezzo, nameUser;
     private GasAdvisorApi gasAdvisorApi;
+    private float mediaVal;
     private PrezzoDBAdapter prezzoDBAdapter;
     private DistributoreDBAdapter distributoreDBAdapter;
     private Double lat, longit;
@@ -113,6 +116,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         //inizializazzione mappa
         Mapbox.getInstance(this, getString(R.string.MAPBOX_ACCESS_TOKEN_DEFAULT));
         setContentView(R.layout.activity_main);
+        distributoreDBAdapter = new DistributoreDBAdapter(this);
+        distributoreDBAdapter.open();
+        updateValutazioni();
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
@@ -177,6 +183,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.remove("username");
                 editor.commit();
+                recreate();
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);
@@ -197,10 +204,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     public void onMapReady(@NonNull final MapboxMap mapboxMap) {
         MainActivity.this.mapboxMap = mapboxMap;
-
         try {
-            distributoreDBAdapter = new DistributoreDBAdapter(this);
-            distributoreDBAdapter.open();
             featureCollection = FeatureCollection.fromJson(createJson(distributoreDBAdapter.getDistributoriEPrezzo()));
         } catch (Exception e) {
             System.out.println(e.getCause());
@@ -227,9 +231,22 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                         @Override
                         public void onStyleLoaded(@NonNull Style style) {
                             enableLocationComponent(style);
+                            /*verificiamo se l'utente e' arrivato dal fragment preferiti e ha portato
+        con se' anche le coordinate del distributore preferito*/
+                            Bundle extras = getIntent().getExtras();
+                            try {
+                                lat = extras.getDouble("latitudine");
+                                longit = extras.getDouble("longitudine");
+                                getRouteFromFavIntent(lat, longit);
+                                btnStartNavigation.setEnabled(true);
+                                btnStartNavigation.setBackgroundResource(R.color.mapbox_blue);
+                            } catch (Exception e) {
+                                Log.e(TAG, e.getLocalizedMessage());
+                            }
                         }
                     });
         }
+
         mapboxMap.addOnMapClickListener(this);
     }
 
@@ -275,6 +292,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             JSONArray features = new JSONArray();
             while (c.moveToNext()) {
+                mediaVal = c.getFloat(10);
                 bandiera = c.getString(2);
                 comune = c.getString(3);
                 idImpianto = String.valueOf(c.getInt(6));
@@ -292,6 +310,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 properties.put("comune", comune);
                 properties.put("prezzo", prezzo);
                 properties.put("nome", nomeImpianto);
+                properties.put("mediaVal", mediaVal);
                 properties.put("indirizzo", indirizzo);
                 properties.put("aggiornato", aggiornat);
                 properties.put("id", idImpianto);
@@ -320,15 +339,20 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         nomeImpianto = feature.getStringProperty("nome");
         prezzo = feature.getStringProperty("prezzo");
         indirizzo = feature.getStringProperty("indirizzo");
+        idImpianto = feature.getStringProperty("id");
+        double temp = (double) feature.getNumberProperty("mediaVal");
+        mediaVal = (float) temp;
         String aggiornato = feature.getStringProperty("aggiornato");
         View mainView = getLayoutInflater().inflate(R.layout.layout_marker_window, null);
-        ViewFlipper markerInfoContainer = (ViewFlipper) mainView.findViewById(R.id.markerInfoContainer);
+        ViewFlipper markerInfoContainer = mainView.findViewById(R.id.markerInfoContainer);
         View viewContainer = getLayoutInflater().inflate(R.layout.layout_marker, null);
         TextView tvBandiera = viewContainer.findViewById(R.id.tvBandiera_marker);
         TextView tvComune = viewContainer.findViewById(R.id.tvComune_marker);
         TextView tvNome = viewContainer.findViewById(R.id.tvNomeImpianto_marker);
         TextView tvIndirizzo = viewContainer.findViewById(R.id.tvIndirizzo_marker);
         TextView tvAggiornato = viewContainer.findViewById(R.id.tvAggiornato_marker);
+        RatingBar ratingBar = viewContainer.findViewById(R.id.ratingbar_marker);
+        ratingBar.setRating(mediaVal);
         TextView tvPrezzo = viewContainer.findViewById(R.id.tvPrezzo_marker);
         Button close = viewContainer.findViewById(R.id.btnClose_marker);
         close.setOnClickListener(new View.OnClickListener() {
@@ -348,6 +372,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     Bundle extras = new Bundle();
                     extras.putString("idImpianto", idImpianto);
                     extras.putString("indirizzo", indirizzo);
+                    extras.putString("bandiera", bandiera);
                     toReview.putExtras(extras);
                     startActivity(toReview);
                 }
@@ -388,6 +413,63 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onFailure(Call<DirectionsResponse> call, Throwable t) {
                 Toast.makeText(MainActivity.this, "Non è possibile ottenere percorsi.", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void getRouteFromFavIntent(double latitudine, double longitudine) {
+        Point destination = Point.fromLngLat(longitudine, latitudine);
+        Point origin = Point.fromLngLat(mapboxMap.getLocationComponent().getLastKnownLocation().getLongitude(),
+                mapboxMap.getLocationComponent().getLastKnownLocation().getLatitude());
+        NavigationRoute.builder(this).accessToken(Mapbox.getAccessToken()).origin(origin)
+                .destination(destination).build().getRoute(new Callback<DirectionsResponse>() {
+            @Override
+            public void onResponse(Call<DirectionsResponse> call, Response<DirectionsResponse> response) {
+                if (response.body() == null) {
+                    Log.e(TAG, "No routes found, check user and access token");
+                    return;
+                } else if (response.body().routes().size() == 0) {
+                    Toast.makeText(MainActivity.this, "Nessun percorso trovato", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                currentRoute = response.body().routes().get(0);
+                if (navigationMapRoute != null) {
+                    navigationMapRoute.removeRoute();
+                } else {
+                    navigationMapRoute = new NavigationMapRoute(null, mapView, mapboxMap);
+                }
+                navigationMapRoute.addRoute(currentRoute);
+            }
+
+            @Override
+            public void onFailure(Call<DirectionsResponse> call, Throwable t) {
+                Toast.makeText(MainActivity.this, "Non è possibile ottenere percorsi.", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void updateValutazioni() {
+        gasAdvisorApi = RetrofitUtils.getInstance().getGasAdvisorApi();
+        Call<Map<Integer, Float>> aggiornaMediaDistributori = gasAdvisorApi.getMediaRecensioni();
+        aggiornaMediaDistributori.enqueue(new Callback<Map<Integer, Float>>() {
+            @Override
+            public void onResponse(Call<Map<Integer, Float>> call, Response<Map<Integer, Float>> response) {
+                if (!response.isSuccessful()) {
+                    Toast.makeText(MainActivity.this, "Media recensioni, errore nel server", Toast.LENGTH_SHORT).show();
+                }
+                Map<Integer, Float> risposta = response.body();
+                for (Map.Entry<Integer, Float> entry : risposta.entrySet()) {
+                    try {
+                        distributoreDBAdapter.updateMediaValutazioni(entry.getKey(), entry.getValue());
+                    } catch (Exception e) {
+                        Log.e(TAG, e.getMessage());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Map<Integer, Float>> call, Throwable t) {
+                Toast.makeText(MainActivity.this, "Connessione al server assente", Toast.LENGTH_SHORT).show();
             }
         });
     }
