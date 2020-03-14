@@ -39,7 +39,8 @@ public class User implements Serializable {
 	
 	@JsonIgnore
 	private String password;
-
+	
+	@Column(unique=true)
 	private String username;
 
 	//bi-directional many-to-one association to Valutazione

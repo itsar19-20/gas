@@ -13,22 +13,37 @@ import android.widget.Toast;
 
 import com.example.gasadvisor.R;
 import com.example.gasadvisor.controller.UserDBAdapter;
+import com.example.gasadvisor.model.User;
+import com.example.gasadvisor.utils.GasAdvisorApi;
+import com.example.gasadvisor.utils.RetrofitUtils;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SignupActivity extends AppCompatActivity {
     TextView tvLogin;
     EditText username, password, email, name, lastName;
     Button btnRegistrati;
     UserDBAdapter dbAdapter = null;
+    GasAdvisorApi gasAdvisorApi;
+    User user;
+    SharedPreferences preferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+        preferences = getApplicationContext().getSharedPreferences("preferences", 0);
+        SharedPreferences.Editor editor = preferences.edit();
+        gasAdvisorApi = RetrofitUtils.getInstance().getGasAdvisorApi();
         tvLogin = findViewById(R.id.tv_login_layoutRegister);
         tvLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent toLogin = new Intent(SignupActivity.this, LoginActivity.class);
                 startActivity(toLogin);
+                finish();
             }
         });
         username = findViewById(R.id.et_userName_layoutRegister);
@@ -43,20 +58,30 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (notEmpty(username) && notEmpty(password) && notEmpty(email) && notEmpty(name) &&
-                        notEmpty(lastName)){
-                    try {
-                        dbAdapter.addUser(username.getText().toString(), password.getText().toString(),
-                                email.getText().toString(), name.getText().toString(), lastName.getText().toString());
-                        Intent success = new Intent(SignupActivity.this, HomeActivity.class);
-                        SharedPreferences preferences = getApplicationContext().getSharedPreferences("preferences", 0);
-                        SharedPreferences.Editor editor = preferences.edit();
-                        editor.putString("username", username.getText().toString());
-                        editor.commit();
-                        startActivity(success);
-                        finish();
-                    } catch (Exception e) {
-                        Toast.makeText(SignupActivity.this, "Impossibile aggiungere questo utente", Toast.LENGTH_SHORT).show();
-                    }
+                        notEmpty(lastName)) {
+                    Call<User> registerUser = gasAdvisorApi.postUserSignUp(username.getText().toString(), password.getText().toString(), email.getText().toString(),
+                            name.getText().toString(), lastName.getText().toString());
+                    registerUser.enqueue(new Callback<User>() {
+                        @Override
+                        public void onResponse(Call<User> call, Response<User> response) {
+                            if (!response.isSuccessful()) {
+                                Toast.makeText(SignupActivity.this, "Questo Username e' gia' in uso", Toast.LENGTH_SHORT).show();
+                            } else {
+                                dbAdapter.addUser(username.getText().toString(), password.getText().toString(),
+                                        email.getText().toString(), name.getText().toString(), lastName.getText().toString());
+                                editor.putString("username", username.getText().toString());
+                                editor.commit();
+                                Intent toHome = new Intent(SignupActivity.this, HomeActivity.class);
+                                startActivity(toHome);
+                                finish();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<User> call, Throwable t) {
+                            Toast.makeText(SignupActivity.this, "Connessione al server assente", Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 } else {
                     Toast.makeText(SignupActivity.this, "Completa tutti i campi", Toast.LENGTH_SHORT).show();
                 }

@@ -2,17 +2,22 @@ package com.example.gasadvisor.controller;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.gasadvisor.utils.DBHelper;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
+import static com.mapbox.mapboxsdk.Mapbox.getApplicationContext;
+
 public class PrezzoDBAdapter {
     private Context context;
     private SQLiteDatabase db;
     private DBHelper dbHelper;
-
     public static final String DB_TABLE = "prezzo";
     public static final String KEY_DESCCARBURANTE = "descCarburante";
     public static final String KEY_PREZZO = "prezzo";
@@ -56,9 +61,15 @@ public class PrezzoDBAdapter {
                 + "'," + id_impianto + ");";
         db.execSQL(query);
     }
-    public Cursor getMediaPrezzo(String carburanteSelezionato) {
-        String query="select AVG(prezzo) from Prezzo WHERE descCarburante='"+carburanteSelezionato+"'";
-        return db.rawQuery(query,null);
+    public Double getMediaPrezzo() {
+        String query= "select AVG(prezzo.prezzo) from prezzo;";
+        Cursor c = db.rawQuery(query,null);
+        c.moveToFirst();
+        Double risposta = c.getDouble(0);
+        BigDecimal bd = BigDecimal.valueOf(risposta);
+        bd = bd.setScale(3, RoundingMode.HALF_UP);
+        return  bd.doubleValue();
+
     }
 
     public Cursor getPiuEconomici(){

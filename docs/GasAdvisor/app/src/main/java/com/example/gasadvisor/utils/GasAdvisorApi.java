@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
@@ -20,6 +21,14 @@ public interface GasAdvisorApi {
     @FormUrlEncoded
     Call<User> getUserLogin(@Field("username") String username,
                             @Field("password") String password);
+
+    @POST("RegistrazioneUtente")
+    @FormUrlEncoded
+    Call<User> postUserSignUp(@Field("username") String username,
+                              @Field("password") String password,
+                              @Field("email") String email,
+                              @Field("name") String name,
+                              @Field("lastname") String lastname);
 
     @POST("AggiungiValutazione")
     @FormUrlEncoded

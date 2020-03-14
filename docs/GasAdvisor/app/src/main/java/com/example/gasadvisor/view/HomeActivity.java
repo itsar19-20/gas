@@ -36,33 +36,43 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.mapbox.mapboxsdk.Mapbox.getApplicationContext;
+
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     TextView username;
     private DrawerLayout drawer;
     private FloatingActionButton btnMap;
     SharedPreferences preferences;
     BottomNavigationView bottomNavigationView;
-    //TextView prezzo = findViewById(R.id.txtValuePrice);
+    TextView prezzo, greeting;
+    PrezzoDBAdapter prezzoDBAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         preferences = getApplicationContext().getSharedPreferences("preferences", 0);
+        greeting = findViewById(R.id.tv_greeting_homeAct);
+        String carburantePreferito = preferences.getString("carburante", null);
+        greeting.setText("Il prezzo medio del carburante: " + carburantePreferito + " e` di:");
+        prezzo = findViewById(R.id.tv_price_homeAct);
+        prezzoDBAdapter = new PrezzoDBAdapter(this);
+        prezzoDBAdapter.open();
+        try {
+            prezzo.setText(String.valueOf(prezzoDBAdapter.getMediaPrezzo()));
+            prezzoDBAdapter.close();
+        } catch (Exception e) {
+            prezzoDBAdapter.close();
+        }
         createDrawer();
         createBottomNav();
-        try {
-            PrezzoDBAdapter pdba = new PrezzoDBAdapter(this);
-            pdba.open();
-            //prezzo.setText((CharSequence) pdba.getMediaPrezzo("Benzina"));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
         //button torna in main activity
         btnMap = findViewById(R.id.btnMappaMain);
         btnMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent toHome = new Intent(HomeActivity.this, MainActivity.class);
+                startActivity(toHome);
                 finish();
             }
         });

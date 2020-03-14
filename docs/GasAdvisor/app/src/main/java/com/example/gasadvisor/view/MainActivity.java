@@ -126,7 +126,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         setContentView(R.layout.activity_main);
         distributoreDBAdapter = new DistributoreDBAdapter(this);
         distributoreDBAdapter.open();
-        updateValutazioni();
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
@@ -246,11 +245,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 lat = extras.getDouble("latitudine");
                                 longit = extras.getDouble("longitudine");
                                 getRouteFromFavIntent(lat, longit);
-                                btnStartNavigation.setEnabled(true);
-                                btnStartNavigation.setBackgroundResource(R.color.mapbox_blue);
                             } catch (Exception e) {
                                 Log.e(TAG, e.getLocalizedMessage());
                             }
+                            updateValutazioni();
                         }
                     });
         }
@@ -461,6 +459,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     navigationMapRoute = new NavigationMapRoute(null, mapView, mapboxMap);
                 }
                 navigationMapRoute.addRoute(currentRoute);
+                btnStartNavigation.setEnabled(true);
+                btnStartNavigation.setBackgroundResource(R.color.mapbox_blue);
             }
 
             @Override

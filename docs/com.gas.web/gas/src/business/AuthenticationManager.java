@@ -13,17 +13,20 @@ public class AuthenticationManager {
 		EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
 		User _return = null;
 		// cerco l'utente nel DB
-		_return = (User) em.createQuery("Select c FROM User c WHERE c.username LIKE :name")
-				.setParameter("name", username).getSingleResult();
-		if (_return == null)
+		try {
+			_return = (User) em.createQuery("Select c FROM User c WHERE c.username LIKE :name")
+					.setParameter("name", username).getSingleResult();
+		} catch (Exception e) {
 			return null;
+		}
 		em.getTransaction().begin();
 		_return.setDataUltimaLogin(new Date());
 		em.getTransaction().commit();
 		if (password.contentEquals(_return.getPassword()) && _return.getIsAdmin()) {
 			return _return;
+		} else {
+			return null;
 		}
-		return null;
 	}
 
 	public User verifyUser(String username) {
@@ -57,7 +60,12 @@ public class AuthenticationManager {
 		_return.setDataRegistrazione(new Date());
 		_return.setDataUltimaLogin(new Date());
 		em.getTransaction().begin();
-		em.persist(_return);
+		try {
+			em.persist(_return);
+		} catch (Exception e) {
+			em.close();
+			return null;
+		}
 		em.getTransaction().commit();
 		em.close();
 		return _return;
