@@ -28,6 +28,27 @@ public class AuthenticationManager {
 			return null;
 		}
 	}
+	
+	public User loginUsers(String username, String password) {
+		EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
+		User _return = null;
+		// cerco l'utente nel DB
+		try {
+			_return = (User) em.createQuery("Select c FROM User c WHERE c.username LIKE :name")
+					.setParameter("name", username).getSingleResult();
+		} catch (Exception e) {
+			return null;
+		}
+		em.getTransaction().begin();
+		_return.setDataUltimaLogin(new Date());
+		em.getTransaction().commit();
+		if (password.contentEquals(_return.getPassword())) {
+			return _return;
+		} else {
+			return null;
+		}
+	}
+	
 
 	public User verifyUser(String username) {
 		EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();

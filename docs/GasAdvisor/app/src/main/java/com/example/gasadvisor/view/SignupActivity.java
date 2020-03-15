@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,6 +17,8 @@ import com.example.gasadvisor.controller.UserDBAdapter;
 import com.example.gasadvisor.model.User;
 import com.example.gasadvisor.utils.GasAdvisorApi;
 import com.example.gasadvisor.utils.RetrofitUtils;
+
+import java.util.regex.PatternSyntaxException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -57,7 +60,11 @@ public class SignupActivity extends AppCompatActivity {
         btnRegistrati.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (notEmpty(username) && notEmpty(password) && notEmpty(email) && notEmpty(name) &&
+                //controlliamo l'indirizzo email se assomiglia a un pattern email predefinito
+                if (!Patterns.EMAIL_ADDRESS.matcher(email.getText().toString().trim()).matches()) {
+                    email.requestFocus();
+                    Toast.makeText(SignupActivity.this, "Inserire un indirizzo Email valido", Toast.LENGTH_SHORT).show();
+                } else if (notEmpty(username) && notEmpty(password) && notEmpty(email) && notEmpty(name) &&
                         notEmpty(lastName)) {
                     Call<User> registerUser = gasAdvisorApi.postUserSignUp(username.getText().toString(), password.getText().toString(), email.getText().toString(),
                             name.getText().toString(), lastName.getText().toString());

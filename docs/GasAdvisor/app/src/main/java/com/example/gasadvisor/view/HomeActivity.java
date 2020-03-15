@@ -141,6 +141,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 editor.commit();
                 Intent logoutIntent = new Intent(HomeActivity.this, MainActivity.class);
                 startActivity(logoutIntent);
+                finish();
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);

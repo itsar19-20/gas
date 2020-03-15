@@ -17,7 +17,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 public interface GasAdvisorApi {
-    @POST("login")
+    @POST("LoginUserController")
     @FormUrlEncoded
     Call<User> getUserLogin(@Field("username") String username,
                             @Field("password") String password);
@@ -29,6 +29,10 @@ public interface GasAdvisorApi {
                               @Field("email") String email,
                               @Field("name") String name,
                               @Field("lastname") String lastname);
+
+    @POST("ForgotPassword")
+    @FormUrlEncoded
+    Call<User> userForgotPassword(@Field("email") String email);
 
     @POST("AggiungiValutazione")
     @FormUrlEncoded

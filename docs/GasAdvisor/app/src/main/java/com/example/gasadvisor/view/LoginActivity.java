@@ -1,5 +1,6 @@
 package com.example.gasadvisor.view;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
@@ -39,7 +40,7 @@ import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
 public class LoginActivity extends AppCompatActivity {
-    TextView tvSignup;
+    TextView tvSignup, tvForgotPass;
     EditText username, password;
     Button btnLogin;
     Cursor utente;
@@ -55,6 +56,7 @@ public class LoginActivity extends AppCompatActivity {
         Intent success = new Intent(LoginActivity.this, HomeActivity.class);
         gasAdvisorApi = RetrofitUtils.getInstance().getGasAdvisorApi();
         tvSignup = findViewById(R.id.tv_signup_layoutLogin);
+        tvForgotPass = findViewById(R.id.textView_forgotPassword);
         username = findViewById(R.id.editTextUsername_layoutLogin);
         password = findViewById(R.id.editTextPassword_layoutLogin);
         btnLogin = findViewById(R.id.btnLogin_layoutLogin);
@@ -104,6 +106,23 @@ public class LoginActivity extends AppCompatActivity {
                 });
             }
         });
+        tvForgotPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent toPass = new Intent(LoginActivity.this, ForgotPassActivity.class);
+                startActivityForResult(toPass, 1);
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 1) {
+            if (resultCode==1) {
+                Toast.makeText(this, "Una mail e stata mandata al suo indirizzo mail", Toast.LENGTH_LONG).show();
+            }
+        }
     }
 
     @Override

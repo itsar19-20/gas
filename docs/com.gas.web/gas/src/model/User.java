@@ -31,6 +31,7 @@ public class User implements Serializable {
 
 	private Date dataUltimaLogin; 
 
+	@Column(unique=true)
 	private String email;
 
 	private Boolean isAdmin;

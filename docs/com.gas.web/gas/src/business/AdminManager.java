@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 
 import model.User;
 import utils.JPAUtil;
+import utils.MailUtils;
 
 public class AdminManager {
 
@@ -25,7 +26,7 @@ public class AdminManager {
 		em.close();
 		return lista;
 	}
-	
+
 	public User editUser(String nome, String cognome, String email, Boolean isAdmin, String username) {
 		EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
 		User u = (User) em.createQuery("Select c FROM User c WHERE c.username LIKE :name")
@@ -39,5 +40,29 @@ public class AdminManager {
 		em.close();
 		return u;
 	}
+
+	public User forgotPassword(String email) {
+		EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
+		MailUtils mu = new MailUtils();
+		User u = new User();
+		try {
+			u = (User) em.createQuery("Select c FROM User c WHERE c.email LIKE :name").setParameter("name", email)
+					.getSingleResult();
+		} catch (Exception e) {
+			return null;
+		}
+		String newPass = mu.sendNewPass(email);
+		if (newPass == null) {
+			return null;
+		} else {
+			u.setPassword(newPass);
+			em.getTransaction().begin();
+			em.getTransaction().commit();
+			em.close();
+			return u;
+		}
+	}
+	
+	
 
 }
