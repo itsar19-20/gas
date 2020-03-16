@@ -46,7 +46,6 @@ public class FirstActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         toMain = new Intent(FirstActivity.this, MainActivity.class);
         preferences = getApplicationContext().getSharedPreferences("preferences", 0);
-        if (preferences.getString("carburante", null) != null) startActivity(toMain);
         setContentView(R.layout.activity_first);
         String[] arraySpinner = new String[]{"Benzina", "Gasolio"};
         ArrayAdapter<String> adapterSpinner = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, arraySpinner);

@@ -37,14 +37,17 @@ public class AuthenticationManager {
 			_return = (User) em.createQuery("Select c FROM User c WHERE c.username LIKE :name")
 					.setParameter("name", username).getSingleResult();
 		} catch (Exception e) {
+			em.close();
 			return null;
 		}
 		em.getTransaction().begin();
 		_return.setDataUltimaLogin(new Date());
 		em.getTransaction().commit();
 		if (password.contentEquals(_return.getPassword())) {
+			em.close();
 			return _return;
 		} else {
+			em.close();
 			return null;
 		}
 	}

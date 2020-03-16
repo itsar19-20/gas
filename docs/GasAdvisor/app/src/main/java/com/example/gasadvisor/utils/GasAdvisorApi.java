@@ -30,6 +30,18 @@ public interface GasAdvisorApi {
                               @Field("name") String name,
                               @Field("lastname") String lastname);
 
+    @POST("ChangePassword")
+    @FormUrlEncoded
+    Call<User> postChangePassword(@Field("username") String username,
+                                  @Field("password") String password,
+                                  @Field("newPassword") String newPassword);
+
+    @POST("ChangeUsername")
+    @FormUrlEncoded
+    Call<User> postChangeUsername(@Field("username") String username,
+                                  @Field("password") String password,
+                                  @Field("newUsername") String newUsername);
+
     @POST("ForgotPassword")
     @FormUrlEncoded
     Call<User> userForgotPassword(@Field("email") String email);

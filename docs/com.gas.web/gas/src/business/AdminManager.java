@@ -40,6 +40,28 @@ public class AdminManager {
 		em.close();
 		return u;
 	}
+	
+	public User changeUsername(String username, String newUsername) {
+		EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
+		User user = (User) em.createQuery("Select c FROM User c WHERE c.username LIKE :name")
+				.setParameter("name", username).getSingleResult();
+		user.setUsername(newUsername);
+		em.getTransaction().begin();
+		em.getTransaction().commit();
+		em.close();
+		return user;
+	}
+	
+	public User changePassword(String username, String newPassword) {
+		EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
+		User user = (User) em.createQuery("Select c FROM User c WHERE c.username LIKE :name")
+				.setParameter("name", username).getSingleResult();
+		user.setPassword(newPassword);
+		em.getTransaction().begin();
+		em.getTransaction().commit();
+		em.close();
+		return user;
+	}
 
 	public User forgotPassword(String email) {
 		EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();

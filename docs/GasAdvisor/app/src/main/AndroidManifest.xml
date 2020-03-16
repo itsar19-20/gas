@@ -13,7 +13,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".view.ForgotPassActivity"
+        <activity
+            android:name=".view.ProfileActivity"
+            android:theme="@style/Apptheme.Customized" />
+        <activity
+            android:name=".view.ForgotPassActivity"
             android:theme="@style/Apptheme.Customized" />
         <activity
             android:name=".view.FirstActivity"
@@ -24,7 +28,6 @@
         <activity
             android:name=".view.SplashActivity"
             android:theme="@style/SplashTheme">
-            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -42,7 +45,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

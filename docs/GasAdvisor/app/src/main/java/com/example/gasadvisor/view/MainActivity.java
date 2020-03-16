@@ -182,9 +182,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.nav_settings:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_home,
-                        new StatisticheFragment()).commit();
+            case R.id.nav_profile:
+                Intent toProfile = new Intent(MainActivity.this, ProfileActivity.class);
+                startActivity(toProfile);
                 break;
             case R.id.nav_logout:
                 SharedPreferences.Editor editor = preferences.edit();
