@@ -46,4 +46,5 @@
     <string name="profile">Profilo</string>
     <string name="settings">Impostazioni</string>
     <string name="logout">Uscita</string>
+    <string name="reset_password">Ripristina Password</string>
 </resources>

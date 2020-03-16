@@ -31,6 +31,7 @@ public class User implements Serializable {
 
 	private Date dataUltimaLogin; 
 
+	@Column(unique=true)
 	private String email;
 
 	private Boolean isAdmin;
@@ -39,7 +40,8 @@ public class User implements Serializable {
 	
 	@JsonIgnore
 	private String password;
-
+	
+	@Column(unique=true)
 	private String username;
 
 	//bi-directional many-to-one association to Valutazione
