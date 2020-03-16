@@ -131,6 +131,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.nav_settings:
+                Intent settingsIntent = new Intent(HomeActivity.this, SettingsActivity.class);
+                startActivity(settingsIntent);
             case R.id.nav_profile:
                 Intent toProfile = new Intent(HomeActivity.this, ProfileActivity.class);
                 startActivity(toProfile);
