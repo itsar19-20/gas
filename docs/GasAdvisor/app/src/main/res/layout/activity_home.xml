@@ -29,57 +29,34 @@
             android:id="@+id/fragment_container_home"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
             app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtValuePrice" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_price_homeAct" />
 
 
         <TextView
-            android:id="@+id/txtValuePrice"
-            android:layout_width="67dp"
+            android:id="@+id/tv_price_homeAct"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="120dp"
-            android:layout_marginEnd="16dp"
-            android:text="@string/txtValuePrice"
             android:textAlignment="center"
             android:textColor="@android:color/holo_blue_bright"
             android:textSize="18sp"
-            app:layout_constraintBaseline_toBaselineOf="@+id/txtValuePriceChange"
-            app:layout_constraintEnd_toStartOf="@+id/txtValuePriceChange"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintTop_toBottomOf="@id/tv_greeting_homeAct"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/txtValuePriceChange"
-            android:layout_width="67dp"
+            android:id="@+id/tv_greeting_homeAct"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="112dp"
-            android:text="@string/txtValuePriceChange"
-            android:textAlignment="center"
-            android:textColor="@android:color/holo_red_dark"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toTopOf="@+id/fragment_container_home"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtPrezzoMedio"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <TextView
-            android:id="@+id/txtPrezzoMedio"
-            android:layout_width="344dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:text="@string/txtPrezzoMedio"
+            android:layout_marginTop="4dp"
             android:textAlignment="center"
             android:textColor="@android:color/holo_blue_dark"
-            android:textSize="18sp"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 

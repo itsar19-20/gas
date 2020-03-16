@@ -59,6 +59,18 @@ public class UserDBAdapter {
         return db.update(DB_TABLE, values, KEY_ID + "=" + id, null) > 0;
     }
 
+    public boolean updateUserByUsername(String username, String password, String email,
+                                        String name, String lastName) {
+        ContentValues values = createContentValues(username, password, email, name, lastName);
+        return db.update(DB_TABLE, values, KEY_USERNAME + "= '" + username + "'", null) > 0;
+    }
+
+    public boolean updateUserByUsernameDiverso(String username, String password, String email,
+                                               String name, String lastName, String newUsername) {
+        ContentValues values = createContentValues(newUsername, password, email, name, lastName);
+        return db.update(DB_TABLE, values, KEY_USERNAME + "= '" + username + "'", null) > 0;
+    }
+
     public Cursor getUserLogin(String username) {
         Cursor cursor = db.query(true, DB_TABLE, new String[]{KEY_USERNAME, KEY_PASSWORD}, KEY_USERNAME + "= '"
                 + username + "'", null, null, null, null, null);
@@ -77,7 +89,7 @@ public class UserDBAdapter {
     }
 
     public Cursor getUsers() {
-        return db.query(DB_TABLE, new String[] {
+        return db.query(DB_TABLE, new String[]{
                 KEY_NAME, KEY_LASTNAME, KEY_USERNAME, KEY_PASSWORD
         }, null, null, null, null, null);
     }

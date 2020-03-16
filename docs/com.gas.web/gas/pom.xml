@@ -33,7 +33,13 @@
 			<artifactId>javax.servlet-api</artifactId>
 			<version>4.0.1</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
+		<!-- https://mvnrepository.com/artifact/javax.mail/javax.mail-api -->
+		<dependency>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>javax.mail</artifactId>
+			<version>1.6.2</version>
+		</dependency>
+	<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
@@ -51,13 +57,13 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>8.0.18</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/junit/junit -->		
+		<!-- https://mvnrepository.com/artifact/junit/junit -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.13</version>
 			<scope>test</scope>
 		</dependency>
-		
+
 	</dependencies>
 </project>
