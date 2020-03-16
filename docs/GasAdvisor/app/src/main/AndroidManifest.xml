@@ -14,6 +14,9 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".view.SettingsActivity"
+            android:label="@string/title_activity_settings"></activity>
+        <activity
             android:name=".view.FirstActivity"
             android:theme="@style/Apptheme.Customized" />
         <activity
@@ -21,15 +24,13 @@
             android:theme="@style/Apptheme.Customized" />
         <activity
             android:name=".view.SplashActivity"
-            android:theme="@style/SplashTheme">>
-
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".view.SignupActivity"
             android:theme="@style/Apptheme.Customized" />
@@ -41,9 +42,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

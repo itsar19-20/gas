@@ -123,8 +123,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_settings:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_home,
-                        new StatisticheFragment()).commit();
+//                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_home,
+//                        new StatisticheFragment()).commit();
+                Intent settingsIntent = new Intent(HomeActivity.this, SettingsActivity.class);
+                startActivity(settingsIntent);
                 break;
             case R.id.nav_logout:
                 SharedPreferences.Editor editor = preferences.edit();
