@@ -134,12 +134,15 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         btnStartNavigation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                NavigationLauncherOptions options = NavigationLauncherOptions.builder()
-                        .directionsRoute(currentRoute)
-                        .shouldSimulateRoute(true)
-                        .build();
-                NavigationLauncher.startNavigation(MainActivity.this, options);
+                if (currentRoute != null) {
+                    NavigationLauncherOptions options = NavigationLauncherOptions.builder()
+                            .directionsRoute(currentRoute)
+                            .shouldSimulateRoute(true)
+                            .build();
+                    NavigationLauncher.startNavigation(MainActivity.this, options);
+                } else {
+                    Toast.makeText(MainActivity.this, "Nessun percorso valido", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         createDrawer();

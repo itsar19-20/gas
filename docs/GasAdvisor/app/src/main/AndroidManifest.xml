@@ -13,12 +13,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-       <!-- <activity
+       <activity
             android:name=".view.SettingsActivity"
-            android:label="@string/title_activity_settings" /> -->
+            android:label="@string/title_activity_settings" />
         <activity
             android:name=".view.ProfileActivity"
-            android:theme="@style/Apptheme.Customized" />
+            android:label="@string/profile" />
         <activity
             android:name=".view.ForgotPassActivity"
             android:theme="@style/Apptheme.Customized" />
@@ -49,8 +49,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"/>
 
     </application>
 

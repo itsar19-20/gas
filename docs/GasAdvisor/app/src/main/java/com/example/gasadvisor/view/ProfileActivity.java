@@ -1,5 +1,6 @@
 package com.example.gasadvisor.view;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -7,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,6 +37,10 @@ public class ProfileActivity extends AppCompatActivity implements ChangeUsername
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
         userDBAdapter = new UserDBAdapter(this);
         preferences = getApplicationContext().getSharedPreferences("preferences", 0);
         nameUser = preferences.getString("username", null);
@@ -137,7 +143,6 @@ public class ProfileActivity extends AppCompatActivity implements ChangeUsername
         } else Toast.makeText(this, "Inserire un Username valido", Toast.LENGTH_SHORT).show();
     }
 
-
     @Override
     public void PasswordDialogClick(String username, String newPassword, String password) {
         if (newPassword.length() != 0) {
@@ -170,5 +175,16 @@ public class ProfileActivity extends AppCompatActivity implements ChangeUsername
                 }
             });
         } else Toast.makeText(this, "Inserire un password valido", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        //il bottone back che si mette automaticamente da android nel getSupportActionBar()
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
