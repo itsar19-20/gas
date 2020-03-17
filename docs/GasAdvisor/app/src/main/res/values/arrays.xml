@@ -5,7 +5,7 @@
         <item>Scuro</item>
     </string-array>
     <string-array name="theme_values">
-        <item>Chiaro</item>
-        <item>Scuro</item>
+        <item>@style/AppTheme</item>
+        <item>@style/AppThemeLight</item>
     </string-array>
 </resources>
