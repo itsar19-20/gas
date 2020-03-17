@@ -7,17 +7,6 @@
     android:background="@drawable/button_nero"
     tools:context=".view.ProfileActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_profileAct"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
-
     <TextView
         android:id="@+id/tv_userData_profileAct"
         android:layout_width="match_parent"
@@ -31,7 +20,7 @@
         android:textSize="25dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_profileAct" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_userData_profileAct"
