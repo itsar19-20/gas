@@ -39,8 +39,9 @@ public class PrezzoDBAdapter {
         dbHelper.close();
         db.close();
     }
+
     private ContentValues createContentValues(String descCarb, String prezzo, String isSelf,
-                                              String dtComu, String id_impianto){
+                                              String dtComu, String id_impianto) {
         ContentValues values = new ContentValues();
         values.put(KEY_DESCCARBURANTE, descCarb);
         values.put(KEY_PREZZO, prezzo);
@@ -49,11 +50,13 @@ public class PrezzoDBAdapter {
         values.put(KEY_IDIMPIANTO, id_impianto);
         return values;
     }
+
     public long addPrezzo(String descCarb, String prezzo, String isSelf,
-                          String dtComu, String id_impianto){
+                          String dtComu, String id_impianto) {
         ContentValues values = createContentValues(descCarb, prezzo, isSelf, dtComu, id_impianto);
         return db.insertOrThrow(DB_TABLE, null, values);
     }
+
     public void addPrezzoVeloce(int id_impianto, String descCarb, Double prezzo,
                                 String dtComu, int isSelf) {
         String query = "insert into prezzo(descCarburante, prezzo, isSelf, dtComu, id_impianto)" +
@@ -61,19 +64,20 @@ public class PrezzoDBAdapter {
                 + "'," + id_impianto + ");";
         db.execSQL(query);
     }
+
     public Double getMediaPrezzo() {
-        String query= "select AVG(prezzo.prezzo) from prezzo;";
-        Cursor c = db.rawQuery(query,null);
+        String query = "select AVG(prezzo.prezzo) from prezzo;";
+        Cursor c = db.rawQuery(query, null);
         c.moveToFirst();
         Double risposta = c.getDouble(0);
         BigDecimal bd = BigDecimal.valueOf(risposta);
         bd = bd.setScale(3, RoundingMode.HALF_UP);
-        return  bd.doubleValue();
+        return bd.doubleValue();
 
     }
 
-    public Cursor getPiuEconomici(){
-        String query = "select prezzo."+KEY_PREZZO+",prezzo."+KEY_DTCOMU+", distributore.bandiera," +
+    public Cursor getPiuEconomici() {
+        String query = "select prezzo." + KEY_PREZZO + ",prezzo." + KEY_DTCOMU + ", distributore.bandiera," +
                 "distributore.comune from prezzo inner join distributore on distributore.idImpianto = prezzo.id_impianto;";
         return db.rawQuery(query, null);
     }
