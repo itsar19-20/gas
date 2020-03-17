@@ -32,6 +32,7 @@
         <activity
             android:name=".view.SplashActivity"
             android:theme="@style/SplashTheme">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -49,8 +50,12 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.MainActivity"
+<<<<<<< HEAD
+            android:theme="@style/AppTheme.NoActionBar" />
+=======
             android:theme="@style/AppTheme.NoActionBar"/>
 
+>>>>>>> 4b72b550729b05ef7304f71c067636b1aa791882
     </application>
 
 </manifest>
