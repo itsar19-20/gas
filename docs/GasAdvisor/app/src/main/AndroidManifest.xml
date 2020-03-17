@@ -21,7 +21,7 @@
             android:theme="@style/Apptheme.Customized" />
         <activity
             android:name=".view.SplashActivity"
-            android:theme="@style/SplashTheme">>
+            android:theme="@style/SplashTheme">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
