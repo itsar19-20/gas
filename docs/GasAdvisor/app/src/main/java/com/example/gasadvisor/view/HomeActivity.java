@@ -36,35 +36,44 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.mapbox.mapboxsdk.Mapbox.getApplicationContext;
+
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     TextView username;
     private DrawerLayout drawer;
     private FloatingActionButton btnMap;
     SharedPreferences preferences;
     BottomNavigationView bottomNavigationView;
-    //TextView prezzo = findViewById(R.id.txtValuePrice);
+    TextView prezzo, greeting;
+    PrezzoDBAdapter prezzoDBAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         preferences = getApplicationContext().getSharedPreferences("preferences", 0);
+        greeting = findViewById(R.id.tv_greeting_homeAct);
+        String carburantePreferito = preferences.getString("carburante", null);
+        greeting.setText("Il prezzo medio del carburante: " + carburantePreferito + " e` di:");
+        prezzo = findViewById(R.id.tv_price_homeAct);
+        prezzoDBAdapter = new PrezzoDBAdapter(this);
+        prezzoDBAdapter.open();
+        try {
+            prezzo.setText(String.valueOf(prezzoDBAdapter.getMediaPrezzo()));
+            prezzoDBAdapter.close();
+        } catch (Exception e) {
+            prezzoDBAdapter.close();
+        }
         createDrawer();
         createBottomNav();
-        try {
-            PrezzoDBAdapter pdba = new PrezzoDBAdapter(this);
-            pdba.open();
-            //prezzo.setText((CharSequence) pdba.getMediaPrezzo("Benzina"));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
         //button torna in main activity
         btnMap = findViewById(R.id.btnMappaMain);
         btnMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent mapIntent = new Intent(HomeActivity.this, MainActivity.class);
-                startActivity(mapIntent);
+                Intent toHome = new Intent(HomeActivity.this, MainActivity.class);
+                startActivity(toHome);
+                finish();
             }
         });
     }
@@ -123,10 +132,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_settings:
-//                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_home,
-//                        new StatisticheFragment()).commit();
                 Intent settingsIntent = new Intent(HomeActivity.this, SettingsActivity.class);
                 startActivity(settingsIntent);
+            case R.id.nav_profile:
+                Intent toProfile = new Intent(HomeActivity.this, ProfileActivity.class);
+                startActivity(toProfile);
                 break;
             case R.id.nav_logout:
                 SharedPreferences.Editor editor = preferences.edit();
@@ -134,6 +144,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 editor.commit();
                 Intent logoutIntent = new Intent(HomeActivity.this, MainActivity.class);
                 startActivity(logoutIntent);
+                finish();
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);

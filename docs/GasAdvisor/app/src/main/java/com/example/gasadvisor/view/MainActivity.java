@@ -1,5 +1,7 @@
 package com.example.gasadvisor.view;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -7,7 +9,10 @@ import android.graphics.Bitmap;
 import android.graphics.PointF;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
+import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -21,7 +26,9 @@ import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.res.ResourcesCompat;
@@ -42,6 +49,7 @@ import com.mapbox.api.directions.v5.models.DirectionsResponse;
 import com.mapbox.api.directions.v5.models.DirectionsRoute;
 import com.mapbox.geojson.Feature;
 import com.mapbox.geojson.FeatureCollection;
+import com.mapbox.geojson.Geometry;
 import com.mapbox.geojson.Point;
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.annotations.Marker;
@@ -86,11 +94,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private MapView mapView;
     private PermissionsManager permissionsManager;
     private MapboxMap mapboxMap;
-    private FloatingActionButton btnHome;
+    private FloatingActionButton btnHome, btnLocation;
     private DrawerLayout drawer;
     private Point originPosition, destinationPosition;
     private Marker destinationMarker; //marker deprecato, da sostituire
-    private Button btnStartNavigation;
+    private Button btnStartNavigation, btnPermissions;
     private NavigationMapRoute navigationMapRoute;
     private static final String TAG = "MainActivity";
     private DirectionsRoute currentRoute;
@@ -118,7 +126,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         setContentView(R.layout.activity_main);
         distributoreDBAdapter = new DistributoreDBAdapter(this);
         distributoreDBAdapter.open();
-        updateValutazioni();
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
@@ -175,9 +182,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.nav_settings:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_home,
-                        new StatisticheFragment()).commit();
+            case R.id.nav_profile:
+                Intent toProfile = new Intent(MainActivity.this, ProfileActivity.class);
+                startActivity(toProfile);
                 break;
             case R.id.nav_logout:
                 SharedPreferences.Editor editor = preferences.edit();
@@ -238,11 +245,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 lat = extras.getDouble("latitudine");
                                 longit = extras.getDouble("longitudine");
                                 getRouteFromFavIntent(lat, longit);
-                                btnStartNavigation.setEnabled(true);
-                                btnStartNavigation.setBackgroundResource(R.color.mapbox_blue);
                             } catch (Exception e) {
                                 Log.e(TAG, e.getLocalizedMessage());
                             }
+                            updateValutazioni();
                         }
                     });
         }
@@ -263,12 +269,16 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             setPopUp(selectedFeature);
             double longitudine = (double) selectedFeature.getNumberProperty("longitudine");
             double latitudine = (double) selectedFeature.getNumberProperty("latitudine");
-            destinationPosition = Point.fromLngLat(longitudine, latitudine);
-            originPosition = Point.fromLngLat(mapboxMap.getLocationComponent().getLastKnownLocation().getLongitude(),
-                    mapboxMap.getLocationComponent().getLastKnownLocation().getLatitude());
-            getRoute(originPosition, destinationPosition);
-            btnStartNavigation.setEnabled(true);
-            btnStartNavigation.setBackgroundResource(R.color.mapbox_blue);
+            try {
+                destinationPosition = Point.fromLngLat(longitudine, latitudine);
+                originPosition = Point.fromLngLat(mapboxMap.getLocationComponent().getLastKnownLocation().getLongitude(),
+                        mapboxMap.getLocationComponent().getLastKnownLocation().getLatitude());
+                getRoute(originPosition, destinationPosition);
+                btnStartNavigation.setEnabled(true);
+                btnStartNavigation.setBackgroundResource(R.color.mapbox_blue);
+            } catch (Exception e) {
+                checkGPS();
+            }
         } else {
             //mettiamo Marker in mappa e prendiamo latitudine longitudine
             if (destinationMarker != null) {
@@ -276,14 +286,19 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
             destinationMarker = mapboxMap.addMarker(new MarkerOptions().position(point));
             destinationPosition = Point.fromLngLat(point.getLongitude(), point.getLatitude());
-            originPosition = Point.fromLngLat(mapboxMap.getLocationComponent().getLastKnownLocation().getLongitude(),
-                    mapboxMap.getLocationComponent().getLastKnownLocation().getLatitude());
-            getRoute(originPosition, destinationPosition);
-            btnStartNavigation.setEnabled(true);
-            btnStartNavigation.setBackgroundResource(R.color.mapbox_blue);
+            try {
+                originPosition = Point.fromLngLat(mapboxMap.getLocationComponent().getLastKnownLocation().getLongitude(),
+                        mapboxMap.getLocationComponent().getLastKnownLocation().getLatitude());
+                getRoute(originPosition, destinationPosition);
+                btnStartNavigation.setEnabled(true);
+                btnStartNavigation.setBackgroundResource(R.color.mapbox_blue);
+            } catch (Exception e) {
+                checkGPS();
+            }
         }
         return true;
     }
+
 
     public String createJson(Cursor c) {
         JSONObject featureCollection = new JSONObject();
@@ -419,8 +434,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     public void getRouteFromFavIntent(double latitudine, double longitudine) {
         Point destination = Point.fromLngLat(longitudine, latitudine);
-        Point origin = Point.fromLngLat(mapboxMap.getLocationComponent().getLastKnownLocation().getLongitude(),
-                mapboxMap.getLocationComponent().getLastKnownLocation().getLatitude());
+        Point origin = null;
+        try {
+            origin = Point.fromLngLat(mapboxMap.getLocationComponent().getLastKnownLocation().getLongitude(),
+                    mapboxMap.getLocationComponent().getLastKnownLocation().getLatitude());
+        } catch (Exception e) {
+            checkGPS();
+        }
         NavigationRoute.builder(this).accessToken(Mapbox.getAccessToken()).origin(origin)
                 .destination(destination).build().getRoute(new Callback<DirectionsResponse>() {
             @Override
@@ -439,6 +459,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     navigationMapRoute = new NavigationMapRoute(null, mapView, mapboxMap);
                 }
                 navigationMapRoute.addRoute(currentRoute);
+                btnStartNavigation.setEnabled(true);
+                btnStartNavigation.setBackgroundResource(R.color.mapbox_blue);
             }
 
             @Override
@@ -489,6 +511,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             locationComponent.setCameraMode(CameraMode.TRACKING);
 // Set the component's render mode
             locationComponent.setRenderMode(RenderMode.COMPASS);
+            findViewById(R.id.btnLocation_mainActivity).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    locationComponent.setCameraMode(CameraMode.TRACKING);
+                }
+            });
         } else {
             permissionsManager = new PermissionsManager(this);
             permissionsManager.requestLocationPermissions(this);
@@ -516,8 +544,56 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             });
         } else {
             Toast.makeText(this, R.string.user_location_permission_not_granted, Toast.LENGTH_LONG).show();
-            finish();
+            //finish();
+            btnPermissions = findViewById(R.id.btn_permissions_mainActivity);
+            btnPermissions.setVisibility(View.VISIBLE);
+            btnPermissions.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                    Uri uri = Uri.fromParts("package", getPackageName(), null);
+                    intent.setData(uri);
+                    btnPermissions.setVisibility(View.GONE);
+                    startActivityForResult(intent, 1);
+                }
+            });
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if (resultCode == RESULT_CANCELED) recreate();
+        } else if (requestCode == 2) {
+            if (resultCode == RESULT_CANCELED) recreate();
+        }
+    }
+
+    public void checkGPS() {
+        final LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            buildAlertNoGps();
+        }
+    }
+
+    private void buildAlertNoGps() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Abbilitare GPS per sfruttare  l'app al meglio?")
+                .setCancelable(false)
+                .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        startActivityForResult(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS), 2);
+                    }
+                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.cancel();
+            }
+        });
+        final AlertDialog noGps = builder.create();
+        noGps.show();
     }
 
     @Override

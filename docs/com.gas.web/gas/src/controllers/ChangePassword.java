@@ -1,7 +1,6 @@
 package controllers;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,20 +9,21 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import business.AdminManager;
 import business.AuthenticationManager;
 import model.User;
 
 /**
- * Servlet implementation class LoginController
+ * Servlet implementation class ChangePassword
  */
-@WebServlet("/login")
-public class LoginController extends HttpServlet {
+@WebServlet("/ChangePassword")
+public class ChangePassword extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public LoginController() {
+	public ChangePassword() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -34,6 +34,8 @@ public class LoginController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -44,19 +46,18 @@ public class LoginController extends HttpServlet {
 			throws ServletException, IOException {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		if (username == null || password == null) {
-			response.sendError(400, "Please insert username and password!");
-			return;
-		}
+		String newPassword = request.getParameter("newPassword");
 		AuthenticationManager am = new AuthenticationManager();
-		User u = am.login(username, password);
-		if (u == null)
-			response.sendError(403);
-		else {
+		AdminManager adminManager = new AdminManager();
+		User checkLogin = am.loginUsers(username, password);
+		if (checkLogin == null) {
+			response.sendError(404);
+		} else {
+			User _return = adminManager.changePassword(username, newPassword);
 			ObjectMapper om = new ObjectMapper();
 			response.setContentType("application/json");
-			response.getWriter().append(om.writeValueAsString(u));
+			response.getWriter().append(om.writeValueAsString(_return));
 		}
 	}
-
+	
 }
