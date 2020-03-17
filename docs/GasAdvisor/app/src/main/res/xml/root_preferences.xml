@@ -3,12 +3,13 @@
     <PreferenceCategory app:title="Generale">
 
         <ListPreference
-            app:defaultValue="Chiaro"
             app:entries="@array/theme_entries"
             app:entryValues="@array/theme_values"
             app:key="tema"
+            app:defaultValue="Chiaro"
             app:title="Seleziona tema"
-            app:useSimpleSummaryProvider="true" />
+            app:useSimpleSummaryProvider="true"
+            />
 
     </PreferenceCategory>
 

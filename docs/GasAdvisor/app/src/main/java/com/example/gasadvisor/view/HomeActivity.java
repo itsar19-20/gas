@@ -49,8 +49,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SharedPreferences ColorPreference=getApplicationContext().getSharedPreferences("color",0);
+        int theme=ColorPreference.getInt("tema",0);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        setTheme(theme);
         preferences = getApplicationContext().getSharedPreferences("preferences", 0);
         greeting = findViewById(R.id.tv_greeting_homeAct);
         String carburantePreferito = preferences.getString("carburante", null);
@@ -68,6 +71,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         createBottomNav();
         //button torna in main activity
         btnMap = findViewById(R.id.btnMappaMain);
+
         btnMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
