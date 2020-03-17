@@ -14,6 +14,16 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".view.SettingsActivity"
+            android:label="@string/title_activity_settings" />
+        <activity
+            android:name=".view.ProfileActivity"
+            android:theme="@style/Apptheme.Customized" />
+        <activity
+            android:name=".view.ForgotPassActivity"
+            android:theme="@style/Apptheme.Customized" />
+
+        <activity
             android:name=".view.FirstActivity"
             android:theme="@style/Apptheme.Customized" />
         <activity
@@ -29,7 +39,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".view.SignupActivity"
             android:theme="@style/Apptheme.Customized" />
@@ -41,9 +50,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

@@ -1,15 +1,28 @@
 package com.example.gasadvisor.model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class User {
     Integer _id;
     String username;
     String password;
     String email;
+
+    @SerializedName(value="nome")
     String name;
+    @SerializedName(value="cognome")
     String lastName;
 
     public User(String username, String email, String name, String lastName) {
         this.username = username;
+        this.email = email;
+        this.name = name;
+        this.lastName = lastName;
+    }
+
+    public User(String username, String password, String email, String name, String lastName) {
+        this.username = username;
+        this.password = password;
         this.email = email;
         this.name = name;
         this.lastName = lastName;
