@@ -347,7 +347,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         } catch (JSONException ex) {
             ex.printStackTrace();
         }
-        System.out.println(featureCollection.toString());
         return featureCollection.toString();
     }
 

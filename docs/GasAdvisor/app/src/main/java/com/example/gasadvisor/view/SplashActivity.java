@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.gasadvisor.R;
@@ -16,10 +17,12 @@ import com.example.gasadvisor.utils.GasAdvisorApi;
 import com.example.gasadvisor.utils.RetrofitUtils;
 
 import java.lang.reflect.MalformedParameterizedTypeException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
@@ -30,27 +33,34 @@ import retrofit2.Response;
 public class SplashActivity extends AppCompatActivity {
     private List<Integer> idImpianti;
     private DistributoreDBAdapter distributoreDBAdapter;
-    private PrezzoDBAdapter prezzoDBAdapter;
     private GasAdvisorApi gasAdvisorApi;
     private String carburantePref;
     private SharedPreferences preferences;
     private ProgressDialog progressDialog;
     private String gestore, bandiera, tipoImpianto, nomeImpianto,
             indirizzo, comune, provincia, dtComu, descCarb;
-    private int idImpianto, isSelf;
+    private int idImpianto, isSelf, intUltimoAggiornamento;
     private Double lat, longit, prezzo;
     private Map<Integer, String> impiantoData;
-
+    private static final String PREFERENCES_NAME = "preferences";
+    private static final String PREFERENCES_CARBURANTE = "carburante";
+    private static final String PREFERENCES_DATA_AGGIORNAMENTO = "data_aggiornamento";
+    private static final String TAG = "SPLASH ACTIVITY";
+    private Date dateLocale;
+    private SharedPreferences.Editor editorPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         distributoreDBAdapter = new DistributoreDBAdapter(this);
+        progressDialog = new ProgressDialog(this);
         impiantoData = new HashMap<>();
+        dateLocale = new Date();
         gasAdvisorApi = RetrofitUtils.getInstance().getGasAdvisorApi();
-        preferences = getApplicationContext().getSharedPreferences("preferences", 0);
-        carburantePref = preferences.getString("carburante", null);
+        preferences = getApplicationContext().getSharedPreferences(PREFERENCES_NAME, 0);
+        carburantePref = preferences.getString(PREFERENCES_CARBURANTE, null);
+        intUltimoAggiornamento = preferences.getInt(PREFERENCES_DATA_AGGIORNAMENTO, 0);
         Intent toMain = new Intent(SplashActivity.this, MainActivity.class);
         Intent toFirst = new Intent(SplashActivity.this, FirstActivity.class);
         try {
@@ -60,7 +70,12 @@ public class SplashActivity extends AppCompatActivity {
         }
 
         if (carburantePref != null) {
-            updatePrezzi();
+            if (!Objects.equals(intUltimoAggiornamento, dateLocale.getDate())) {
+                updatePrezzi();
+                editorPref = preferences.edit();
+                editorPref.putInt(PREFERENCES_DATA_AGGIORNAMENTO, dateLocale.getDate());
+                editorPref.commit();
+            }
             startActivity(toMain);
             finish();
         } else {
@@ -76,7 +91,6 @@ public class SplashActivity extends AppCompatActivity {
         idImpianti = new ArrayList<>();
         idImpianti = distributoreDBAdapter.getIdImpianti();
         impiantoData = distributoreDBAdapter.getImpiantoEData();
-        progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Operazione richiede fino a 10 secondi");
         progressDialog.setTitle("Aggiornamento Prezzi...");
         progressDialog.show();

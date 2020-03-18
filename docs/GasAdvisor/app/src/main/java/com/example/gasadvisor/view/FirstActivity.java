@@ -40,12 +40,15 @@ public class FirstActivity extends AppCompatActivity {
     private Double lat, longit, prezzo;
     private SharedPreferences preferences;
     private Intent toMain;
+    private static final String PREFERENCES_NAME = "preferences";
+    private static final String PREFERENCES_CARBURANTE = "carburante";
+    private static final String PREFERENCES_DATA_AGGIORNAMENTO = "data_aggiornamento";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         toMain = new Intent(FirstActivity.this, MainActivity.class);
-        preferences = getApplicationContext().getSharedPreferences("preferences", 0);
+        preferences = getApplicationContext().getSharedPreferences(PREFERENCES_NAME, 0);
         setContentView(R.layout.activity_first);
         String[] arraySpinner = new String[]{"Benzina", "Gasolio"};
         ArrayAdapter<String> adapterSpinner = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, arraySpinner);
@@ -69,7 +72,9 @@ public class FirstActivity extends AppCompatActivity {
         progressDialog.setProgressStyle(ProgressDialog.THEME_HOLO_DARK);
         carburante = spinner.getSelectedItem().toString();
         SharedPreferences.Editor editorPref = preferences.edit();
-        editorPref.putString("carburante", carburante);
+        editorPref.putString(PREFERENCES_CARBURANTE, carburante);
+        Date dateToday = new Date();
+        editorPref.putInt(PREFERENCES_DATA_AGGIORNAMENTO, dateToday.getDate());
         gasAdvisorApi = RetrofitUtils.getInstance().getGasAdvisorApi();
         int anno = new Date().getYear();
         prezzoDBAdapter = new PrezzoDBAdapter(this);

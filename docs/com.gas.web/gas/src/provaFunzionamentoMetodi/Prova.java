@@ -1,6 +1,11 @@
 package provaFunzionamentoMetodi;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.Objects;
 
 import javax.persistence.EntityManager;
 
@@ -10,15 +15,17 @@ import model.Valutazione;
 import utils.JPAUtil;
 
 public class Prova {
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ParseException {
 		EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
-		List<Valutazione> list = em.createQuery("select d from Valutazione d where d.user.nome like:name and d.distributore.idImpianto like:idImpianto", Valutazione.class)
-				.setParameter("name", "simone").setParameter("idImpianto", 12629).getResultList();
+		Date date = new Date();
+		String data = date.getDate()+"/"+date.getMonth()+"/"+date.getYear();
 		
-//		System.out.println(list);
-		for (int i = 0; i < list.size(); i++) {
-			System.out.println(list.get(i).getDescrizione());
-		}
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/mm/yyyy");
+		Date vecchio = simpleDateFormat.parse(data);
+		Date nuovo = new Date();
+		System.out.println(vecchio.compareTo(nuovo) +" "+ vecchio);
+		
+	
 	}
 
 }
