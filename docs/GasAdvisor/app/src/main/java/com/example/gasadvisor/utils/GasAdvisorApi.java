@@ -7,6 +7,7 @@ import com.example.gasadvisor.model.Valutazione;
 import java.util.List;
 import java.util.Map;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
@@ -55,4 +56,7 @@ public interface GasAdvisorApi {
 
     @GET("cercaPiuEconomici")
     Call<List<Prezzo>> getPrezziPiuEconomici(@Query("carburante") String carburante);
+
+    @GET("deleteUser")
+    Call<ResponseBody> deleteUser(@Query("deleteUsername") String Username);
 }

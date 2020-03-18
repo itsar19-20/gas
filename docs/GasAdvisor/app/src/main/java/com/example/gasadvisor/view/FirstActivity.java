@@ -59,13 +59,13 @@ public class FirstActivity extends AppCompatActivity {
         avanti.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                updateDB();
+                createDB();
             }
         });
 
     }
 
-    public void updateDB() {
+    public void createDB() {
         final ProgressDialog progressDialog = new ProgressDialog(FirstActivity.this);
         progressDialog.setMessage("L'applicazione si sta avviando...");
         progressDialog.setTitle("Personalizzando la tua esperienza");

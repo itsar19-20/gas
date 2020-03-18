@@ -132,11 +132,9 @@ public class SplashActivity extends AppCompatActivity {
                         idImpianto = risposta.get(i).getDistributore().getIdImpianto();
                         //se abbiamo gia un prezzo per questo impianto e riceviamo uno piu recente
                         if (idImpianti.contains(idImpianto)) {
-                            System.out.println("ho gia un prezzo impianto");
                             String dataNuova = risposta.get(i).getDtComu();
                             String dataVecchia = impiantoData.get(idImpianto);
                             if (!Objects.equals(dataNuova, dataVecchia)) {
-                                System.out.println("ed e una nuova data");
                                 try {
                                     distributoreDBAdapter.updateDataDelPrezzo(dataNuova, idImpianto);
                                 } catch (Exception e) {
@@ -151,7 +149,6 @@ public class SplashActivity extends AppCompatActivity {
                             prezzo = risposta.get(i).getPrezzo();
                             isSelf = risposta.get(i).getIsSelf();
                             if (risposta.get(i).getDataComunicazione().getYear() == anno) {
-                                System.out.println("nuovo prezzo");
                                 try {
                                     distributoreDBAdapter.addPrezzoVeloce(idImpianto, descCarb, prezzo, dtComu, isSelf);
                                 } catch (Exception e) {

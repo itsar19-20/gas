@@ -1,15 +1,20 @@
 package com.example.gasadvisor.view;
 
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,12 +26,15 @@ import com.example.gasadvisor.utils.ChangeUsernameDialog;
 import com.example.gasadvisor.utils.GasAdvisorApi;
 import com.example.gasadvisor.utils.RetrofitUtils;
 
+import java.io.IOException;
+
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ProfileActivity extends AppCompatActivity implements ChangeUsernameDialog.UsernameDialogListener, ChangePasswordDialog.PasswordDialogListener {
-    private TextView tvDatiUtente, tvCarburantePreferito, tvChangePass, tvChangeUsername;
+    private Button btnCambiaCarburante, btnChangePass, btnChangeUsername, btnDeleteAccount;
     private ConstraintLayout clUserData;
     private UserDBAdapter userDBAdapter;
     private GasAdvisorApi gasAdvisorApi;
@@ -45,22 +53,11 @@ public class ProfileActivity extends AppCompatActivity implements ChangeUsername
         preferences = getApplicationContext().getSharedPreferences("preferences", 0);
         nameUser = preferences.getString("username", null);
         gasAdvisorApi = RetrofitUtils.getInstance().getGasAdvisorApi();
-        tvDatiUtente = findViewById(R.id.tv_userData_profileAct);
-        clUserData = findViewById(R.id.cl_userData_profileAct);
-        tvCarburantePreferito = findViewById(R.id.tv_carburantePref_profileAct);
-        tvDatiUtente.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (nameUser != null) {
-                    if (clUserData.getVisibility() == View.GONE) {
-                        clUserData.setVisibility(View.VISIBLE);
-                    } else clUserData.setVisibility(View.GONE);
-                } else {
-                    Toast.makeText(ProfileActivity.this, "Entra nel tuo account per visualizzare impostazioni", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-        tvCarburantePreferito.setOnClickListener(new View.OnClickListener() {
+        btnCambiaCarburante = findViewById(R.id.btn_changeCarburante_profileAct);
+        btnChangePass = findViewById(R.id.btn_changePass_profileAct);
+        btnChangeUsername = findViewById(R.id.btn_changeUsername_profileAct);
+        btnDeleteAccount = findViewById(R.id.btn_deleteAccount_profileAct);
+        btnCambiaCarburante.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(ProfileActivity.this, "Non funziona ancora cosa vuoi da me", Toast.LENGTH_SHORT).show();
@@ -70,21 +67,76 @@ public class ProfileActivity extends AppCompatActivity implements ChangeUsername
 
             }
         });
-        tvChangePass = findViewById(R.id.tv_changePass_profileAct);
-        tvChangeUsername = findViewById(R.id.tv_changeUsername_profileAct);
-        tvChangeUsername.setOnClickListener(new View.OnClickListener() {
+        btnChangeUsername.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openDialogUsername();
+                if (nameUser == null) {
+                    Toast.makeText(ProfileActivity.this, "Entra nel tuo account per visualizzare impostazioni", Toast.LENGTH_SHORT).show();
+                } else openDialogUsername();
             }
         });
-        tvChangePass.setOnClickListener(new View.OnClickListener() {
+        btnChangePass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openDialogPassword();
+                if (nameUser == null) {
+                    Toast.makeText(ProfileActivity.this, "Entra nel tuo account per visualizzare impostazioni", Toast.LENGTH_SHORT).show();
+                } else openDialogPassword();
             }
         });
-
+        btnDeleteAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (nameUser == null) {
+                    Toast.makeText(ProfileActivity.this, "Entra nel tuo account per visualizzare impostazioni", Toast.LENGTH_SHORT).show();
+                } else {
+                    AlertDialog.Builder builder = setAlert(ProfileActivity.this, "Cancellare il tuo account?", true);
+                    builder.setMessage("I suoi dati verrano persi per sempre");
+                    builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Call<ResponseBody> deleteCall = gasAdvisorApi.deleteUser(nameUser);
+                            deleteCall.enqueue(new Callback<ResponseBody>() {
+                                @Override
+                                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                    if (!response.isSuccessful()) {
+                                        Toast.makeText(ProfileActivity.this, "Errore di server. Contattare via mail o provare piu tardi", Toast.LENGTH_LONG).show();
+                                    } else {
+                                        try {
+                                            String result = response.body().string();
+                                            Toast.makeText(ProfileActivity.this, result, Toast.LENGTH_SHORT).show();
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
+                                        }
+                                        userDBAdapter.open();
+                                        try {
+                                            userDBAdapter.deleteUserByUsername(nameUser);
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                        userDBAdapter.close();
+                                        SharedPreferences.Editor editor = preferences.edit();
+                                        editor.remove("username");
+                                        editor.commit();
+                                    }
+                                }
+                                @Override
+                                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                    Toast.makeText(ProfileActivity.this, "Connessione ai server assente", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    });
+                    builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.cancel();
+                        }
+                    });
+                    AlertDialog alert = builder.create();
+                    alert.show();
+                }
+            }
+        });
 
     }
 
@@ -186,5 +238,12 @@ public class ProfileActivity extends AppCompatActivity implements ChangeUsername
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public AlertDialog.Builder setAlert(Context context, String title, boolean cancelable) {
+        AlertDialog.Builder _return = new AlertDialog.Builder(context);
+        _return.setTitle(title);
+        _return.setCancelable(cancelable);
+        return _return;
     }
 }
