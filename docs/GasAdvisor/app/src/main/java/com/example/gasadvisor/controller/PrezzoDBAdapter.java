@@ -65,6 +65,10 @@ public class PrezzoDBAdapter {
         db.execSQL(query);
     }
 
+    public void deleteAllPrezzo() {
+        db.execSQL("delete from " + DB_TABLE);
+    }
+
     public Double getMediaPrezzo() {
         String query = "select AVG(prezzo.prezzo) from prezzo;";
         Cursor c = db.rawQuery(query, null);

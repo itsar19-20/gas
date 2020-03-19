@@ -1,11 +1,5 @@
 package com.example.gasadvisor.view;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,8 +9,11 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.gasadvisor.R;
 import com.example.gasadvisor.controller.UserDBAdapter;
@@ -35,7 +32,6 @@ import retrofit2.Response;
 
 public class ProfileActivity extends AppCompatActivity implements ChangeUsernameDialog.UsernameDialogListener, ChangePasswordDialog.PasswordDialogListener {
     private Button btnCambiaCarburante, btnChangePass, btnChangeUsername, btnDeleteAccount;
-    private ConstraintLayout clUserData;
     private UserDBAdapter userDBAdapter;
     private GasAdvisorApi gasAdvisorApi;
     SharedPreferences preferences;
@@ -60,10 +56,8 @@ public class ProfileActivity extends AppCompatActivity implements ChangeUsername
         btnCambiaCarburante.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(ProfileActivity.this, "Non funziona ancora cosa vuoi da me", Toast.LENGTH_SHORT).show();
-                //commento da rimuovere quando logica drop vecchi dati-aggiungi nuovi si implementa
-                /*   Intent toFirst = new Intent(ProfileActivity.this, FirstActivity.class);
-                startActivity(toFirst);*/
+                Intent toFirst = new Intent(ProfileActivity.this, FirstActivity.class);
+                startActivityForResult(toFirst, 3);
 
             }
         });
@@ -117,8 +111,10 @@ public class ProfileActivity extends AppCompatActivity implements ChangeUsername
                                         SharedPreferences.Editor editor = preferences.edit();
                                         editor.remove("username");
                                         editor.commit();
+                                        recreate();
                                     }
                                 }
+
                                 @Override
                                 public void onFailure(Call<ResponseBody> call, Throwable t) {
                                     Toast.makeText(ProfileActivity.this, "Connessione ai server assente", Toast.LENGTH_SHORT).show();

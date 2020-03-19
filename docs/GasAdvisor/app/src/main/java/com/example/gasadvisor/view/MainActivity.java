@@ -569,6 +569,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             if (resultCode == RESULT_CANCELED) recreate();
         } else if (requestCode == 2) {
             if (resultCode == RESULT_CANCELED) recreate();
+        } else if (requestCode == 3) {
+            Toast.makeText(this, "si", Toast.LENGTH_SHORT).show();
+            if (resultCode == 1) {
+                recreate();
+            }
         }
     }
 
