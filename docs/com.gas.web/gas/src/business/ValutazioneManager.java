@@ -43,14 +43,15 @@ public class ValutazioneManager {
 		EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
 		List<Valutazione> list = new ArrayList<Valutazione>();
 		try {
-			list = em.createQuery("select d from Valutazione d where d.user.nome like:name and d.distributore.idImpianto like:idImpianto", Valutazione.class)
-	                .setParameter("name",user.getUsername()).setParameter("idImpianto",distributore.getIdImpianto()).getResultList();
+			list = em.createQuery(
+					"select d from Valutazione d where d.user.nome like:name and d.distributore.idImpianto like:idImpianto",
+					Valutazione.class).setParameter("name", user.getUsername())
+					.setParameter("idImpianto", distributore.getIdImpianto()).getResultList();
 		} catch (Exception e) {
-	     return null;
+			System.out.println(e.getLocalizedMessage());
 		}
-		
-		if (list.size()>0) return null;
-		
+		if (list.size() > 0)
+			return null;
 		Valutazione _return = new Valutazione();
 		_return.setData(new Date());
 		_return.setUser(user);

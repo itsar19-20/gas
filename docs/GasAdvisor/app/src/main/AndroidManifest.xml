@@ -25,7 +25,7 @@
 
         <activity
             android:name=".view.FirstActivity"
-            android:theme="@style/Apptheme.Customized" />
+            android:label="@string/carburantePref" />
         <activity
             android:name=".view.ReviewActivity"
             android:theme="@style/Apptheme.Customized" />
@@ -50,12 +50,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.MainActivity"
-<<<<<<< HEAD
             android:theme="@style/AppTheme.NoActionBar" />
-=======
-            android:theme="@style/AppTheme.NoActionBar"/>
-
->>>>>>> 4b72b550729b05ef7304f71c067636b1aa791882
     </application>
 
 </manifest>

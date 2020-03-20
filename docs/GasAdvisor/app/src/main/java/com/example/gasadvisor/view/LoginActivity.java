@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewPropertyAnimator;
@@ -47,6 +48,7 @@ public class LoginActivity extends AppCompatActivity {
     UserDBAdapter dbAdapter = null;
     GasAdvisorApi gasAdvisorApi;
     SharedPreferences preferences;
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,17 +84,25 @@ public class LoginActivity extends AppCompatActivity {
                         } else {
                             editor.putString("username", username.getText().toString());
                             editor.commit();
+                            User user = response.body();
+                            try {
+                                dbAdapter.addUser(user.getUsername(), password.getText().toString(),
+                                        user.getEmail(), user.getName(), user.getLastName());
+                            } catch (Exception e) {
+                                Log.e("login", e.getLocalizedMessage());
+                            }
                             startActivity(success);
                             finish();
                         }
                     }
+
                     @Override
                     public void onFailure(Call<User> call, Throwable t) {
                         //in caso che il server e database e' sempre online e attivo il seguente codice va cancellato
                         try {
                             utente = dbAdapter.getUserLogin(username.getText().toString());
                             utente.moveToFirst();
-                            if (utente.getString(1).contentEquals(password.getText().toString())){
+                            if (utente.getString(1).contentEquals(password.getText().toString())) {
                                 editor.putString("username", username.getText().toString());
                                 editor.commit();
                                 startActivity(success);
@@ -118,8 +128,8 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 1) {
-            if (resultCode==1) {
+        if (requestCode == 1) {
+            if (resultCode == 1) {
                 Toast.makeText(this, "Una mail e stata mandata al suo indirizzo mail", Toast.LENGTH_LONG).show();
             }
         }

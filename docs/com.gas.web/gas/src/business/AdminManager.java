@@ -1,23 +1,37 @@
 package business;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 
 import model.User;
+import model.Valutazione;
 import utils.JPAUtil;
 import utils.MailUtils;
 
 public class AdminManager {
 
-	public void deleteUser(String username) {
+	public int deleteUser(String username) {
 		EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
-		User u = (User) em.createQuery("Select c FROM User c WHERE c.username LIKE :name")
-				.setParameter("name", username).getSingleResult();
+		User u = new User();
+		List<Valutazione> valutaziones = new ArrayList<Valutazione>();
+		try {
+			u = (User) em.createQuery("Select c FROM User c WHERE c.username LIKE :name").setParameter("name", username)
+					.getSingleResult();
+			valutaziones = u.getValutaziones();
+		} catch (Exception e) {
+			return 0;
+		}
 		em.getTransaction().begin();
+		for (int i = 0; i < valutaziones.size(); i++) {
+			Valutazione v = valutaziones.get(i);
+			em.remove(v);
+		}
 		em.remove(u);
 		em.getTransaction().commit();
 		em.close();
+		return 1;
 	}
 
 	public static List<User> getUsers() {
@@ -40,7 +54,7 @@ public class AdminManager {
 		em.close();
 		return u;
 	}
-	
+
 	public User changeUsername(String username, String newUsername) {
 		EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
 		User user = (User) em.createQuery("Select c FROM User c WHERE c.username LIKE :name")
@@ -51,7 +65,7 @@ public class AdminManager {
 		em.close();
 		return user;
 	}
-	
+
 	public User changePassword(String username, String newPassword) {
 		EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
 		User user = (User) em.createQuery("Select c FROM User c WHERE c.username LIKE :name")
@@ -84,7 +98,5 @@ public class AdminManager {
 			return u;
 		}
 	}
-	
-	
 
 }
