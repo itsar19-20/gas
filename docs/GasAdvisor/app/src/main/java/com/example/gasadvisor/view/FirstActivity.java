@@ -60,7 +60,7 @@ public class FirstActivity extends AppCompatActivity {
             }
         }
         setContentView(R.layout.activity_first);
-        String[] arraySpinner = new String[]{"Benzina", "Gasolio"};
+        String[] arraySpinner = new String[]{"Benzina", "Gasolio", "GPL", "Metano"};
         ArrayAdapter<String> adapterSpinner = new ArrayAdapter<>(this, R.layout.layout_spinner_first_act, arraySpinner);
         adapterSpinner.setDropDownViewResource(R.layout.layout_spinner_first_act);
         spinner = findViewById(R.id.spinner_fisrtAct);
