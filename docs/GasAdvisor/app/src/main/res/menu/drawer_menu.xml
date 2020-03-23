@@ -2,21 +2,22 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
 
-        <item
-            android:id="@+id/nav_profile"
-            android:icon="@drawable/ic_profile"
-            android:title="@string/profile" />
-        <item
-            android:id="@+id/nav_settings"
-            android:icon="@drawable/ic_settings_black_24dp"
-            android:title="@string/settings" />
+    <item
+        android:id="@+id/nav_profile"
+        android:icon="@drawable/ic_profile"
+        android:title="@string/profile" />
+    <item
+        android:id="@+id/nav_settings"
+        android:icon="@drawable/ic_settings_black_24dp"
+        android:title="@string/settings" />
 
 
     <item android:title="">
         <menu>
-            <item android:id="@+id/nav_logout"
+            <item
+                android:id="@+id/nav_logout"
                 android:icon="@drawable/ic_person_outline_black_24dp"
-                android:title="@string/logout"/>
+                android:title="@string/logout" />
         </menu>
     </item>
 </menu>

@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -120,7 +121,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         switch (item.getItemId()) {
             case R.id.nav_settings:
                 Intent settingsIntent = new Intent(HomeActivity.this, SettingsActivity.class);
+                Toast.makeText(this, "Hai schiacciato proprio qui", Toast.LENGTH_LONG).show();
                 startActivity(settingsIntent);
+                break;
             case R.id.nav_profile:
                 Intent toProfile = new Intent(HomeActivity.this, ProfileActivity.class);
                 startActivity(toProfile);
