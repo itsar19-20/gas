@@ -22,7 +22,7 @@ public class RetrofitUtils {
     }).create();
 
     private static RetrofitUtils instance = null;
-    public static final String BASE_URL = "http://192.168.1.5:8080/gas/";
+    public static final String BASE_URL = "http://192.168.1.27:8080/gas/";
     private GasAdvisorApi gasAdvisorApi;
     public static RetrofitUtils getInstance() {
         if (instance == null) {
