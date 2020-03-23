@@ -121,6 +121,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         super.onCreate(savedInstanceState);
         preferences = getApplicationContext().getSharedPreferences("preferences", 0);
         carburantePreferito = preferences.getString("carburante", null);
+        nameUser = preferences.getString("username", null);
         //inizializazzione mappa
         Mapbox.getInstance(this, getString(R.string.MAPBOX_ACCESS_TOKEN_DEFAULT));
         setContentView(R.layout.activity_main);
@@ -176,7 +177,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         //mettiamo nome Utente su drawer
         username = navigationView.getHeaderView(0).findViewById(R.id.nav_username);
         try {
-            nameUser = preferences.getString("username", null);
             username.setText(nameUser.toUpperCase());
         } catch (Exception e) {
         }
