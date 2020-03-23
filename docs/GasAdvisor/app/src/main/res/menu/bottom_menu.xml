@@ -11,7 +11,7 @@
             android:icon="@drawable/ic_euro_symbol_black_24dp"
             android:title="Piu Economici" />
         <item
-            android:id="@+id/nav_stats"
-            android:icon="@drawable/ic_trending_up_black_24dp"
-            android:title="Statistiche" />
+            android:id="@+id/nav_ricercaAvanzata"
+            android:icon="@drawable/ic_search_24px"
+            android:title="Ricerca Avanzata" />
 </menu>

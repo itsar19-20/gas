@@ -121,6 +121,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         super.onCreate(savedInstanceState);
         preferences = getApplicationContext().getSharedPreferences("preferences", 0);
         carburantePreferito = preferences.getString("carburante", null);
+        nameUser = preferences.getString("username", null);
         //inizializazzione mappa
         Mapbox.getInstance(this, getString(R.string.MAPBOX_ACCESS_TOKEN_DEFAULT));
         setContentView(R.layout.activity_main);
@@ -156,7 +157,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     startActivity(homeIntent);
                 } else {
                     Intent toLogin = new Intent(MainActivity.this, HomeActivity.class);
-                    startActivity(toLogin);
+                    startActivityForResult(toLogin, 4);
                 }
             }
         });
@@ -176,7 +177,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         //mettiamo nome Utente su drawer
         username = navigationView.getHeaderView(0).findViewById(R.id.nav_username);
         try {
-            nameUser = preferences.getString("username", null);
             username.setText(nameUser.toUpperCase());
         } catch (Exception e) {
         }
@@ -570,9 +570,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         } else if (requestCode == 2) {
             if (resultCode == RESULT_CANCELED) recreate();
         } else if (requestCode == 3) {
-            Toast.makeText(this, "si", Toast.LENGTH_SHORT).show();
             if (resultCode == 1) {
                 recreate();
+            }
+        } else if (requestCode == 4) {
+            if (resultCode == 0) {
+                getClosestMarker(distributoreDBAdapter.getDistributoriEPrezzo());
             }
         }
     }
@@ -582,6 +585,32 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             buildAlertNoGps();
         }
+    }
+
+    public void getClosestMarker(Cursor c) {
+        if (destinationMarker != null) destinationMarker.remove();
+        Location mylocation = new Location("myLocation");
+        Location closest = new Location("closest");
+        Location temp = new Location("temp");
+        double currentDistance = 999999999;
+        try {
+            mylocation.setLatitude(mapboxMap.getLocationComponent().getLastKnownLocation().getLatitude());
+            mylocation.setLongitude(mapboxMap.getLocationComponent().getLastKnownLocation().getLongitude());
+        } catch (Exception e) {
+            checkGPS();
+        }
+        while (c.moveToNext()) {
+            temp.setLongitude(c.getDouble(9));
+            temp.setLatitude(c.getDouble(8));
+            double distance = mylocation.distanceTo(temp);
+            if (distance < currentDistance) {
+                closest.setLatitude(temp.getLatitude());
+                closest.setLongitude(temp.getLongitude());
+                currentDistance = distance;
+            }
+        }
+        getRouteFromFavIntent(closest.getLatitude(), closest.getLongitude());
+
     }
 
     private void buildAlertNoGps() {
