@@ -54,7 +54,6 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         preferences = getApplicationContext().getSharedPreferences("preferences", 0);
-        SharedPreferences.Editor editor = preferences.edit();
         Intent success = new Intent(LoginActivity.this, HomeActivity.class);
         gasAdvisorApi = RetrofitUtils.getInstance().getGasAdvisorApi();
         tvSignup = findViewById(R.id.tv_signup_layoutLogin);
@@ -82,6 +81,7 @@ public class LoginActivity extends AppCompatActivity {
                         if (!response.isSuccessful()) {
                             Toast.makeText(LoginActivity.this, "Credenziali errate", Toast.LENGTH_SHORT).show();
                         } else {
+                            SharedPreferences.Editor editor = preferences.edit();
                             editor.putString("username", username.getText().toString());
                             editor.commit();
                             User user = response.body();
@@ -103,6 +103,7 @@ public class LoginActivity extends AppCompatActivity {
                             utente = dbAdapter.getUserLogin(username.getText().toString());
                             utente.moveToFirst();
                             if (utente.getString(1).contentEquals(password.getText().toString())) {
+                                SharedPreferences.Editor editor = preferences.edit();
                                 editor.putString("username", username.getText().toString());
                                 editor.commit();
                                 startActivity(success);

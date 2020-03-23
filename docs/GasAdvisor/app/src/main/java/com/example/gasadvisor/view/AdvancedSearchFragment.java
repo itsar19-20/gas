@@ -23,7 +23,7 @@ public class AdvancedSearchFragment extends Fragment {
     btnPiuVicino.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            getActivity().setResult(0);
+            getActivity().setResult(2);
             getActivity().finish();
         }
     });

@@ -59,8 +59,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         btnMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent toHome = new Intent(HomeActivity.this, MainActivity.class);
-                startActivity(toHome);
+                setResult(1);
                 finish();
             }
         });
