@@ -3,11 +3,16 @@ package business;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import model.Distributore;
 import model.Prezzo;
 import utils.JPAUtil;
 
 public class DatabaseManager {
+	SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
 	public Prezzo aggiornaPrezzi(String desc, String price, String selfS, String dtComu) {
 		Double prezzo = Double.parseDouble(price);
@@ -15,6 +20,11 @@ public class DatabaseManager {
 		Prezzo pr = new Prezzo();
 		pr.setDescCarburante(desc);
 		pr.setPrezzo(prezzo);
+		try {
+			pr.setDataComunicazione(formatter.parse(dtComu));
+		} catch (ParseException e) {
+			pr.setDataComunicazione(new Date());
+		}
 		pr.setIsSelf(isSelf);
 		pr.setDtComu(dtComu);
 		return pr;

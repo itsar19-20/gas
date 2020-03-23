@@ -2,15 +2,11 @@ package com.example.gasadvisor.view;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.SQLException;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -22,21 +18,9 @@ import androidx.fragment.app.Fragment;
 
 import com.example.gasadvisor.R;
 import com.example.gasadvisor.controller.PrezzoDBAdapter;
-import com.example.gasadvisor.model.Prezzo;
-import com.example.gasadvisor.utils.GasAdvisorApi;
-import com.example.gasadvisor.utils.RetrofitUtils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-import static com.mapbox.mapboxsdk.Mapbox.getApplicationContext;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     TextView username;
@@ -102,8 +86,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 case R.id.nav_favourite:
                     selectedFragment = new FavouriteFragment();
                     break;
-                case R.id.nav_stats:
-                    selectedFragment = new StatisticheFragment();
+                case R.id.nav_ricercaAvanzata:
+                    selectedFragment = new AdvancedSearchFragment();
                     break;
             }
             getSupportFragmentManager().beginTransaction()

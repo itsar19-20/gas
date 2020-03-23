@@ -95,11 +95,12 @@ public class ReviewActivity extends AppCompatActivity {
                         public void onResponse(Call<Valutazione> call, Response<Valutazione> response) {
                             if (!response.isSuccessful()) {
                                 progressDialog.dismiss();
-                                Toast.makeText(ReviewActivity.this, "Chiamata non completata correttamente", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ReviewActivity.this, "Solo 1 valutazione per Distributore permessa", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(ReviewActivity.this, "Commento inserito correttamente", Toast.LENGTH_SHORT).show();
+                                progressDialog.dismiss();
+                                finish();
                             }
-                            Toast.makeText(ReviewActivity.this, "Commento inserito correttamente", Toast.LENGTH_SHORT).show();
-                            progressDialog.dismiss();
-                            finish();
                         }
 
                         @Override

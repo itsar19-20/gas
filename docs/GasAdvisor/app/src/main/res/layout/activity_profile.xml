@@ -4,87 +4,56 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/button_nero"
+    android:background="@color/colorPrimaryDark"
+    android:padding="10dp"
     tools:context=".view.ProfileActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_profileAct"
-        android:layout_width="match_parent"
+    <Button
+        android:id="@+id/btn_changePass_profileAct"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
-
-    <TextView
-        android:id="@+id/tv_userData_profileAct"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:clickable="true"
-        android:paddingVertical="3dp"
-        android:text="Dati Utente"
-        android:paddingLeft="50dp"
+        android:layout_marginVertical="10dp"
+        android:background="@drawable/layout_button_profile"
+        android:text="Cambia Password"
         android:textColor="@android:color/background_light"
-        android:textSize="25dp"
-        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@id/btn_changeUsername_profileAct"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_profileAct" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_userData_profileAct"
-        android:layout_width="match_parent"
+    <Button
+        android:id="@+id/btn_changeUsername_profileAct"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:background="@drawable/ic_login_bk"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_userData_profileAct">
-
-        <TextView
-            android:id="@+id/tv_changePass_profileAct"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Cambia Password"
-            android:textAlignment="center"
-            android:paddingVertical="3dp"
-            android:clickable="true"
-            android:textColor="@color/colorAccent"
-            android:textSize="16dp"
-            android:textStyle="italic"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:clickable="true"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Cambia Nome Utente"
-            android:textAlignment="center"
-            android:paddingVertical="3dp"
-            android:id="@+id/tv_changeUsername_profileAct"
-            android:textColor="@color/colorAccent"
-            android:textSize="16dp"
-            android:textStyle="italic"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_changePass_profileAct" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <TextView
-        android:id="@+id/tv_carburantePref_profileAct"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:paddingVertical="3dp"
-        android:text="Carburante Preferito"
-        android:paddingLeft="50dp"
+        android:layout_marginVertical="10dp"
+        android:background="@drawable/layout_button_profile"
+        android:text="Cambia Username"
         android:textColor="@android:color/background_light"
-        android:textSize="25dp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/cl_userData_profileAct" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btn_changePass_profileAct"
+        app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/btn_changeCarburante_profileAct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="10dp"
+        android:background="@drawable/layout_button_profile"
+        android:text="Cambia Carburante"
+        android:textColor="@android:color/background_light"
+        app:layout_constraintEnd_toStartOf="@id/btn_deleteAccount_profileAct"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_changePass_profileAct" />
+
+    <Button
+        android:id="@+id/btn_deleteAccount_profileAct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="10dp"
+        android:background="@drawable/layout_button_profile_red"
+        android:text="Cancella Account"
+        android:textColor="@android:color/background_light"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btn_changeCarburante_profileAct"
+        app:layout_constraintTop_toBottomOf="@id/btn_changeUsername_profileAct" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

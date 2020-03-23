@@ -1,5 +1,6 @@
 package business;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -9,6 +10,8 @@ import java.util.Map.Entry;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+
+import org.hibernate.mapping.Array;
 
 import model.Distributore;
 import model.User;
@@ -38,6 +41,17 @@ public class ValutazioneManager {
 
 	public Valutazione addValutazione(User user, Distributore distributore, int giudizio, String descrizione) {
 		EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
+		List<Valutazione> list = new ArrayList<Valutazione>();
+		try {
+			list = em.createQuery(
+					"select d from Valutazione d where d.user.nome like:name and d.distributore.idImpianto like:idImpianto",
+					Valutazione.class).setParameter("name", user.getUsername())
+					.setParameter("idImpianto", distributore.getIdImpianto()).getResultList();
+		} catch (Exception e) {
+			System.out.println(e.getLocalizedMessage());
+		}
+		if (list.size() > 0)
+			return null;
 		Valutazione _return = new Valutazione();
 		_return.setData(new Date());
 		_return.setUser(user);

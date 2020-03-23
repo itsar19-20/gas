@@ -44,6 +44,7 @@
     <string name="naviga">Inizia Navigazione</string>
     <string name="img_description_backgroud">imagine_sfondo</string>
     <string name="profile">Profilo</string>
+    <string name="carburantePref">Carburante Preferito</string>
     <string name="settings">Impostazioni</string>
     <string name="logout">Uscita</string>
     <string name="title_activity_settings">Settings</string>

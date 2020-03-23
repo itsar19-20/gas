@@ -13,24 +13,26 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity
+       <activity
             android:name=".view.SettingsActivity"
-            android:label="@string/title_activity_settings"></activity>
+            android:label="@string/title_activity_settings" />
+        <activity
             android:name=".view.ProfileActivity"
-            android:theme="@style/Apptheme.Customized" />
+            android:label="@string/profile" />
         <activity
             android:name=".view.ForgotPassActivity"
             android:theme="@style/Apptheme.Customized" />
 
         <activity
             android:name=".view.FirstActivity"
-            android:theme="@style/Apptheme.Customized" />
+            android:label="@string/carburantePref" />
         <activity
             android:name=".view.ReviewActivity"
             android:theme="@style/Apptheme.Customized" />
         <activity
             android:name=".view.SplashActivity"
             android:theme="@style/SplashTheme">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -48,9 +50,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
             android:theme="@style/AppTheme.NoActionBar" />
-
     </application>
 
 </manifest>

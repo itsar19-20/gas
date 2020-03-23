@@ -66,9 +66,15 @@ public class AggiungiValutazione extends HttpServlet {
 		ValutazioneManager vm = new ValutazioneManager();
 		giudizio = Integer.parseInt(request.getParameter("giudizio"));
 		descrizione = request.getParameter("descrizione");
-		Valutazione valutazione = vm.addValutazione(user, distributore, giudizio, descrizione);
-		ObjectMapper om = new ObjectMapper();
-		response.setContentType("application/json");
-		response.getWriter().append(om.writeValueAsString(valutazione));
+		Valutazione valutazione = new Valutazione();
+		valutazione = vm.addValutazione(user, distributore, giudizio, descrizione);
+		if (valutazione == null) {
+			response.sendError(403);
+		} else {
+			ObjectMapper om = new ObjectMapper();
+			response.setContentType("application/json");
+			response.getWriter().append(om.writeValueAsString(valutazione));
+
+		}
 	}
 }

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorBackground"
+    android:paddingTop="24dp">
+    <Button
+        android:id="@+id/btn_piuVicino_avanzFrag"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="Portami al distributore piu vicino"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/mapbox_blue"
+        android:textColor="@color/mapbox_navigation_view_color_banner_primary_text"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
