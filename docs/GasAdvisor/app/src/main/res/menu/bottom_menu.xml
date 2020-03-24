@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
-        <item
-            android:id="@+id/nav_favourite"
-            android:icon="@drawable/ic_star_black_24dp"
-            android:title="Preferiti" />
-        <item
-            android:id="@+id/nav_cheapest"
-            android:icon="@drawable/ic_euro_symbol_black_24dp"
-            android:title="Piu Economici" />
-        <item
-            android:id="@+id/nav_ricercaAvanzata"
-            android:icon="@drawable/ic_search_24px"
-            android:title="Ricerca Avanzata" />
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_favourite"
+        android:icon="@drawable/ic_star_black_24dp"
+        android:title="Preferiti" />
+    <item
+        android:id="@+id/nav_cheapest"
+        android:icon="@drawable/ic_euro_symbol_black_24dp"
+        android:title="Più Economici" />
+    <item
+        android:id="@+id/nav_ricercaAvanzata"
+        android:icon="@drawable/ic_search_24px"
+        android:title="Ricerca Avanzata" />
 </menu>
