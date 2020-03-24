@@ -16,7 +16,6 @@ import com.example.gasadvisor.controller.DistributoreDBAdapter;
 import com.example.gasadvisor.model.Prezzo;
 import com.example.gasadvisor.utils.GasAdvisorApi;
 import com.example.gasadvisor.utils.RetrofitUtils;
-import com.example.gasadvisor.viewAdapters.PiuEconomiciArrayAdapt;
 import com.example.gasadvisor.viewAdapters.PiuEconomiciCursorAdapter;
 
 import java.time.LocalDate;

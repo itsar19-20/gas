@@ -1,5 +1,6 @@
 package com.example.gasadvisor.utils;
 
+import com.example.gasadvisor.model.Distributore;
 import com.example.gasadvisor.model.Prezzo;
 import com.example.gasadvisor.model.User;
 import com.example.gasadvisor.model.Valutazione;
@@ -45,6 +46,12 @@ public interface GasAdvisorApi {
     @POST("ForgotPassword")
     @FormUrlEncoded
     Call<User> userForgotPassword(@Field("email") String email);
+
+    @GET("GetDistributoriPiuVicini")
+    Call<List<Prezzo>> getPiuVicini(@Query("carburante") String carburante,
+                                          @Query("distanza") int distanza,
+                                          @Query("latitudine") Double latitudine,
+                                          @Query("longitudine") Double longitudine);
 
     @POST("AggiungiValutazione")
     @FormUrlEncoded
