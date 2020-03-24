@@ -5,7 +5,7 @@
     android:singleLine="true"
     android:textColor="@color/colorPrimaryDark"
     android:textStyle="bold|italic"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:textAlignment="center"
     android:gravity="center"
     android:textSize="20sp"

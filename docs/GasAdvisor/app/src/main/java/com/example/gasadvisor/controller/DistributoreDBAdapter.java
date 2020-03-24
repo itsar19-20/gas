@@ -5,8 +5,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.location.Location;
+import android.location.LocationManager;
 import android.widget.Toast;
 
+import com.example.gasadvisor.model.Distributore;
 import com.example.gasadvisor.utils.DBHelper;
 
 import java.util.ArrayList;
@@ -18,6 +21,10 @@ public class DistributoreDBAdapter {
     private Context context;
     private SQLiteDatabase db;
     private DBHelper dbHelper;
+    private LocationManager locationManager;
+    private Location location;
+    private Double latitudine, longitudine;
+    private List<Distributore> distributoreList;
 
     public static final String DB_TABLE = "distributore";
     public static final String DB_TABLE_Prezzo = "prezzo";
@@ -106,17 +113,18 @@ public class DistributoreDBAdapter {
         return db.rawQuery(query, null);
     }
 
-    public List<Integer> getIdImpianti(){
+    public List<Integer> getIdImpianti() {
         List<Integer> _return = new ArrayList<>();
         String query = "select distributore.idImpianto from distributore;";
         Cursor cursor = db.rawQuery(query, null);
-        while (cursor.moveToNext()){
+        while (cursor.moveToNext()) {
             _return.add(cursor.getInt(0));
         }
         return _return;
     }
-    public Map<Integer, String> getImpiantoEData(){
-        Map<Integer,String> _return = new HashMap<>();
+
+    public Map<Integer, String> getImpiantoEData() {
+        Map<Integer, String> _return = new HashMap<>();
         String query = "select id_impianto, dtComu from prezzo;";
         Cursor c = db.rawQuery(query, null);
         while (c.moveToNext()) {
