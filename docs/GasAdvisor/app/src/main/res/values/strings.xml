@@ -64,5 +64,6 @@
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="reset_password">Ripristina Password</string>
+    <string name="avvia">Avvia</string>
 
 </resources>

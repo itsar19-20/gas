@@ -595,7 +595,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 recreate();
             }
         } else if (requestCode == 4) {
-            if (resultCode == 0) {
+            if (resultCode == 2) {
                 getClosestMarker(distributoreDBAdapter.getDistributoriEPrezzo());
             }
         }

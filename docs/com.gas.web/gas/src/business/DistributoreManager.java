@@ -4,9 +4,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+
+import com.google.protobuf.DescriptorProtos.SourceCodeInfo.Location;
 
 import model.Distributore;
 import model.Prezzo;
@@ -261,6 +265,37 @@ public class DistributoreManager implements Comparator<Prezzo> {
 				.setParameter("name", idImpianto).getSingleResult();
 		em.close();
 		return d;
+	}
+
+	public List<Prezzo> cercaPiuVicini(String carburante, int raggio, double latitudine, double longitudine) {
+		List<Prezzo> _return = new ArrayList<Prezzo>();
+		Map<Double, Prezzo> map = new TreeMap<>();
+		List<Prezzo> temp = cercaPiuEconomici(carburante);
+		int raggioMetri = raggio * 1000;
+		for (int i = 0; i < temp.size(); i++) {
+			double distanza = distFrom(latitudine, longitudine,
+					temp.get(i).getDistributore().getLatitudine(), temp.get(i).getDistributore().getLongitudine());
+			if (distanza < raggioMetri) {
+				map.put(distanza, temp.get(i));
+			}
+		}
+		for (double d:map.keySet()) {
+			_return.add(map.get(d));
+		}
+		return _return;
+	}
+
+	// metodo che calcola distanza tra 2 punti
+	public static double distFrom(double lat1, double lng1, double lat2, double lng2) {
+		double earthRadius = 6371000; // meters
+		double dLat = Math.toRadians(lat2 - lat1);
+		double dLng = Math.toRadians(lng2 - lng1);
+		double a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(Math.toRadians(lat1))
+				* Math.cos(Math.toRadians(lat2)) * Math.sin(dLng / 2) * Math.sin(dLng / 2);
+		double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+		double dist = (double) (earthRadius * c);
+
+		return dist;
 	}
 
 }

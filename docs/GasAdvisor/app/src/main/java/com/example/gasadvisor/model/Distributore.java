@@ -4,7 +4,22 @@ public class Distributore {
     //annotation @serializedName("name") se vogliamo
     //usare un nome diverso su android da quello che
     //ci da il json
+
+    public Distributore(Double prezzo, String bandiera, String comune, Double latitudine, Double longitudine) {
+        this.prezzo = prezzo;
+        this.bandiera = bandiera;
+        this.comune = comune;
+        this.latitudine = latitudine;
+        this.longitudine = longitudine;
+    }
+
     private Integer _id;
+
+    private Double prezzo;
+
+    public Double getPrezzo() {
+        return prezzo;
+    }
 
     private int idImpianto;
 

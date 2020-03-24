@@ -1,22 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-
+    android:background="@color/colorBackground"
     android:paddingTop="24dp">
-    <Button
-        android:id="@+id/btn_piuVicino_avanzFrag"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="Portami al distributore piu vicino"
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_firstHalp_avanzFrag"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/mapbox_blue"
-        android:textColor="@color/mapbox_navigation_view_color_banner_primary_text"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
+        <Button
+            android:id="@+id/btn_piuVicino_avanzFrag"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:background="@color/mapbox_blue"
+            android:text="Portami al distributore piu vicino"
+            android:textColor="@color/mapbox_navigation_view_color_banner_primary_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_ricercaAvanzata_avanzFrag"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Ricerca avanzata"
+            android:textAlignment="center"
+            android:textColor="@android:color/background_light"
+            android:textSize="18sp"
+            app:layout_constraintTop_toBottomOf="@id/btn_piuVicino_avanzFrag" />
+
+
+        <TextView
+            android:id="@+id/tv_carburante_avanzFrag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Carburante"
+            android:textColor="@android:color/background_light"
+            app:layout_constraintEnd_toEndOf="@id/spinner_carburante_avanzFrag"
+            app:layout_constraintStart_toStartOf="@id/spinner_carburante_avanzFrag"
+            app:layout_constraintTop_toBottomOf="@id/tv_ricercaAvanzata_avanzFrag" />
+
+        <Spinner
+            android:id="@+id/spinner_carburante_avanzFrag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@android:color/background_light"
+            app:layout_constraintEnd_toStartOf="@id/spinner_raggio_avanzFrag"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_carburante_avanzFrag" />
+
+
+        <TextView
+            android:id="@+id/tv_raggio_avanzFrag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Raggio"
+            android:textColor="@android:color/background_light"
+            app:layout_constraintEnd_toEndOf="@id/spinner_raggio_avanzFrag"
+            app:layout_constraintStart_toStartOf="@id/spinner_raggio_avanzFrag"
+            app:layout_constraintTop_toBottomOf="@id/tv_ricercaAvanzata_avanzFrag" />
+
+        <Spinner
+            android:id="@+id/spinner_raggio_avanzFrag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@android:color/background_light"
+            app:layout_constraintEnd_toStartOf="@id/btn_avvia_avanzFrag"
+            app:layout_constraintStart_toEndOf="@id/spinner_carburante_avanzFrag"
+            app:layout_constraintTop_toBottomOf="@id/tv_raggio_avanzFrag" />
+
+        <Button
+            android:id="@+id/btn_avvia_avanzFrag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/mapbox_blue"
+            android:text="@string/avvia"
+            android:textColor="@android:color/background_light"
+            app:layout_constraintBaseline_toBaselineOf="@id/spinner_raggio_avanzFrag"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/spinner_raggio_avanzFrag"
+            app:layout_constraintTop_toTopOf="@id/spinner_raggio_avanzFrag" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ListView
+        android:id="@+id/lv_avanzFrag"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cl_firstHalp_avanzFrag"></ListView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
