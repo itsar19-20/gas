@@ -3,10 +3,9 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="176dp"
-    android:background="#6F6F6F"
     android:gravity="bottom"
     android:padding="16dp"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+    >
 
     <ImageView
         android:layout_width="wrap_content"

@@ -8,6 +8,8 @@
     <color name="whiteTextColor">#fff</color>
     <color name="primaryTextColor">#00a5ff</color>
     <color name="loginBkColor">#f0f0f0</color>
+    <color name="black">#000</color>
+    <color name="back">#343A40</color>
     <!-- colors for card -->
     <color name="whiteCardColor">#fff</color>
 </resources>

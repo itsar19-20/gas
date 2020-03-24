@@ -1,5 +1,7 @@
 package com.example.gasadvisor.view;
 
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,6 +44,7 @@ public class CheapestFragment extends Fragment {
         distributoreDBAdapter = new DistributoreDBAdapter(getContext());
         distributoreDBAdapter.open();
         piuEconomiciCursorAdapter = new PiuEconomiciCursorAdapter(getContext(), distributoreDBAdapter.getPiuEconomici());
+        lvPrezzi.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPrimary)));
         lvPrezzi.setAdapter(piuEconomiciCursorAdapter);
         return v;
     }

@@ -3,15 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:descendantFocusability="blocksDescendants">
+    android:descendantFocusability="blocksDescendants"
+    android:orientation="horizontal">
 
     <androidx.cardview.widget.CardView
-        app:cardBackgroundColor="@color/colorPrimaryDark"
+        android:id="@+id/card"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="5dp"
         android:clipChildren="true"
         android:padding="5dp"
+        app:cardCornerRadius="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,25 +24,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:background="@drawable/background_list"
             android:padding="5dp">
 
             <Button
-                android:focusable="false"
                 android:id="@+id/btnExpand_layoutFav"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:background="@drawable/ic_unfold_more_black_24dp"
-                app:layout_constraintBottom_toTopOf="@+id/cl_expandale_layoutFav"
+                android:background="#0000"
+                android:focusable="false"
+                android:foreground="@drawable/ic_unfold_more_black_24dp"
+                app:layout_constraintBottom_toTopOf="@+id/cl_expandable_layoutFav"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_bandiea_layoutFav"
+                android:id="@+id/tv_bandiera_layoutFav"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="ciaoooo"
-                app:layout_constraintBottom_toTopOf="@+id/cl_expandale_layoutFav"
+                app:layout_constraintBottom_toTopOf="@+id/cl_expandable_layoutFav"
                 app:layout_constraintEnd_toStartOf="@+id/tv_comune_layoutFav"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/btnExpand_layoutFav"
@@ -51,24 +53,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="ciaooo"
-                app:layout_constraintBottom_toTopOf="@+id/cl_expandale_layoutFav"
+                app:layout_constraintBottom_toTopOf="@+id/cl_expandable_layoutFav"
                 app:layout_constraintEnd_toStartOf="@+id/btn_startNav_layoutFav"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/tv_bandiea_layoutFav"
+                app:layout_constraintStart_toEndOf="@+id/tv_bandiera_layoutFav"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
-                android:focusable="false"
                 android:id="@+id/btn_startNav_layoutFav"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:background="@drawable/ic_directions_black_24dp"
-                app:layout_constraintBottom_toTopOf="@+id/cl_expandale_layoutFav"
+                android:background="#00000000"
+                android:focusable="false"
+                android:foreground="@drawable/ic_directions_black_24dp"
+                app:layout_constraintBottom_toTopOf="@+id/cl_expandable_layoutFav"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cl_expandale_layoutFav"
+                android:id="@+id/cl_expandable_layoutFav"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
@@ -125,8 +128,8 @@
                     android:id="@+id/tv_price_layoutFav"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@android:color/holo_red_dark"
                     android:text="prova"
+                    android:textColor="@android:color/holo_red_dark"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"

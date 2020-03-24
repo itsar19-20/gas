@@ -12,9 +12,11 @@ import android.widget.CursorAdapter;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.graphics.drawable.IconCompat;
 
 import com.example.gasadvisor.R;
 import com.example.gasadvisor.view.MainActivity;
+
 
 public class FavoritesCursorAdapter extends CursorAdapter {
 
@@ -26,14 +28,16 @@ public class FavoritesCursorAdapter extends CursorAdapter {
     public View newView(Context context, Cursor cursor, ViewGroup viewGroup) {
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
         View v = inflater.inflate(R.layout.layout_favourite, viewGroup, false);
+
         return v;
     }
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
+
         double latitudine = cursor.getDouble(9);
         double longitudine = cursor.getDouble(10);
-        TextView tvBandiera = view.findViewById(R.id.tv_bandiea_layoutFav);
+        TextView tvBandiera = view.findViewById(R.id.tv_bandiera_layoutFav);
         tvBandiera.setText(cursor.getString(cursor.getColumnIndex(cursor.getColumnName(2))));
         TextView tvComune = view.findViewById(R.id.tv_comune_layoutFav);
         tvComune.setText(cursor.getString(cursor.getColumnIndex(cursor.getColumnName(3))));
@@ -51,7 +55,7 @@ public class FavoritesCursorAdapter extends CursorAdapter {
         expand.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ConstraintLayout layout = view.findViewById(R.id.cl_expandale_layoutFav);
+                ConstraintLayout layout = view.findViewById(R.id.cl_expandable_layoutFav);
                 if (layout.getVisibility() == View.VISIBLE)
                     layout.setVisibility(View.GONE);
                 else

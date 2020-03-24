@@ -4,9 +4,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.PointF;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationManager;
@@ -38,7 +40,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.example.gasadvisor.R;
 import com.example.gasadvisor.controller.DistributoreDBAdapter;
 import com.example.gasadvisor.controller.PrezzoDBAdapter;
-import com.example.gasadvisor.model.Prezzo;
 import com.example.gasadvisor.utils.GasAdvisorApi;
 import com.example.gasadvisor.utils.RetrofitUtils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -49,7 +50,6 @@ import com.mapbox.api.directions.v5.models.DirectionsResponse;
 import com.mapbox.api.directions.v5.models.DirectionsRoute;
 import com.mapbox.geojson.Feature;
 import com.mapbox.geojson.FeatureCollection;
-import com.mapbox.geojson.Geometry;
 import com.mapbox.geojson.Point;
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.annotations.Marker;
@@ -73,21 +73,20 @@ import com.mapbox.services.android.navigation.ui.v5.NavigationLauncherOptions;
 import com.mapbox.services.android.navigation.ui.v5.route.NavigationMapRoute;
 import com.mapbox.services.android.navigation.v5.navigation.NavigationRoute;
 
-import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconAllowOverlap;
-import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconIgnorePlacement;
-import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconOffset;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconAllowOverlap;
+import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconIgnorePlacement;
+import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconOffset;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, PermissionsListener,
         MapboxMap.OnMapClickListener, NavigationView.OnNavigationItemSelectedListener {
@@ -116,9 +115,15 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private Drawable drawable;
     private Bitmap imgDistributore;
 
+    public MainActivity() {
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferences ColorPreference = getApplicationContext().getSharedPreferences("color", 0);
+        Boolean isDark = ColorPreference.getBoolean("isDark", true);
+
         preferences = getApplicationContext().getSharedPreferences("preferences", 0);
         carburantePreferito = preferences.getString("carburante", null);
         nameUser = preferences.getString("username", null);
@@ -146,9 +151,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 }
             }
         });
-        createDrawer();
+        createDrawer(isDark);
+        btnLocation = findViewById(R.id.btnLocation_mainActivity);
+        btnLocation.setColorFilter(getResources().getColor(R.color.colorAccent));        btnLocation.setBackgroundTintMode(PorterDuff.Mode.LIGHTEN);
+        btnLocation.setImageDrawable(isDark ? getResources().getDrawable(R.drawable.ic_my_location_black_24dp) : getResources().getDrawable(R.drawable.ic_my_location_white_24dp));
         //floating button HOME
         btnHome = findViewById(R.id.btnHome);
+        btnHome.setColorFilter(getResources().getColor(R.color.colorAccent));
+        btnHome.setBackgroundTintMode(PorterDuff.Mode.LIGHTEN);
         btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -163,17 +173,24 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         });
     }
 
-    public void createDrawer() {
+    public void createDrawer(Boolean isDark) {
         //toolbar
         Toolbar toolbar = findViewById(R.id.toolbar_mainActivity);
+
         drawer = findViewById(R.id.drawer_layout_home);
         setSupportActionBar(toolbar);
         NavigationView navigationView = findViewById(R.id.nav_view_mainActivity);
+        navigationView.setItemIconTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorAccent)));
         navigationView.setNavigationItemSelectedListener(this);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer,
                 toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
+        navigationView.setBackgroundColor(isDark? getResources().getColor(R.color.back):getResources().getColor(R.color.whiteCardColor));
+        navigationView.setItemTextColor(ColorStateList.valueOf(!isDark ? getResources().getColor(R.color.black) : getResources().getColor(R.color.whiteTextColor)));
         toggle.syncState();
+        toolbar.setBackgroundColor(isDark ? getResources().getColor(R.color.back) : getResources().getColor(R.color.whiteTextColor));
+        toolbar.setTitleTextColor(!isDark ? getResources().getColor(R.color.black) : getResources().getColor(R.color.whiteTextColor));
+        toolbar.setNavigationIcon(!isDark ? R.drawable.ic_menu_24px : R.drawable.ic_menu_24px_white);
         //mettiamo nome Utente su drawer
         username = navigationView.getHeaderView(0).findViewById(R.id.nav_username);
         try {
@@ -185,6 +202,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.nav_settings:
+                Intent toSettings = new Intent(MainActivity.this, SettingsActivity.class);
+                startActivity(toSettings);
+                break;
             case R.id.nav_profile:
                 Intent toProfile = new Intent(MainActivity.this, ProfileActivity.class);
                 startActivity(toProfile);
