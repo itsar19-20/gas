@@ -81,12 +81,7 @@
     </style>
     <style name="temaScuro" parent="AppTheme">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="android:background">#294FC8</item>
-        <item name="android:backgroundTint">@color/back</item>
-        <item name="android:textColor">#ffffff</item>
-        <item name="colorPrimaryDark">#fff</item>
-        <item name="colorAccent">@color/colorAccent</item>
+
 
     </style>
     <style name="temaChiaro" parent="AppTheme">
