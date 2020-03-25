@@ -17,7 +17,8 @@
 
         <activity
             android:name=".view.SettingsActivity"
-            android:label="@string/title_activity_settings" />
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
+            android:label="Impostazioni" />
         <activity
             android:name=".view.ProfileActivity"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar"

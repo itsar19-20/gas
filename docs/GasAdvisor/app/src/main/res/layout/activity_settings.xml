@@ -3,7 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="@color/colorPrimaryDark"
+    android:padding="10dp"
+    tools:context=".view.SettingsActivity"
+    android:id="@+id/cl_activity_settings">
 
     <Switch
         android:id="@+id/temaSwitch"
@@ -13,19 +16,10 @@
         android:layout_weight="1"
         android:checked="true"
         android:text="   Tema scuro"
+        android:textColor="@color/whiteTextColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:trackTint="@color/colorAccent"/>
-
-    <Button
-        android:id="@+id/settinsActivity_backButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="53dp"
-        android:layout_marginBottom="49dp"
-        android:text="Back"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

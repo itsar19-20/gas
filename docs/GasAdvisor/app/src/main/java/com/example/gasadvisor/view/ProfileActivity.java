@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.gasadvisor.R;
 import com.example.gasadvisor.controller.UserDBAdapter;
@@ -41,6 +42,10 @@ public class ProfileActivity extends AppCompatActivity implements ChangeUsername
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+        SharedPreferences ColorPreference = getApplicationContext().getSharedPreferences("color", 0);
+        Boolean isDark = ColorPreference.getBoolean("isDark", true);
+        ConstraintLayout constraintLayout=findViewById(R.id.cl_activity_profile);
+        constraintLayout.setBackgroundColor(getResources().getColor(!isDark ? R.color.whiteTextColor : R.color.colorBackground));
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
