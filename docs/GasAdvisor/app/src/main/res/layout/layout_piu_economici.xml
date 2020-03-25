@@ -15,9 +15,10 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-
         android:paddingBottom="5dp"
-        android:textAlignment="center" />
+        android:background="@color/colorPrimary"
+        android:textAlignment="center"
+        android:textColor="@android:color/background_light" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_Comune_LayoutCheapest"
@@ -42,6 +43,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:textColor="@android:color/background_light"
         android:background="@android:color/holo_red_dark"
         android:paddingBottom="5dp"
         android:textAlignment="center" />

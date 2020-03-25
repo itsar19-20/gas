@@ -60,12 +60,14 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         //button torna in main activity
         btnMap = findViewById(R.id.btnMappaMain);
         //btnMap.(isDark ? getResources().getColor(R.color.colorAccent) : getResources().getColor(R.color.whiteTextColor));
-        btnMap.setColorFilter(isDark ? getResources().getColor(R.color.colorAccent) : getResources().getColor(R.color.whiteTextColor));
-        btnMap.setBackgroundTintMode(PorterDuff.Mode.LIGHTEN);
+       // btnMap.setColorFilter(isDark ? getResources().getColor(R.color.colorAccent) : getResources().getColor(R.color.whiteTextColor));
+      //  btnMap.setBackgroundTintMode(PorterDuff.Mode.LIGHTEN);
         btnMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 setResult(1);
+                Intent toMain = new Intent(HomeActivity.this, MainActivity.class);
+                startActivity(toMain);
                 finish();
             }
         });
@@ -118,7 +120,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setItemTextColor(ColorStateList.valueOf(!isDark ? getResources().getColor(R.color.black) : getResources().getColor(R.color.whiteTextColor)));
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-        toolbar.setBackgroundColor(isDark ? getResources().getColor(R.color.black) : getResources().getColor(R.color.whiteTextColor));
+        toolbar.setBackgroundColor(isDark ? getResources().getColor(R.color.colorPrimary) : getResources().getColor(R.color.whiteTextColor));
         toolbar.setTitleTextColor(!isDark ? getResources().getColor(R.color.black) : getResources().getColor(R.color.whiteTextColor));
         toolbar.setNavigationIcon(!isDark ? R.drawable.ic_menu_24px : R.drawable.ic_menu_24px_white);
 
