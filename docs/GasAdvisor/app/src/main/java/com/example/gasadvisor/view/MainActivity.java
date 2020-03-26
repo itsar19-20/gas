@@ -153,12 +153,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         });
         createDrawer(isDark);
         btnLocation = findViewById(R.id.btnLocation_mainActivity);
-        btnLocation.setColorFilter(getResources().getColor(R.color.colorAccent));        btnLocation.setBackgroundTintMode(PorterDuff.Mode.LIGHTEN);
-        btnLocation.setImageDrawable(isDark ? getResources().getDrawable(R.drawable.ic_my_location_black_24dp) : getResources().getDrawable(R.drawable.ic_my_location_white_24dp));
+        btnLocation.setBackgroundTintList(ColorStateList.valueOf(isDark ? getResources().getColor(R.color.whiteCardColor) : getResources().getColor(R.color.colorAccent)));
+        btnLocation.setColorFilter(isDark ? getResources().getColor(R.color.colorPrimaryDark) : getResources().getColor(R.color.whiteTextColor));
         //floating button HOME
         btnHome = findViewById(R.id.btnHome);
-        btnHome.setColorFilter(getResources().getColor(R.color.colorAccent));
-        btnHome.setBackgroundTintMode(PorterDuff.Mode.LIGHTEN);
+        btnHome.setBackgroundTintList(ColorStateList.valueOf(isDark ? getResources().getColor(R.color.whiteCardColor) : getResources().getColor(R.color.colorAccent)));
+        btnHome.setColorFilter(isDark ? getResources().getColor(R.color.colorPrimaryDark) : getResources().getColor(R.color.whiteTextColor));
         btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -185,10 +185,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer,
                 toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
-        navigationView.setBackgroundColor(isDark? getResources().getColor(R.color.back):getResources().getColor(R.color.whiteCardColor));
+        navigationView.setBackgroundColor(isDark ? getResources().getColor(R.color.back) : getResources().getColor(R.color.whiteCardColor));
         navigationView.setItemTextColor(ColorStateList.valueOf(!isDark ? getResources().getColor(R.color.black) : getResources().getColor(R.color.whiteTextColor)));
         toggle.syncState();
-        toolbar.setBackgroundColor(isDark ? getResources().getColor(R.color.back) : getResources().getColor(R.color.whiteTextColor));
+        toolbar.setBackgroundColor(isDark ? getResources().getColor(R.color.back) : getResources().getColor(R.color.colorLightblue));
         toolbar.setTitleTextColor(!isDark ? getResources().getColor(R.color.black) : getResources().getColor(R.color.whiteTextColor));
         toolbar.setNavigationIcon(!isDark ? R.drawable.ic_menu_24px : R.drawable.ic_menu_24px_white);
         //mettiamo nome Utente su drawer

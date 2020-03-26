@@ -3,7 +3,6 @@ package com.example.gasadvisor.view;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -37,10 +36,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         SharedPreferences ColorPreference = getApplicationContext().getSharedPreferences("color", 0);
         Boolean isDark = ColorPreference.getBoolean("isDark", true);
-        setTheme(isDark ? R.style.temaScuro : R.style.temaChiaro);
         super.onCreate(savedInstanceState);
-        setTheme(R.style.AppTheme);
         setContentView(R.layout.activity_home);
+        DrawerLayout drawerLayout=findViewById(R.id.drawer_layout);
+        if(!isDark) {
+            drawerLayout.setBackgroundColor(getResources().getColor(R.color.whiteCardColor));
+        }
         preferences = getApplicationContext().getSharedPreferences("preferences", 0);
         greeting = findViewById(R.id.tv_greeting_homeAct);
         String carburantePreferito = preferences.getString("carburante", null);
@@ -59,9 +60,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         //button torna in main activity
         btnMap = findViewById(R.id.btnMappaMain);
-        //btnMap.(isDark ? getResources().getColor(R.color.colorAccent) : getResources().getColor(R.color.whiteTextColor));
-       // btnMap.setColorFilter(isDark ? getResources().getColor(R.color.colorAccent) : getResources().getColor(R.color.whiteTextColor));
-      //  btnMap.setBackgroundTintMode(PorterDuff.Mode.LIGHTEN);
+        btnMap.setBackgroundTintList(ColorStateList.valueOf(isDark ? getResources().getColor(R.color.whiteCardColor) : getResources().getColor(R.color.colorAccent)));
+        btnMap.setColorFilter(isDark ? getResources().getColor(R.color.colorPrimaryDark) : getResources().getColor(R.color.whiteTextColor));
+
         btnMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -76,9 +77,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     public void createBottomNav(Boolean isDark) {
         //linstener per bottom nav, e mettiamo predefinito PiuEconomici
         bottomNavigationView = findViewById(R.id.bottom_navigation);
-//        bottomNavigationView.setBackgroundColor(isDark ? getResources().getColor(R.color.back) : getResources().getColor(R.color.whiteTextColor));
-//        bottomNavigationView.setItemIconTintList(ColorStateList.valueOf(!isDark ? getResources().getColor(R.color.whiteTextColor) : getResources().getColor(R.color.back)));
-//        bottomNavigationView.setItemTextColor(ColorStateList.valueOf(!isDark ? getResources().getColor(R.color.whiteTextColor) : getResources().getColor(R.color.back)));
+        bottomNavigationView.setBackgroundColor(!isDark ? getResources().getColor(R.color.colorLightblue) : getResources().getColor(R.color.colorPrimary));
+        bottomNavigationView.setItemIconTintList(ColorStateList.valueOf(isDark ? getResources().getColor(R.color.whiteTextColor) : getResources().getColor(R.color.back)));
+        bottomNavigationView.setItemTextColor(ColorStateList.valueOf(isDark ? getResources().getColor(R.color.whiteTextColor) : getResources().getColor(R.color.back)));
         ;
         bottomNavigationView.setOnNavigationItemSelectedListener(bottomNavListener);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_home
@@ -117,10 +118,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        navigationView.setBackgroundColor(isDark ? getResources().getColor(R.color.back) : getResources().getColor(R.color.whiteCardColor));
         navigationView.setItemTextColor(ColorStateList.valueOf(!isDark ? getResources().getColor(R.color.black) : getResources().getColor(R.color.whiteTextColor)));
-        drawer.addDrawerListener(toggle);
         toggle.syncState();
-        toolbar.setBackgroundColor(isDark ? getResources().getColor(R.color.colorPrimary) : getResources().getColor(R.color.whiteTextColor));
+        toolbar.setBackgroundColor(isDark ? getResources().getColor(R.color.back) : getResources().getColor(R.color.colorLightblue));
         toolbar.setTitleTextColor(!isDark ? getResources().getColor(R.color.black) : getResources().getColor(R.color.whiteTextColor));
         toolbar.setNavigationIcon(!isDark ? R.drawable.ic_menu_24px : R.drawable.ic_menu_24px_white);
 
