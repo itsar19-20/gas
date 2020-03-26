@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark"
     android:paddingVertical="10dp"
-    tools:context=".view.ProfileActivity">
+    tools:context=".view.ProfileActivity"
+    android:id="@+id/cl_activity_profile">
 
     <Button
         android:id="@+id/btn_changePass_profileAct"

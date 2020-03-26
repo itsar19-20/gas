@@ -78,6 +78,12 @@
     <style name="RatingBar" parent="parent">
         <item name="colorControlNormal">@color/common_google_signin_btn_text_dark_disabled</item>
         <item name="colorControlActivated">@color/mapbox_navigation_route_layer_congestion_red</item>
+
+    </style>
+    <style name="stileNavigationView" parent="parent">
+        <item name="backgroundTint">@color/colorPrimary</item>
+        <item name="android:textColor">#fff</item>
+        <item name="navigationViewPrimaryText">#fff</item>
     </style>
     <style name="temaScuro" parent="AppTheme">
         <!-- Customize your theme here. -->

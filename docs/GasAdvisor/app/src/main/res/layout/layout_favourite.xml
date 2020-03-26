@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:descendantFocusability="blocksDescendants"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    >
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card"
@@ -17,9 +18,12 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:cardBackgroundColor="#B3E5FC"
+        >
 
         <androidx.constraintlayout.widget.ConstraintLayout
+
             android:id="@+id/cl_title_layoutfav"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -63,6 +67,7 @@
                 android:id="@+id/btn_startNav_layoutFav"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
+                android:layout_marginEnd="4dp"
                 android:background="#00000000"
                 android:focusable="false"
                 android:foreground="@drawable/ic_directions_black_24dp"
