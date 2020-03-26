@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Switch;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.gasadvisor.R;
@@ -21,6 +22,10 @@ public class SettingsActivity extends AppCompatActivity {
         setTheme(isDark ? R.style.temaScuro : R.style.temaChiaro);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
         Switch aSwitch = findViewById(R.id.temaSwitch);
         aSwitch.setTextColor(isDark ? getResources().getColor(R.color.whiteTextColor) : getResources().getColor(R.color.black));
         try {

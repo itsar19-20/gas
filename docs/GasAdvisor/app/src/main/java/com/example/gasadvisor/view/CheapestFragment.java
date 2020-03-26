@@ -1,11 +1,14 @@
 package com.example.gasadvisor.view;
 
+import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -34,7 +37,7 @@ public class CheapestFragment extends Fragment {
     ListView lvPrezzi;
     DistributoreDBAdapter distributoreDBAdapter;
     PiuEconomiciCursorAdapter piuEconomiciCursorAdapter;
-
+    @SuppressLint("ResourceAsColor")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

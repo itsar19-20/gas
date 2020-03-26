@@ -6,10 +6,9 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:background="@color/colorPrimary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        >
+        android:background="@color/colorPrimary">
 
         <com.google.android.material.checkbox.MaterialCheckBox
             style="?android:starStyle"
@@ -19,46 +18,46 @@
             android:clickable="false" />
 
         <TextView
-            android:text="@string/flag"
             android:id="@+id/tv_Bandiera_FragmentCheapest"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:paddingBottom="4dp"
+            android:text="@string/flag"
             android:textAlignment="center"
 
             android:textColor="@color/primaryTextColor" />
 
         <TextView
-            android:text="@string/comune"
-
             android:id="@+id/tv_Comune_FragmentCheapest"
+
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:paddingBottom="4dp"
+            android:text="@string/comune"
             android:textAlignment="center"
             android:textColor="@color/primaryTextColor" />
 
         <TextView
-            android:text="@string/lastUpdate"
-
             android:id="@+id/tv_Data_FragmentCheapest"
+
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:paddingBottom="4dp"
+            android:text="@string/lastUpdate"
             android:textAlignment="center"
             android:textColor="@color/primaryTextColor" />
 
         <TextView
-            android:text="@string/price"
-
             android:id="@+id/tv_Prezzo_FragmentCheapest"
+
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:paddingBottom="4dp"
+            android:text="@string/price"
             android:textAlignment="center"
             android:textColor="@color/primaryTextColor" />
 
@@ -68,14 +67,13 @@
         android:layout_width="wrap_content"
 
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
 
         <ListView
 
             android:id="@+id/lv_distributori_FragmentCheapest"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
 </LinearLayout>

@@ -91,8 +91,8 @@ public class LoginActivity extends AppCompatActivity {
                             } catch (Exception e) {
                                 Log.e("login", e.getLocalizedMessage());
                             }
-                            startActivity(success);
                             finish();
+                            startActivity(success);
                         }
                     }
 
