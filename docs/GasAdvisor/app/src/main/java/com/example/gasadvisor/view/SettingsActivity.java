@@ -3,6 +3,7 @@ package com.example.gasadvisor.view;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -55,7 +56,7 @@ public class SettingsActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.cancel();
-                        ProcessPhoenix.triggerRebirth(SettingsActivity.this);
+                        ProcessPhoenix.triggerRebirth(SettingsActivity.this, new Intent(SettingsActivity.this, MainActivity.class));
                     }
                 });
                 AlertDialog alert = builder.create();

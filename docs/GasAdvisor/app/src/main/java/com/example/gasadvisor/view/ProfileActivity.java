@@ -70,7 +70,7 @@ public class ProfileActivity extends AppCompatActivity implements ChangeUsername
             @Override
             public void onClick(View view) {
                 if (nameUser == null) {
-                    Toast.makeText(ProfileActivity.this, "Entra nel tuo account per visualizzare impostazioni", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ProfileActivity.this, "Fare login per cambiare Username", Toast.LENGTH_SHORT).show();
                 } else openDialogUsername();
             }
         });
@@ -78,7 +78,7 @@ public class ProfileActivity extends AppCompatActivity implements ChangeUsername
             @Override
             public void onClick(View view) {
                 if (nameUser == null) {
-                    Toast.makeText(ProfileActivity.this, "Entra nel tuo account per visualizzare impostazioni", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ProfileActivity.this, "Entra nel tuo account per cambiare password", Toast.LENGTH_SHORT).show();
                 } else openDialogPassword();
             }
         });
@@ -86,7 +86,7 @@ public class ProfileActivity extends AppCompatActivity implements ChangeUsername
             @Override
             public void onClick(View view) {
                 if (nameUser == null) {
-                    Toast.makeText(ProfileActivity.this, "Entra nel tuo account per visualizzare impostazioni", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ProfileActivity.this, "Entra nel tuo account per procedere", Toast.LENGTH_SHORT).show();
                 } else {
                     AlertDialog.Builder builder = setAlert(ProfileActivity.this, "Cancellare il tuo account?", true);
                     builder.setMessage("I suoi dati verrano persi per sempre");

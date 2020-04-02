@@ -89,7 +89,11 @@ public class LoginActivity extends AppCompatActivity {
                                 dbAdapter.addUser(user.getUsername(), password.getText().toString(),
                                         user.getEmail(), user.getName(), user.getLastName());
                             } catch (Exception e) {
-                                Log.e("login", e.getLocalizedMessage());
+                                try {
+                                    dbAdapter.updateUserByUsername(user.getUsername(), password.getText().toString(), user.getEmail(), user.getName(), user.getLastName());
+                                }catch(Exception b){
+                                    Log.e("Login", e.getLocalizedMessage());
+                                }
                             }
                             finish();
                             startActivity(success);

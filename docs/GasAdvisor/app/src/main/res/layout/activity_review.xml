@@ -46,7 +46,7 @@
             android:layout_marginRight="15dp"
             android:background="@color/loginBkColor"
             android:hint="Inserisci un commento..."
-            android:inputType="text"
+            android:inputType="textMultiLine"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

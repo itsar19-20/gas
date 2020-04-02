@@ -212,9 +212,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 break;
             case R.id.nav_logout:
                 SharedPreferences.Editor editor = preferences.edit();
-                editor.remove("username");
-                editor.commit();
-                recreate();
+                if (nameUser != null) {
+                    editor.remove("username");
+                    editor.commit();
+                    recreate();
+                }
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);

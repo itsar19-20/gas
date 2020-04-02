@@ -24,16 +24,14 @@ import utils.JPAUtil;
 public class Prova {
 	public static void main(String[] args) throws ParseException {
 
-		Map<Double, Prezzo> map = cercaPiuVicini("Gasolio", 40, 45.451167, 9.229806);
-		for (double d:map.keySet()) {
-			Prezzo p = map.get(d);
-			System.out.println(p);
+		List<Prezzo> map = prova("Gasolio", 40, 45.451167, 9.229806);
+		for (int i = 0; i < map.size(); i++) {
+			System.out.println(map.get(i).getDtComu());
 		}
 
 	}
 
-	public static Map<Double, Prezzo> cercaPiuVicini(String carburante, int raggio, double latitudine,
-			double longitudine) {
+	public static List<Prezzo> prova(String carburante, int raggio, double latitudine, double longitudine) {
 		DistributoreManager distributoreManager = new DistributoreManager();
 		List<Prezzo> _return = new ArrayList<Prezzo>();
 		Map<Double, Prezzo> map = new TreeMap<>();
@@ -46,8 +44,10 @@ public class Prova {
 				map.put(distanza, temp.get(i));
 			}
 		}
-
-		return map;
+		for (double d : map.keySet()) {
+			_return.add(map.get(d));
+		}
+		return _return;
 	}
 
 	public static float distFrom(double lat1, double lng1, double lat2, double lng2) {

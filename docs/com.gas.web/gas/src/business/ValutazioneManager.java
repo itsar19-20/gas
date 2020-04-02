@@ -44,25 +44,27 @@ public class ValutazioneManager {
 		List<Valutazione> list = new ArrayList<Valutazione>();
 		try {
 			list = em.createQuery(
-					"select d from Valutazione d where d.user.nome like:name and d.distributore.idImpianto like:idImpianto",
+					"select d from Valutazione d where d.user.username like:name and d.distributore.idImpianto like:idImpianto",
 					Valutazione.class).setParameter("name", user.getUsername())
 					.setParameter("idImpianto", distributore.getIdImpianto()).getResultList();
 		} catch (Exception e) {
 			System.out.println(e.getLocalizedMessage());
 		}
-		if (list.size() > 0)
+		if (list.size() > 0) {
 			return null;
-		Valutazione _return = new Valutazione();
-		_return.setData(new Date());
-		_return.setUser(user);
-		_return.setGiudizio(giudizio);
-		_return.setDistributore(distributore);
-		_return.setDescrizione(descrizione);
-		em.getTransaction().begin();
-		em.persist(_return);
-		em.getTransaction().commit();
-		em.close();
-		return _return;
+		} else {
+			Valutazione _return = new Valutazione();
+			_return.setData(new Date());
+			_return.setUser(user);
+			_return.setGiudizio(giudizio);
+			_return.setDistributore(distributore);
+			_return.setDescrizione(descrizione);
+			em.getTransaction().begin();
+			em.persist(_return);
+			em.getTransaction().commit();
+			em.close();
+			return _return;
+		}
 	}
 
 	public Map<Integer, Float> getMediaValutazioni() {

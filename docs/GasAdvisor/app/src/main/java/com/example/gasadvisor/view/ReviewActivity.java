@@ -66,11 +66,11 @@ public class ReviewActivity extends AppCompatActivity {
         btnSalva = findViewById(R.id.btn_salva_revieWAct);
         parametri = new HashMap<>();
         parametri.put("username", username);
-        parametri.put("password", username);
+        parametri.put("password", password);
         parametri.put("idImpianto", idImpianto);
-        parametri.put("nome", username);
-        parametri.put("cognome", username);
-        parametri.put("email", username);
+        parametri.put("nome", nome);
+        parametri.put("cognome", cognome);
+        parametri.put("email", email);
         ratingBar = findViewById(R.id.ratingBar_reviewAct);
         etDescrizione = findViewById(R.id.et_descrizzione_reviewAct);
         ProgressDialog progressDialog = new ProgressDialog(this);
